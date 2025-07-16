@@ -44,18 +44,19 @@ class FotosAppStagingService
 
     public function clouds(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
     {
-        // 1. Obtener los datos crudos de los pedidos.
+        // 1. Obtener los datos crudos y los IDs para actualizar.
         $pedidosResult = $this->fetchPedidoData($fechad, $fechah, $location, $tipo);
         if (empty($pedidosResult)) {
             return [];
         }
+        // 👇 AÑADIDO: Extraer los IDs de los pedidos para marcarlos como leídos más tarde.
+        $pedidoIdsToUpdate = array_column($pedidosResult, 'ID_PEDIDO');
 
         // 2. Procesar los datos para obtener listas de IDs únicos.
         $preparedIds = $this->prepareUniqueIds($pedidosResult);
         if (empty($preparedIds['photo_ids'])) {
             return [];
         }
-
 
         $tempTableName = null;
 
@@ -64,20 +65,25 @@ class FotosAppStagingService
             $tempTableName = $this->createAndPopulateTempTable($preparedIds['photo_ids']);
 
             // 4. Ejecutar la consulta final usando la tabla temporal.
-            return $this->fetchPhotosWithTempTable(
+            $finalResult = $this->fetchPhotosWithTempTable(
                 $tempTableName,
                 $preparedIds['group_ids'],
                 $location[0],
                 $location[1],
                 $tipo
             );
+
+            // 👇 AÑADIDO: Ejecutar el UPDATE antes de devolver el resultado.
+            // Este es el punto ideal: después de leer y antes de finalizar.
+            $this->markPedidosAsRead($pedidoIdsToUpdate);
+
+            return $finalResult;
         } finally {
             // 5. Asegurarse de que la tabla temporal se elimine siempre.
             if ($tempTableName) {
                 $this->repo->executeStatement(sprintf("DROP TABLE %s;", $tempTableName));
             }
         }
-        return $preparedIds;
     }
     private function fetchPedidoData(string $fechad, string $fechah, array $location, string $tipo): array
     {
@@ -160,20 +166,6 @@ class FotosAppStagingService
         return $tempTableName;
     }
 
-    public function thumbs(string $fechad, string $fechah, array $location): array
-    {
-        $query = gruposClouds::from('c')
-            ->newQuery()
-            ->select(["'thumbs' AS tipo", gruposClouds::Folder('subfolder', 'c'), gruposClouds::Uniqid(null, 'c'), gruposClouds::LocationCode(null, 'c')])
-            ->from(sprintf('FOTOS.dbo.%s', gruposClouds::tableName('c')))
-            ->where(sprintf('CAST(%s AS DATE)', gruposClouds::Fecha(null, 'c')), '>=', $fechad)
-            ->where(sprintf('CAST(%s AS DATE)', gruposClouds::Fecha(null, 'c')), '<=', $fechah)
-            ->where(gruposClouds::IdLocation(null, 'c'), '=', $location[0])
-            ->build();
-
-        return $this->repo->select($query['sql'], $query['params']);
-    }
-
     /**
      * PASO 4: Realiza la consulta final uniendo la tabla de grupos con la tabla temporal.
      */
@@ -204,6 +196,44 @@ class FotosAppStagingService
         $finalParams = array_merge($groupIds, [$locationId]);
 
         return $this->repo->select($finalQuery, $finalParams);
+    }
+
+    private function markPedidosAsRead(array $pedidoIds): void
+    {
+        if (empty($pedidoIds)) {
+            return;
+        }
+
+        // El tamaño del lote debe ser seguro para cláusulas IN. 500 es un buen número.
+        $batchSize = 500;
+        $pedidoIdBatches = array_chunk($pedidoIds, $batchSize);
+
+        foreach ($pedidoIdBatches as $batch) {
+            $placeholders = implode(',', array_fill(0, count($batch), '?'));
+
+            $updateSql = sprintf(
+                "UPDATE %s SET isRead = 1 WHERE %s IN (%s)",
+                pedidos::tableName(),
+                pedidos::IDPEDIDO(),
+                $placeholders
+            );
+
+            $this->repo->executeStatement($updateSql, $batch);
+        }
+    }
+
+    public function thumbs(string $fechad, string $fechah, array $location): array
+    {
+        $query = gruposClouds::from('c')
+            ->newQuery()
+            ->select(["'thumbs' AS tipo", gruposClouds::Folder('subfolder', 'c'), gruposClouds::Uniqid(null, 'c'), gruposClouds::LocationCode(null, 'c')])
+            ->from(sprintf('FOTOS.dbo.%s', gruposClouds::tableName('c')))
+            ->where(sprintf('CAST(%s AS DATE)', gruposClouds::Fecha(null, 'c')), '>=', $fechad)
+            ->where(sprintf('CAST(%s AS DATE)', gruposClouds::Fecha(null, 'c')), '<=', $fechah)
+            ->where(gruposClouds::IdLocation(null, 'c'), '=', $location[0])
+            ->build();
+
+        return $this->repo->select($query['sql'], $query['params']);
     }
 
     public function mypictures($fechad, $fechah, $location): array
