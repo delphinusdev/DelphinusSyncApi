@@ -19,7 +19,7 @@ class PhotosService
     {
         $this->photosContext = $photosContext;
         $this->modelo = $modelo;
-         error_log("PhotosService __construct - PDO Hash: " . spl_object_hash($this->photosContext->getPdo()));
+         
     }
     public function createModel($table)
     {
