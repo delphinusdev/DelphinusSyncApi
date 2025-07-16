@@ -75,7 +75,7 @@ class FotosAppStagingService
 
             // 👇 AÑADIDO: Ejecutar el UPDATE antes de devolver el resultado.
             // Este es el punto ideal: después de leer y antes de finalizar.
-            $this->markPedidosAsRead($pedidoIdsToUpdate);
+            // $this->markPedidosAsRead($pedidoIdsToUpdate);
 
             return $finalResult;
         } finally {
