@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SQL Server Query Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Variables CSS para el tema oscuro tipo VS Code */
+        :root {
+            --vscode-bg-primary: #1e1e1e;
+            --vscode-bg-secondary: #252526;
+            --vscode-text-color: #cccccc;
+            --vscode-text-light: #f0f0f0;
+            --vscode-border-color: #3f3f46;
+            --vscode-accent-blue: #007acc;
+            --vscode-error-red: #cc293d;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif; /* Asegúrate de que esta fuente esté cargada */
+            margin: 0;
+            padding: 0;
+            background-color: var(--vscode-bg-primary);
+            color: var(--vscode-text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden; /* Evita barras de desplazamiento si el contenido es demasiado grande */
+        }
+
+        .login-container {
+            background-color: var(--vscode-bg-secondary);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--vscode-border-color);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--vscode-text-light);
+            margin-bottom: 30px;
+            font-weight: 500;
+            font-size: 2.2em;
+            display: flex; /* Para alinear ícono y texto */
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Espacio entre ícono y texto */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--vscode-text-color);
+            font-weight: 400;
+        }
+
+        .form-group input {
+            width: 100%; /* Ajustado a 100% y con box-sizing */
+            padding: 10px;
+            border: 1px solid var(--vscode-border-color);
+            border-radius: 4px;
+            background-color: var(--vscode-bg-primary);
+            color: var(--vscode-text-light);
+            font-size: 1em;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            box-sizing: border-box; /* Crucial para que el padding no añada ancho extra */
+        }
+
+        .form-group input:focus {
+            border-color: var(--vscode-accent-blue);
+            outline: none;
+            box-shadow: 0 0 0 1px var(--vscode-accent-blue);
+        }
+
+        /* --- ESTILOS ESPECÍFICOS PARA LOS CHECKBOXES DENTRO DE .form-group --- */
+        .form-group.checkbox-container {
+            display: flex;       /* Usa flexbox para alinear checkbox y label */
+            align-items: center; /* Alinea verticalmente los items */
+            margin-bottom: 15px; /* Espacio entre los checkboxes */
+            /* Hereda text-align: left; del .form-group padre */
+        }
+
+        .form-group.checkbox-container input[type="checkbox"] {
+            /* Restablece el ancho, padding y borde para el checkbox */
+            width: 18px; /* Tamaño fijo para el checkbox */
+            height: 18px; /* Tamaño fijo para el checkbox */
+            padding: 0; /* No padding para checkboxes */
+            margin-right: 10px; /* Espacio entre el checkbox y la etiqueta */
+            border: 1px solid var(--vscode-border-color);
+            border-radius: 3px; /* Borde ligeramente redondeado */
+            background-color: var(--vscode-bg-primary);
+            cursor: pointer;
+            
+            /* Para un estilo de checkbox más consistente entre navegadores */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            position: relative; /* Para el pseudo-elemento del checkmark */
+            display: inline-block; /* Asegura que el tamaño se respete */
+            flex-shrink: 0; /* Evita que el checkbox se encoja */
+        }
+
+        .form-group.checkbox-container input[type="checkbox"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.5); /* Sombra de foco más visible */
+        }
+
+        .form-group.checkbox-container input[type="checkbox"]:checked {
+            background-color: var(--vscode-accent-blue); /* Fondo azul cuando está marcado */
+            border-color: var(--vscode-accent-blue);
+        }
+
+        /* Estilo del "tick" o "checkmark" cuando el checkbox está marcado */
+        .form-group.checkbox-container input[type="checkbox"]:checked::after {
+            content: '\2713'; /* Carácter unicode para el checkmark */
+            font-size: 14px; /* Tamaño del checkmark */
+            color: white; /* Color del checkmark */
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%); /* Centrar el checkmark */
+        }
+
+        .form-group.checkbox-container label {
+            margin-bottom: 0; /* Elimina el margen inferior del label para alineación flex */
+            font-weight: 400; /* Asegura el peso de fuente estándar */
+            color: var(--vscode-text-color); /* Hereda el color de texto del tema */
+            cursor: pointer;
+        }
+        /* --- FIN ESTILOS CHECKBOXES --- */
+
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--vscode-accent-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px; /* Margen superior para separarlo del último input */
+        }
+
+        .login-button:hover {
+            background-color: #006bbd;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 122, 204, 0.4);
+        }
+
+        .login-button:disabled {
+            background-color: #004d80; /* Un azul más oscuro para deshabilitado */
+            cursor: not-allowed;
+            opacity: 0.6;
+            transform: none; /* Eliminar transformación al estar deshabilitado */
+            box-shadow: none; /* Eliminar sombra al estar deshabilitado */
+        }
+
+        .loading-spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;
+            display: none; /* Oculto por defecto */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilos para mensajes de estado */
+        .status-message, .error-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.95em;
+            text-align: left;
+            display: none; /* <--- CLAVE: Oculto por defecto */
+        }
+
+        .status-message {
+            background-color: rgba(0, 122, 204, 0.1);
+            color: var(--vscode-accent-blue);
+            border: 1px solid rgba(0, 122, 204, 0.4);
+        }
+        .status-message.success {
+            background-color: rgba(4, 150, 4, 0.1);
+            color: #4CAF50;
+            border-color: rgba(4, 150, 4, 0.4);
+        }
+        .error-message, .status-message.error {
+            color: var(--vscode-error-red);
+            background-color: rgba(204, 41, 61, 0.1);
+            border: 1px solid rgba(204, 41, 61, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2><i class="fas fa-database"></i> Conectar a SQL Server</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="serverName">Nombre del Servidor (IP,Puerto):</label>
+                <input type="text" id="serverName" name="serverName" placeholder="ej. 192.168.0.1,1433" required>
+            </div>
+            <div class="form-group">
+                <label for="database">Base de Datos:</label>
+                <input type="text" id="database" name="database" placeholder="ej. master">
+            </div>
+            <div class="form-group">
+                <label for="uid">Usuario (UID):</label>
+                <input type="text" id="uid" name="uid" placeholder="ej. sa" required>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Contraseña (PWD):</label>
+                <input type="password" id="pwd" name="pwd" placeholder="tu_contraseña" required>
+            </div>
+
+            <div class="form-group checkbox-container">
+                <input type="checkbox" id="encrypt" name="encrypt" checked>
+                <label for="encrypt">Usar cifrado de conexión (Encrypt)</label>
+            </div>
+            <div class="form-group checkbox-container">
+                <input type="checkbox" id="trustServerCertificate" name="trustServerCertificate" checked>
+                <label for="trustServerCertificate">Confiar en certificado de servidor (TrustServerCertificate)</label>
+            </div>
+
+            <button type="submit" class="login-button" id="loginButton">
+                <i class="fas fa-sign-in-alt"></i> 
+                <span id="buttonText">Iniciar Sesión</span>
+                <div class="loading-spinner" id="spinner"></div>
+            </button>
+            <p id="statusMessage" class="status-message"></p>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', handleLoginSubmit);
+            }
+        });
+
+        async function handleLoginSubmit(event) {
+            event.preventDefault();
+
+            const serverName = document.getElementById('serverName').value;
+            const database = document.getElementById('database').value;
+            const uid = document.getElementById('uid').value;
+            const pwd = document.getElementById('pwd').value;
+
+            const encrypt = document.getElementById('encrypt').checked;
+            const trustServerCertificate = document.getElementById('trustServerCertificate').checked;
+
+            const loginButton = document.getElementById('loginButton');
+            const buttonText = document.getElementById('buttonText');
+            const spinner = document.getElementById('spinner');
+            const statusMessage = document.getElementById('statusMessage');
+
+            loginButton.disabled = true;
+            buttonText.textContent = '';
+            spinner.style.display = 'inline-block';
+
+            // CLAVE: Mostrar el mensaje solo cuando tiene contenido
+            statusMessage.textContent = 'Intentando conectar...';
+            statusMessage.className = 'status-message info'; // Reset class for styling
+            statusMessage.style.display = 'block'; // Make it visible
+
+            try {
+                const response = await fetch('./backend/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        serverName: serverName,
+                        database: database,
+                        uid: uid,
+                        pwd: pwd,
+                        encrypt: encrypt,
+                        trustServerCertificate: trustServerCertificate
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    if (result.success) {
+                        statusMessage.textContent = result.message;
+                        statusMessage.className = 'status-message success';
+                        setTimeout(() => {
+                            window.location.href = result.redirect;
+                        }, 1500);
+                    } else {
+                        statusMessage.textContent = `Error: ${result.message}`;
+                        statusMessage.className = 'status-message error';
+                    }
+                } else {
+                    statusMessage.textContent = `Error HTTP ${response.status}: ${result.message || 'No se pudo conectar al servidor.'}`;
+                    statusMessage.className = 'status-message error';
+                    console.error('Error HTTP:', response.status, result);
+                }
+
+            } catch (error) {
+                statusMessage.textContent = `Error inesperado: ${error.message}. Por favor, verifica la conexión.`;
+                statusMessage.className = 'status-message error';
+                console.error('Error al iniciar sesión:', error);
+            } finally {
+                loginButton.disabled = false;
+                buttonText.textContent = 'Iniciar Sesión';
+                spinner.style.display = 'none';
+                // El mensaje de estado permanece visible para que el usuario pueda leerlo.
+            }
+        }
+    </script>
+</body>
+</html>

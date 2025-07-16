@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <script>
+        // Verificar si la sesión está activa al cargar la página
+        async function checkLogin() {
+            try {
+                const response = await fetch('./backend/check_session.php');
+                const result = await response.json();
+                if (!result.loggedIn) window.location.href = 'index.html';
+            } catch (error) {
+                console.error("Error al verificar la sesión:", error);
+                window.location.href = 'index.html';
+            }
+        }
+        checkLogin();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Server Web IDE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link href="https://unpkg.com/tabulator-tables@6.2.1/dist/css/tabulator_midnight.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <!-- <style>
+        .monaco-editor .view-lines {
+            font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace !important;
+            font-size: 14px;
+        }
+    </style> -->
+</head>
+
+<body>
+    <div id="app-container" class="ide-container">
+        <div id="top-bar">
+            <div class="logo">
+                <i class="fas fa-database"></i> SQL Web IDE
+            </div>
+            <div class="top-bar-actions">
+                <select id="databaseSelector" class="db-selector"></select>
+                <span id="currentDatabaseDisplay" class="current-db-display">Base de datos: N/A</span>
+            <button id="executeButton" class="action-button" title="Ejecutar Consulta (F5)">
+    <i class="fas fa-play"></i> Ejecutar
+</button>
+                <button id="openFileButton" class="action-button" title="Abrir archivo SQL (.sql)">
+                    <i class="fas fa-folder-open"></i> Abrir
+                </button>
+                <button id="toggleResultsButton" class="action-button" title="Mostrar/Ocultar Resultados">
+                    <i class="fas fa-table"></i> Resultados
+                </button>
+                 <button id="refreshSchemaButton" class="action-button" title="Refrescar Esquema">
+                    <i class="fas fa-sync-alt"></i> Refrescar Esquema
+                </button>
+                <button id="logoutButton" class="action-button" title="Cerrar Sesión">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+            </div>
+        </div>
+
+        <div id="main-content-container" class="ide-body">
+            <div id="schema-sidebar" class="schema-sidebar ui-resizable-e">
+                <div class="sidebar-header">
+                    <h3>Explorador de Objetos</h3>
+                    <div class="sidebar-actions">
+                        </div>
+                </div>
+                <div class="search-box">
+                     <input type="text" id="schema-search-input" placeholder="Buscar tabla o columna..." class="search-input">
+                </div>
+                <div id="schema-tree-container" class="schema-tree-container">
+                    </div>
+                <span id="schemaStatus" class="schema-status"></span>
+            </div>
+
+            <div id="work-panel" class="main-content-wrapper">
+                <div id="editor-area" class="query-section ui-resizable-s">
+                    <div id="editorContainer"></div>
+                </div>
+
+                <div id="results-section" class="results-section">
+                    <div id="statusMessage" class="status-message"></div>
+                    <div id="exportButtonsContainer" style="margin-bottom: 10px; text-align: right; display: none;">
+                        <button id="exportCsvBtn" class="action-button"><i class="fas fa-file-csv"></i> Exportar CSV</button>
+                        <button id="exportExcelBtn" class="action-button"><i class="fas fa-file-excel"></i> Exportar Excel</button>
+                    </div>
+                    <div class="table-responsive" id="resultsTableContainer" style="display: none;">
+                        <div id="resultsTable"></div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.2.1/dist/js/tabulator.min.js"></script>
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+
+    <script>
+        require = { paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.49.0/min/vs' } };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.49.0/min/vs/loader.js"></script>
+    
+    <script type="module" src="./js/main.js"></script>
+
+</body>
+
+</html>

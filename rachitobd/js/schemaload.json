@@ -1,0 +1,4502 @@
+{
+    "success": true,
+    "schema": {
+        "Tables": {
+            "activar_status": {
+                "columns": [
+                    "descripcion",
+                    "id_activar",
+                    "status"
+                ]
+            },
+            "almacen_locaciones": {
+                "columns": [
+                    "division",
+                    "location_code",
+                    "SiteID",
+                    "tipo"
+                ]
+            },
+            "anticipos": {
+                "columns": [
+                    "fecha",
+                    "hora",
+                    "id_anticipo",
+                    "id_cajero",
+                    "id_venta",
+                    "location_code",
+                    "monto"
+                ]
+            },
+            "anticipos_detalle": {
+                "columns": [
+                    "cambio_pesos",
+                    "comentarios",
+                    "conversion",
+                    "denominacion",
+                    "fecha",
+                    "hora",
+                    "id",
+                    "id_anticipo",
+                    "id_cajero",
+                    "id_metodo",
+                    "id_moneda",
+                    "id_pago",
+                    "id_tarjeta",
+                    "id_venta",
+                    "location_code",
+                    "monto",
+                    "nombre_cliente",
+                    "status_pago",
+                    "tipo_base",
+                    "tipo_cambio"
+                ]
+            },
+            "canales_venta": {
+                "columns": [
+                    "id_canal_venta",
+                    "nombre_canal"
+                ]
+            },
+            "catalogo_fotos": {
+                "columns": [
+                    "confirma",
+                    "correo",
+                    "etiquetas",
+                    "fecha",
+                    "hora",
+                    "id_delphines",
+                    "id_fotografo",
+                    "id_grupo_fotos",
+                    "id_guia",
+                    "id_idioma",
+                    "id_maquina",
+                    "id_reserva",
+                    "id_usuario",
+                    "idfotografo",
+                    "idvendedor",
+                    "locacion_transfer",
+                    "location_code",
+                    "no_contar_pax",
+                    "nombrecliente",
+                    "pax",
+                    "pax_aux",
+                    "rowid",
+                    "status",
+                    "status_pago",
+                    "swim_code",
+                    "swim_schedule",
+                    "telefeno"
+                ]
+            },
+            "catalogo_fotos_reservas": {
+                "columns": [
+                    "created",
+                    "id",
+                    "id_grupo_fotos",
+                    "id_reserva",
+                    "updated"
+                ]
+            },
+            "catalogo_hoteles": {
+                "columns": [
+                    "hora",
+                    "id_hotel",
+                    "nom_hotel",
+                    "precio",
+                    "zonas"
+                ]
+            },
+            "catalogo_meses": {
+                "columns": [
+                    "id_catalogo",
+                    "mes",
+                    "mes_es"
+                ]
+            },
+            "ciudades": {
+                "columns": [
+                    "id_ciudad",
+                    "id_estado",
+                    "id_pais",
+                    "nombre"
+                ]
+            },
+            "clientes": {
+                "columns": [
+                    "ciudad",
+                    "correo",
+                    "direccion",
+                    "estado",
+                    "id_cliente",
+                    "id_sistema",
+                    "mailitem_id_1",
+                    "mailitem_id_2",
+                    "nombre",
+                    "pais",
+                    "sent_status_1",
+                    "sent_status_2",
+                    "status",
+                    "telefono",
+                    "zip"
+                ]
+            },
+            "cobros": {
+                "columns": [
+                    "anticipo",
+                    "cambio_pesos",
+                    "conversion",
+                    "fecha",
+                    "hora",
+                    "id_cobro",
+                    "id_metodo",
+                    "id_moneda",
+                    "id_pago",
+                    "id_tarjeta",
+                    "id_venta",
+                    "location_code",
+                    "monto",
+                    "status_pago",
+                    "tipo_cambio",
+                    "tipocambio"
+                ]
+            },
+            "cobros_log": {
+                "columns": [
+                    "fecha",
+                    "hora",
+                    "id",
+                    "id_user",
+                    "id_venta",
+                    "location_code",
+                    "motivo"
+                ]
+            },
+            "codigo_mobile": {
+                "columns": [
+                    "id_mobile",
+                    "swim_code"
+                ]
+            },
+            "conexiones": {
+                "columns": [
+                    "base_datos",
+                    "contrasena",
+                    "host",
+                    "id_conexion",
+                    "usuario"
+                ]
+            },
+            "conver_nados": {
+                "columns": [
+                    "id_conversion",
+                    "location_code",
+                    "swim_code",
+                    "swim_codew",
+                    "swim_name"
+                ]
+            },
+            "correos_guacamayas": {
+                "columns": [
+                    "correo",
+                    "id_correo",
+                    "id_grupo"
+                ]
+            },
+            "corresponsalia": {
+                "columns": [
+                    "act_comisionista",
+                    "calle",
+                    "ciudad",
+                    "colonia",
+                    "cp",
+                    "delegacion",
+                    "estado",
+                    "id_comisionista",
+                    "id_corresponsalia",
+                    "id_establecimiento",
+                    "location_code",
+                    "medio_pago",
+                    "nombre_tienda",
+                    "num_tienda",
+                    "numero",
+                    "personalidad",
+                    "rfc",
+                    "tipo_op"
+                ]
+            },
+            "datos_ticket": {
+                "columns": [
+                    "dato",
+                    "id_dato",
+                    "id_region",
+                    "peso",
+                    "status",
+                    "titulo"
+                ]
+            },
+            "delphines": {
+                "columns": [
+                    "id_delphines",
+                    "location_code",
+                    "nombre_delphin",
+                    "status"
+                ]
+            },
+            "descuento_colaborador": {
+                "columns": [
+                    "cxc",
+                    "descuento_colaborador",
+                    "fecha",
+                    "id_descuento",
+                    "id_ventas",
+                    "location_code",
+                    "nombre_colaborador",
+                    "num_colaborador",
+                    "quincenas"
+                ]
+            },
+            "detalle_cobro": {
+                "columns": [
+                    "cupon",
+                    "cxc",
+                    "descuento_colaborador",
+                    "fecha",
+                    "id_agencia",
+                    "id_descuento",
+                    "id_ventas",
+                    "location_code",
+                    "nombre_colaborador",
+                    "num_colaborador",
+                    "quincenas",
+                    "razon_social",
+                    "rfc"
+                ]
+            },
+            "detalle_foto": {
+                "columns": [
+                    "create_at_photo",
+                    "etiquetas",
+                    "id_foto",
+                    "id_grupo_fotos",
+                    "orden",
+                    "orientacion",
+                    "size_in_bytes",
+                    "status",
+                    "uniqid"
+                ]
+            },
+            "detalle_foto_clip": {
+                "columns": [
+                    "create_at_photo",
+                    "etiquetas",
+                    "id_foto",
+                    "id_grupo_fotos",
+                    "orden",
+                    "orientacion",
+                    "size_in_bytes",
+                    "status",
+                    "uniqid"
+                ]
+            },
+            "detalle_paquete": {
+                "columns": [
+                    "autoCargar",
+                    "cantidad",
+                    "categoria",
+                    "descripcion",
+                    "id_detalle_paquete",
+                    "id_paquete",
+                    "id_producto",
+                    "precio",
+                    "swim_code"
+                ]
+            },
+            "detalle_paquete_back01": {
+                "columns": [
+                    "autoCargar",
+                    "cantidad",
+                    "categoria",
+                    "descripcion",
+                    "id_detalle_paquete",
+                    "id_paquete",
+                    "id_producto",
+                    "precio",
+                    "swim_code"
+                ]
+            },
+            "detalle_paquete_backup_2022": {
+                "columns": [
+                    "autoCargar",
+                    "cantidad",
+                    "categoria",
+                    "descripcion",
+                    "id_detalle_paquete",
+                    "id_paquete",
+                    "id_producto",
+                    "precio",
+                    "swim_code"
+                ]
+            },
+            "detalle_paquete_original": {
+                "columns": [
+                    "autoCargar",
+                    "cantidad",
+                    "categoria",
+                    "descripcion",
+                    "id_detalle_paquete",
+                    "id_paquete",
+                    "id_producto",
+                    "precio",
+                    "swim_code"
+                ]
+            },
+            "detalle_ticket_pago": {
+                "columns": [
+                    "fecha",
+                    "id_detalle",
+                    "id_moneda",
+                    "id_pago",
+                    "id_tarjeta",
+                    "id_ticket",
+                    "id_venta",
+                    "location_code",
+                    "monto",
+                    "status",
+                    "tipo",
+                    "tipo_cambio"
+                ]
+            },
+            "detalle_venta": {
+                "columns": [
+                    "cantidad",
+                    "cantidad_sl",
+                    "costo",
+                    "descripcion",
+                    "descuento_aplicado",
+                    "foto_digital",
+                    "foto_fisico",
+                    "id_detalle_venta",
+                    "id_paquete",
+                    "id_producto",
+                    "id_venta",
+                    "ind_cortesia",
+                    "iva_monto",
+                    "location_code",
+                    "porcentaje",
+                    "precio_venta",
+                    "rowid",
+                    "status",
+                    "tipo",
+                    "tipocambio",
+                    "totalpesos",
+                    "totalreal",
+                    "video_clip",
+                    "video_digital",
+                    "video_fisico"
+                ]
+            },
+            "detalle_venta_foto": {
+                "columns": [
+                    "id_detalle_venta",
+                    "id_foto",
+                    "id_venta_foto",
+                    "uniqid"
+                ]
+            },
+            "detalle_venta_paquete": {
+                "columns": [
+                    "costo",
+                    "id_detalle_venta",
+                    "id_producto",
+                    "id_venta_paquete",
+                    "precio",
+                    "tc"
+                ]
+            },
+            "detalle_venta_redes": {
+                "columns": [
+                    "fecha",
+                    "foto",
+                    "id_grupo",
+                    "id_venta",
+                    "id_venta_sociales",
+                    "location_code",
+                    "sincronizado",
+                    "status_pago"
+                ]
+            },
+            "detalle_venta_ticket": {
+                "columns": [
+                    "fecha",
+                    "id",
+                    "id_paquete",
+                    "id_producto",
+                    "id_ticket",
+                    "id_venta",
+                    "location_code",
+                    "precio",
+                    "status",
+                    "tipo",
+                    "tipo_cambio"
+                ]
+            },
+            "detalle_ventaprod": {
+                "columns": [
+                    "descuento_aplicado",
+                    "detalle_id",
+                    "id_detalle_venta",
+                    "id_paquete",
+                    "id_producto",
+                    "id_venta",
+                    "ind_cortesia",
+                    "location_code",
+                    "porcentaje",
+                    "tipo",
+                    "tipocambio",
+                    "total",
+                    "totalpesos",
+                    "totalreal"
+                ]
+            },
+            "detalle_ventaprod_huerfanos": {
+                "columns": [
+                    "fecha",
+                    "grupo_fotos",
+                    "id_detalle_ventaprod_huerfano",
+                    "id_paquete",
+                    "id_venta",
+                    "pax",
+                    "swim_code",
+                    "tipocambio"
+                ]
+            },
+            "donaciones": {
+                "columns": [
+                    "InvtID",
+                    "Rfc"
+                ]
+            },
+            "empleados": {
+                "columns": [
+                    "correo",
+                    "eventual",
+                    "id_empleado",
+                    "id_tipo_empleado",
+                    "id_usuarios",
+                    "location_code",
+                    "nombre",
+                    "rowid",
+                    "status",
+                    "status_mobile",
+                    "status_tipo"
+                ]
+            },
+            "enviar_correo": {
+                "columns": [
+                    "correo",
+                    "id_correo",
+                    "locacion",
+                    "status",
+                    "usuario"
+                ]
+            },
+            "envio_hotel": {
+                "columns": [
+                    "correo",
+                    "descuento",
+                    "fecha",
+                    "habitacion",
+                    "hora_entrega",
+                    "hotel",
+                    "id_envio",
+                    "id_grupo",
+                    "id_venta",
+                    "idenvio",
+                    "location_code",
+                    "observacion",
+                    "programa",
+                    "telefono",
+                    "total"
+                ]
+            },
+            "equipos": {
+                "columns": [
+                    "fecha_desde",
+                    "fecha_hasta",
+                    "id_equipos",
+                    "id_usuario",
+                    "location_code",
+                    "location_conde_rsv",
+                    "location_vacaciones"
+                ]
+            },
+            "equipos_personas": {
+                "columns": [
+                    "id_equipos",
+                    "id_equipos_personas",
+                    "location_code",
+                    "location_conde_rsv",
+                    "location_vacaciones",
+                    "persona_id"
+                ]
+            },
+            "esquema_bonos": {
+                "columns": [
+                    "aplica_desde",
+                    "aplica_hasta",
+                    "created",
+                    "id",
+                    "location_code",
+                    "meta_rango_final",
+                    "meta_rango_inicial",
+                    "monto_porciento",
+                    "updated"
+                ]
+            },
+            "esquema_bonos_adicionales": {
+                "columns": [
+                    "aplicar_meta",
+                    "fecha_desde",
+                    "fecha_hasta",
+                    "id",
+                    "id_empleado",
+                    "id_tipo_usuario",
+                    "location_code",
+                    "porcentaje_bono"
+                ]
+            },
+            "esquema_bonos_coordinadores_editores": {
+                "columns": [
+                    "aplica_desde",
+                    "aplica_hasta",
+                    "created",
+                    "es_monto_fijo",
+                    "id",
+                    "id_empleado",
+                    "id_tipo_usuario",
+                    "location_code",
+                    "meta_rango_final",
+                    "meta_rango_inicial",
+                    "monto_fijo",
+                    "monto_porciento",
+                    "updated"
+                ]
+            },
+            "esquema_bonos_descuentos": {
+                "columns": [
+                    "aplica_descuento_dia",
+                    "dias_aplicados_desde",
+                    "dias_aplicados_hasta",
+                    "id",
+                    "id_esquema_descuentos_tipos",
+                    "location_code",
+                    "monto_porciento",
+                    "monto_porciento_eventual"
+                ]
+            },
+            "esquema_bonos_descuentos_tipos": {
+                "columns": [
+                    "id",
+                    "location_code",
+                    "nombre"
+                ]
+            },
+            "esquema_bonos_faltas_retardos_empleados": {
+                "columns": [
+                    "dias",
+                    "id",
+                    "id_empleado",
+                    "id_esquema_descuentos_tipos",
+                    "location_code",
+                    "mes",
+                    "year"
+                ]
+            },
+            "esquema_bonos_tipo_presupuesto": {
+                "columns": [
+                    "id",
+                    "location_code",
+                    "nombre"
+                ]
+            },
+            "estados": {
+                "columns": [
+                    "id_estado",
+                    "id_pais",
+                    "nombre"
+                ]
+            },
+            "fecha_facturada": {
+                "columns": [
+                    "fecha",
+                    "status"
+                ]
+            },
+            "formas_pago": {
+                "columns": [
+                    "id",
+                    "location_code",
+                    "nombre",
+                    "orden"
+                ]
+            },
+            "formas_pagos": {
+                "columns": [
+                    "id_pago",
+                    "location_code",
+                    "nombre",
+                    "opcion",
+                    "status"
+                ]
+            },
+            "grupos": {
+                "columns": [
+                    "fecha",
+                    "hora",
+                    "id_cliente",
+                    "id_grupo",
+                    "id_reserva",
+                    "id_usuario_alta",
+                    "nombre"
+                ]
+            },
+            "iconos": {
+                "columns": [
+                    "id_icono",
+                    "nombre",
+                    "nombre_sistema"
+                ]
+            },
+            "idiomas": {
+                "columns": [
+                    "codigo_idioma",
+                    "id_idioma",
+                    "nombre_idioma",
+                    "status"
+                ]
+            },
+            "iframes": {
+                "columns": [
+                    "contenido",
+                    "fecha_fin",
+                    "fecha_inicio",
+                    "id_iframe",
+                    "idioma",
+                    "status",
+                    "titulo"
+                ]
+            },
+            "InventoryPOS": {
+                "columns": [
+                    "Cantidad_Reorden",
+                    "Clase",
+                    "Cod_UPC",
+                    "Costo_Promedio",
+                    "CpnyID",
+                    "Descr",
+                    "DfltSOUnit",
+                    "Estatus",
+                    "Existencia_Seguridad",
+                    "ID",
+                    "Id_Clase",
+                    "Id_TipoMaterial",
+                    "int_satprodid",
+                    "int_satunit",
+                    "InvtID",
+                    "Linea",
+                    "location_code",
+                    "LocDescr",
+                    "Name",
+                    "nombre_almacen",
+                    "PACKING",
+                    "Punto_Reorden",
+                    "QtyAvail",
+                    "QtyOnHand",
+                    "RFC",
+                    "SalesValid",
+                    "SiteID",
+                    "STATUS_PRODUCTO",
+                    "StkItem",
+                    "TaxCat",
+                    "Tipo_Material",
+                    "Ultimo_Costo",
+                    "UM_Compra",
+                    "UnitPrcMXN",
+                    "UntiPrcUSD",
+                    "Vendedor",
+                    "WhseLoc"
+                ]
+            },
+            "InventoryPOS_P": {
+                "columns": [
+                    "CpnyID",
+                    "Descr",
+                    "DfltSOUnit",
+                    "ID",
+                    "InvtID",
+                    "location_code",
+                    "LocDescr",
+                    "Name",
+                    "QtyAvail",
+                    "QtyOnHand",
+                    "SalesValid",
+                    "SiteID",
+                    "StkItem",
+                    "TaxCat",
+                    "UnitPrcMXN",
+                    "UntiPrcUSD",
+                    "WhseLoc"
+                ]
+            },
+            "iva": {
+                "columns": [
+                    "anio",
+                    "fecha_fin",
+                    "fecha_inicio",
+                    "id_iva",
+                    "iva"
+                ]
+            },
+            "Lenguajes": {
+                "columns": [
+                    "lenguaje_id",
+                    "lenguaje_name",
+                    "lenguaje_siglas",
+                    "location_code"
+                ]
+            },
+            "liberar_espacio_server": {
+                "columns": [
+                    "directorio",
+                    "id_folder",
+                    "nombre",
+                    "size"
+                ]
+            },
+            "locaciones": {
+                "columns": [
+                    "id_locacion",
+                    "nombre"
+                ]
+            },
+            "maquinas": {
+                "columns": [
+                    "fecha_registro",
+                    "hora_registro",
+                    "id_maquina",
+                    "ip",
+                    "numero_equipo",
+                    "status"
+                ]
+            },
+            "metas": {
+                "columns": [
+                    "anio",
+                    "id_clasificacion",
+                    "id_cliente",
+                    "id_locacion",
+                    "id_meta",
+                    "id_promo",
+                    "id_servicios",
+                    "id_subclas",
+                    "location_code",
+                    "mes",
+                    "meta",
+                    "swim_code"
+                ]
+            },
+            "metas_combinaciones": {
+                "columns": [
+                    "anio",
+                    "cuenta_ingreso",
+                    "cuenta_pax",
+                    "id_clasificacion",
+                    "id_cliente",
+                    "id_locacion",
+                    "id_meta",
+                    "id_metas_combinaciones",
+                    "id_promo",
+                    "id_servicios",
+                    "id_subclas",
+                    "location_code",
+                    "mes",
+                    "swim_code"
+                ]
+            },
+            "monedas": {
+                "columns": [
+                    "control",
+                    "id_moneda",
+                    "location_code",
+                    "nombre",
+                    "status"
+                ]
+            },
+            "MSpeer_conflictdetectionconfigrequest": {
+                "columns": [
+                    "id",
+                    "modified_date",
+                    "phase_timed_out",
+                    "progress_phase",
+                    "publication",
+                    "sent_date",
+                    "timeout"
+                ]
+            },
+            "MSpeer_conflictdetectionconfigresponse": {
+                "columns": [
+                    "conflictdetection_enabled",
+                    "is_peer",
+                    "modified_date",
+                    "originator_id",
+                    "peer_conflict_retention",
+                    "peer_continue_onconflict",
+                    "peer_db",
+                    "peer_db_version",
+                    "peer_node",
+                    "peer_subscriptions",
+                    "peer_version",
+                    "progress_phase",
+                    "request_id"
+                ]
+            },
+            "MSpeer_lsns": {
+                "columns": [
+                    "id",
+                    "last_updated",
+                    "originator",
+                    "originator_db",
+                    "originator_db_version",
+                    "originator_id",
+                    "originator_lsn",
+                    "originator_publication",
+                    "originator_publication_id",
+                    "originator_version"
+                ]
+            },
+            "MSpeer_originatorid_history": {
+                "columns": [
+                    "inserted_date",
+                    "originator_db",
+                    "originator_db_version",
+                    "originator_id",
+                    "originator_node",
+                    "originator_publication",
+                    "originator_version"
+                ]
+            },
+            "MSpeer_request": {
+                "columns": [
+                    "description",
+                    "id",
+                    "publication",
+                    "sent_date"
+                ]
+            },
+            "MSpeer_response": {
+                "columns": [
+                    "peer",
+                    "peer_db",
+                    "received_date",
+                    "request_id"
+                ]
+            },
+            "MSpeer_topologyrequest": {
+                "columns": [
+                    "id",
+                    "publication",
+                    "sent_date"
+                ]
+            },
+            "MSpeer_topologyresponse": {
+                "columns": [
+                    "connection_info",
+                    "originator_id",
+                    "peer",
+                    "peer_conflict_retention",
+                    "peer_db",
+                    "peer_version",
+                    "received_date",
+                    "request_id"
+                ]
+            },
+            "MSpub_identity_range": {
+                "columns": [
+                    "current_pub_range",
+                    "last_seed",
+                    "objid",
+                    "pub_range",
+                    "range",
+                    "threshold"
+                ]
+            },
+            "mysql_departamentos_locaciones": {
+                "columns": [
+                    "Area",
+                    "Departamento",
+                    "id",
+                    "id_mysql_departamentos_locaciones",
+                    "id_sucursal",
+                    "Locacion",
+                    "location_code",
+                    "Responsable"
+                ]
+            },
+            "mysql_personas": {
+                "columns": [
+                    "clave_interna",
+                    "contar_descansos",
+                    "contar_festivos",
+                    "curp",
+                    "departamento_id",
+                    "email",
+                    "estado",
+                    "fecha_ingreso",
+                    "fecha_nacimiento",
+                    "foto",
+                    "id_area",
+                    "id_mysql_personas",
+                    "id_politica",
+                    "id_puesto",
+                    "img",
+                    "jefe_id",
+                    "location_code",
+                    "materno",
+                    "maximo_dias_consecutivos",
+                    "nombre",
+                    "nss",
+                    "paterno",
+                    "persona_id"
+                ]
+            },
+            "paises": {
+                "columns": [
+                    "codigo",
+                    "id_pais",
+                    "nombre"
+                ]
+            },
+            "paquetes": {
+                "columns": [
+                    "aplica_descuento",
+                    "app",
+                    "codigo_sl",
+                    "emailnotif",
+                    "fecha_final",
+                    "fecha_inicial",
+                    "foto_digital",
+                    "foto_fisico",
+                    "icono",
+                    "id_paquete",
+                    "location_code",
+                    "n_producto_variable",
+                    "nombre",
+                    "orden",
+                    "rowid",
+                    "status",
+                    "status_redes_sociales",
+                    "tipo",
+                    "video_clip",
+                    "video_digital",
+                    "video_fisico"
+                ]
+            },
+            "paquetes_backup_app_configuration": {
+                "columns": [
+                    "aplica_descuento",
+                    "app",
+                    "codigo_sl",
+                    "emailnotif",
+                    "fecha_final",
+                    "fecha_inicial",
+                    "foto_digital",
+                    "foto_fisico",
+                    "icono",
+                    "id_paquete",
+                    "location_code",
+                    "n_producto_variable",
+                    "nombre",
+                    "orden",
+                    "rowid",
+                    "status",
+                    "status_redes_sociales",
+                    "tipo",
+                    "video_clip",
+                    "video_digital",
+                    "video_fisico"
+                ]
+            },
+            "paquetes_populares": {
+                "columns": [
+                    "id_paquete",
+                    "id_paquetes_populares",
+                    "nombre_paquete",
+                    "status"
+                ]
+            },
+            "paquetes_precioxpax": {
+                "columns": [
+                    "id_paquete",
+                    "id_precio",
+                    "id_producto",
+                    "max_pax",
+                    "min_pax",
+                    "precio",
+                    "status",
+                    "swim_code"
+                ]
+            },
+            "paquetes_precioxpax_back01": {
+                "columns": [
+                    "id_paquete",
+                    "id_precio",
+                    "id_producto",
+                    "max_pax",
+                    "min_pax",
+                    "precio",
+                    "status",
+                    "swim_code"
+                ]
+            },
+            "paquetes_precioxpax_original": {
+                "columns": [
+                    "id_paquete",
+                    "id_precio",
+                    "id_producto",
+                    "max_pax",
+                    "min_pax",
+                    "precio",
+                    "status",
+                    "swim_code"
+                ]
+            },
+            "precios_aumento": {
+                "columns": [
+                    "activo",
+                    "cat_option",
+                    "catalogo",
+                    "descripcion",
+                    "fecha",
+                    "id_aumento",
+                    "location_code",
+                    "opcion",
+                    "select_option",
+                    "user",
+                    "valor"
+                ]
+            },
+            "presupuesto": {
+                "columns": [
+                    "id_esquema_tipo_presupuesto",
+                    "id_presupuesto",
+                    "ingreso_usd",
+                    "location_code",
+                    "mes",
+                    "monto_usd",
+                    "swim_code",
+                    "tipo",
+                    "year"
+                ]
+            },
+            "presupuesto_global": {
+                "columns": [
+                    "id_presupuesto_global",
+                    "location_code",
+                    "mes",
+                    "monto_usd",
+                    "tipo",
+                    "year"
+                ]
+            },
+            "presupuesto_vv": {
+                "columns": [
+                    "codigoprograma",
+                    "id",
+                    "locationcode",
+                    "mes",
+                    "monto",
+                    "programa",
+                    "tipo",
+                    "year"
+                ]
+            },
+            "productos": {
+                "columns": [
+                    "aplica_descuento",
+                    "descripcion",
+                    "id_producto",
+                    "location_code",
+                    "nombre",
+                    "sl_clavesl",
+                    "sl_codigo",
+                    "sl_cuenta",
+                    "sl_entidad",
+                    "status"
+                ]
+            },
+            "productos_tienda": {
+                "columns": [
+                    "id_paquete",
+                    "id_produc",
+                    "id_producto",
+                    "location_code",
+                    "nombre",
+                    "precio",
+                    "status"
+                ]
+            },
+            "programar_inventario": {
+                "columns": [
+                    "fecha",
+                    "hora",
+                    "location_code",
+                    "mensaje"
+                ]
+            },
+            "promociones_reservas": {
+                "columns": [
+                    "created",
+                    "id_promo",
+                    "location_code",
+                    "nombre_promo",
+                    "status",
+                    "updated"
+                ]
+            },
+            "puntos_venta": {
+                "columns": [
+                    "default",
+                    "fecha",
+                    "id",
+                    "location_code",
+                    "nombre",
+                    "status"
+                ]
+            },
+            "regiones_ticket": {
+                "columns": [
+                    "id_region",
+                    "region"
+                ]
+            },
+            "rel_productos_variables": {
+                "columns": [
+                    "id_paquete",
+                    "id_producto",
+                    "id_variable"
+                ]
+            },
+            "rsrv_clasificaciones": {
+                "columns": [
+                    "cod_clasificacion",
+                    "id_clasificacion",
+                    "nom_clasificacion",
+                    "rowguid",
+                    "status"
+                ]
+            },
+            "rsrv_promociones": {
+                "columns": [
+                    "cod_saturno",
+                    "codigo",
+                    "descuento",
+                    "descuenton",
+                    "fecha_alta",
+                    "fecha_fin",
+                    "fecha_ini",
+                    "hora",
+                    "id_locacion",
+                    "id_promo",
+                    "id_servicio",
+                    "id_usuario",
+                    "nombre_promo",
+                    "observaciones",
+                    "pax",
+                    "pax_aplica_cortesia",
+                    "pax_cortesia",
+                    "pax_totales",
+                    "pax_totales_aplica_cortesia",
+                    "pax_totales_cortesia",
+                    "paxn",
+                    "paxn_aplica_cortesia",
+                    "paxn_cortesia",
+                    "precio",
+                    "precion",
+                    "rowguid",
+                    "status",
+                    "tipo_descuento",
+                    "uniqid"
+                ]
+            },
+            "rsrv_servicios": {
+                "columns": [
+                    "activa_disponibilidad",
+                    "cod_servicio",
+                    "codigo_sl",
+                    "costo_adulto",
+                    "costo_menor",
+                    "descipcion_sl",
+                    "foto_servicio",
+                    "id_locacion",
+                    "id_saturno",
+                    "id_servicio",
+                    "id_servicio_padre",
+                    "inter_id_saturno",
+                    "inter_id_saturno_xc",
+                    "nom_servicio",
+                    "prf_omite_conc",
+                    "prf_omite_general",
+                    "prf_programa",
+                    "prf_servicio",
+                    "rowguid",
+                    "status",
+                    "uniqid"
+                ]
+            },
+            "rsrv_subclasificaciones": {
+                "columns": [
+                    "cod_subclas",
+                    "id_clasificacion",
+                    "id_subclas",
+                    "nom_subclas",
+                    "rowguid",
+                    "status"
+                ]
+            },
+            "SAMLocation": {
+                "columns": [
+                    "created_at",
+                    "location_code",
+                    "location_code_fac",
+                    "location_conde_rsv",
+                    "location_id",
+                    "location_name",
+                    "location_vacaciones",
+                    "updated_at"
+                ]
+            },
+            "SAMLocSwims": {
+                "columns": [
+                    "location_code",
+                    "rel_active",
+                    "rel_calculapickup",
+                    "rel_childapply",
+                    "rel_cuentacont",
+                    "rel_entidadcont",
+                    "rel_entidadcontn",
+                    "rel_id",
+                    "rel_identconfirma",
+                    "rowguid",
+                    "swim_code"
+                ]
+            },
+            "SAMSchedRates": {
+                "columns": [
+                    "location_code",
+                    "status_reservas",
+                    "swim_capacity",
+                    "swim_code",
+                    "swim_comboorder",
+                    "swim_do",
+                    "swim_ffin",
+                    "swim_fini",
+                    "swim_id",
+                    "swim_idioma",
+                    "swim_ju",
+                    "swim_lu",
+                    "swim_ma",
+                    "swim_mi",
+                    "swim_rateacomp",
+                    "swim_rateadult",
+                    "swim_ratechild",
+                    "swim_sa",
+                    "swim_schedule",
+                    "swim_vi"
+                ]
+            },
+            "SAMSwims": {
+                "columns": [
+                    "manual",
+                    "swim_code",
+                    "swim_id",
+                    "swim_name",
+                    "swim_shortpic"
+                ]
+            },
+            "sas_fotoyvideo_web": {
+                "columns": [
+                    "anio",
+                    "codigoprograma",
+                    "descuento",
+                    "dia",
+                    "entrenador",
+                    "fecha_nado",
+                    "fecha_pago",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_nado",
+                    "id",
+                    "location",
+                    "location_code",
+                    "mes",
+                    "mes_numerico",
+                    "monto",
+                    "no_contar_pax",
+                    "nombre_delphin",
+                    "presupuesto",
+                    "programa",
+                    "total",
+                    "total_visitantes"
+                ]
+            },
+            "sas_montoss": {
+                "columns": [
+                    "anio",
+                    "descuento",
+                    "dia",
+                    "fechacobro",
+                    "grupo_fotos",
+                    "id",
+                    "locationcode",
+                    "mes",
+                    "monto"
+                ]
+            },
+            "sas_reservas_duplicadas_tbl": {
+                "columns": [
+                    "anio",
+                    "confirma",
+                    "dia",
+                    "fecha_nado",
+                    "id_grupo_fotos",
+                    "location_code",
+                    "location_name",
+                    "mes",
+                    "monto",
+                    "nombre"
+                ]
+            },
+            "sas_visitantess": {
+                "columns": [
+                    "anio",
+                    "codigoprograma",
+                    "dia",
+                    "entrenador",
+                    "fecha_nado",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_nado",
+                    "id",
+                    "locacion_transfer",
+                    "location",
+                    "locationcode",
+                    "mes",
+                    "mes_numerico",
+                    "no_contar_pax",
+                    "nombre_delphin",
+                    "programa",
+                    "total_visitantes",
+                    "visitantes"
+                ]
+            },
+            "site": {
+                "columns": [
+                    "created",
+                    "id",
+                    "location_code",
+                    "SiteID",
+                    "status",
+                    "updated"
+                ]
+            },
+            "sysarticlecolumns": {
+                "columns": [
+                    "artid",
+                    "colid",
+                    "is_max",
+                    "is_udt",
+                    "is_xml"
+                ]
+            },
+            "sysarticles": {
+                "columns": [
+                    "artid",
+                    "creation_script",
+                    "custom_script",
+                    "del_cmd",
+                    "del_scripting_proc",
+                    "description",
+                    "dest_owner",
+                    "dest_table",
+                    "filter",
+                    "filter_clause",
+                    "fire_triggers_on_snapshot",
+                    "ins_cmd",
+                    "ins_scripting_proc",
+                    "name",
+                    "objid",
+                    "pre_creation_cmd",
+                    "pubid",
+                    "schema_option",
+                    "status",
+                    "sync_objid",
+                    "type",
+                    "upd_cmd",
+                    "upd_scripting_proc"
+                ]
+            },
+            "sysarticleupdates": {
+                "columns": [
+                    "artid",
+                    "autogen",
+                    "conflict_tableid",
+                    "identity_support",
+                    "ins_conflict_proc",
+                    "pubid",
+                    "sync_del_proc",
+                    "sync_ins_proc",
+                    "sync_upd_proc",
+                    "sync_upd_trig"
+                ]
+            },
+            "sysdiagrams": {
+                "columns": [
+                    "definition",
+                    "diagram_id",
+                    "name",
+                    "principal_id",
+                    "version"
+                ]
+            },
+            "syspublications": {
+                "columns": [
+                    "ad_guidname",
+                    "allow_anonymous",
+                    "allow_dts",
+                    "allow_initialize_from_backup",
+                    "allow_pull",
+                    "allow_push",
+                    "allow_queued_tran",
+                    "allow_subscription_copy",
+                    "allow_sync_tran",
+                    "alt_snapshot_folder",
+                    "autogen_sync_procs",
+                    "backward_comp_level",
+                    "centralized_conflicts",
+                    "compress_snapshot",
+                    "conflict_policy",
+                    "conflict_retention",
+                    "description",
+                    "enabled_for_internet",
+                    "ftp_address",
+                    "ftp_login",
+                    "ftp_password",
+                    "ftp_port",
+                    "ftp_subdirectory",
+                    "immediate_sync",
+                    "immediate_sync_ready",
+                    "independent_agent",
+                    "min_autonosync_lsn",
+                    "name",
+                    "options",
+                    "originator_id",
+                    "post_snapshot_script",
+                    "pre_snapshot_script",
+                    "pubid",
+                    "queue_type",
+                    "repl_freq",
+                    "replicate_ddl",
+                    "retention",
+                    "snapshot_in_defaultfolder",
+                    "snapshot_jobid",
+                    "status",
+                    "sync_method"
+                ]
+            },
+            "sysreplservers": {
+                "columns": [
+                    "srvid",
+                    "srvname"
+                ]
+            },
+            "sysschemaarticles": {
+                "columns": [
+                    "artid",
+                    "creation_script",
+                    "description",
+                    "dest_object",
+                    "dest_owner",
+                    "name",
+                    "objid",
+                    "pre_creation_cmd",
+                    "pubid",
+                    "schema_option",
+                    "status",
+                    "type"
+                ]
+            },
+            "syssubscriptions": {
+                "columns": [
+                    "artid",
+                    "dest_db",
+                    "distribution_jobid",
+                    "login_name",
+                    "loopback_detection",
+                    "nosync_type",
+                    "queued_reinit",
+                    "srvid",
+                    "srvname",
+                    "status",
+                    "subscription_type",
+                    "sync_type",
+                    "timestamp",
+                    "update_mode"
+                ]
+            },
+            "systranschemas": {
+                "columns": [
+                    "endlsn",
+                    "startlsn",
+                    "tabid",
+                    "typeid"
+                ]
+            },
+            "tbl_name_maquinas": {
+                "columns": [
+                    "created_at",
+                    "id",
+                    "location_code",
+                    "name_host",
+                    "nombre",
+                    "status"
+                ]
+            },
+            "tbl_punto_venta": {
+                "columns": [
+                    "created_at",
+                    "id",
+                    "id_maquina",
+                    "id_punto_venta",
+                    "location_code",
+                    "referencia",
+                    "status"
+                ]
+            },
+            "tbl_reservas": {
+                "columns": [
+                    "adultos",
+                    "cod_clasificacion",
+                    "cod_idioma",
+                    "cod_loc",
+                    "codigo_programa",
+                    "codpais",
+                    "confirma",
+                    "correo",
+                    "cortesia_foto",
+                    "cupon",
+                    "cupon_foto",
+                    "descuento",
+                    "extra_acompates",
+                    "fecha_nado",
+                    "folio_chekin",
+                    "hora_nado",
+                    "hotel",
+                    "id_agencia",
+                    "id_canal_venta",
+                    "id_clasificacion",
+                    "id_grupo_fotos",
+                    "id_locacion",
+                    "id_pasajero",
+                    "id_promo",
+                    "id_rep",
+                    "id_reservacion",
+                    "id_rsr_fto",
+                    "id_servicio",
+                    "id_subclas",
+                    "idhotel",
+                    "locacion_transfer",
+                    "menores",
+                    "nado_programa",
+                    "name_locacion",
+                    "nom_agencia",
+                    "nom_clasificacion",
+                    "nom_idioma",
+                    "nom_pasajero",
+                    "nom_rep",
+                    "nom_subclas",
+                    "nombre_canal",
+                    "nombre_promo",
+                    "pais",
+                    "pax",
+                    "status",
+                    "status_pago",
+                    "upname",
+                    "upservicio"
+                ]
+            },
+            "Texthorarios": {
+                "columns": [
+                    "horario_text",
+                    "id_horario",
+                    "rowguid"
+                ]
+            },
+            "tipo_cambio": {
+                "columns": [
+                    "cambio",
+                    "fecha_final",
+                    "fecha_inicial",
+                    "id_moneda",
+                    "id_tipo_cambio",
+                    "status"
+                ]
+            },
+            "tipo_empleado": {
+                "columns": [
+                    "id_tipo_empleado",
+                    "status",
+                    "tipo_empleado"
+                ]
+            },
+            "tipo_tarjetas": {
+                "columns": [
+                    "id_tarjeta",
+                    "location_code",
+                    "nombre",
+                    "status"
+                ]
+            },
+            "tipo_usuario": {
+                "columns": [
+                    "id_tipo_usuario",
+                    "location_code",
+                    "order_id",
+                    "status",
+                    "tipo_usuario"
+                ]
+            },
+            "TipoCambio": {
+                "columns": [
+                    "fechafin",
+                    "fechaini",
+                    "id",
+                    "location",
+                    "moneda",
+                    "tipocambio"
+                ]
+            },
+            "tipos_cobro": {
+                "columns": [
+                    "id_tipo_cobro",
+                    "nombre"
+                ]
+            },
+            "tipos_venta": {
+                "columns": [
+                    "id_tipo_venta",
+                    "nombre"
+                ]
+            },
+            "TMDProduction": {
+                "columns": [
+                    "_KEY",
+                    "archiveFilename",
+                    "entrenador",
+                    "id_maquina",
+                    "id_venta",
+                    "InsertedDVDDrive",
+                    "InsertedDVDIPAddress",
+                    "InsertedDVDMachineName",
+                    "InsertedDVDOverallDriveNumber",
+                    "InsertedUSBDrive",
+                    "InsertedUSBIPAddress",
+                    "InsertedUSBMachineName",
+                    "InsertedUSBOverallPortNumber",
+                    "InsertedUSBPortAndHub",
+                    "IPAddress",
+                    "Name",
+                    "OrderStateAsString",
+                    "pax",
+                    "photographer",
+                    "physicalLocationDrive",
+                    "physicalLocationFolder",
+                    "physicalLocationIPaddress",
+                    "physicalLocationMachineName",
+                    "PKID",
+                    "Place",
+                    "programma",
+                    "total",
+                    "valuta",
+                    "videoFileName"
+                ]
+            },
+            "TMDVideo": {
+                "columns": [
+                    "ArchiveFileName",
+                    "DateTimeRecorded",
+                    "Filename",
+                    "id_empleado",
+                    "id_venta",
+                    "Location_code",
+                    "PhysicalLocationDrive",
+                    "PhysicalLocationFolder",
+                    "PhysicalLocationIPAddress",
+                    "PhysicalLocationMachineName",
+                    "PKID",
+                    "PlayedAtMonitors",
+                    "Swim_code",
+                    "Swim_schedule"
+                ]
+            },
+            "traducciones": {
+                "columns": [
+                    "etiqueta",
+                    "id_idioma",
+                    "id_traduccion",
+                    "traduccion"
+                ]
+            },
+            "usuarios": {
+                "columns": [
+                    "clasificacion",
+                    "correo",
+                    "created_at",
+                    "id_tipo_usuario",
+                    "id_usuario",
+                    "image",
+                    "location_code",
+                    "nombre",
+                    "password",
+                    "reportes",
+                    "rowid",
+                    "status",
+                    "updated_at",
+                    "usuario"
+                ]
+            },
+            "usuarios_reportes": {
+                "columns": [
+                    "foto",
+                    "id_usuario",
+                    "usu_id",
+                    "usu_nombre",
+                    "usu_pass",
+                    "usu_permisos",
+                    "usu_user"
+                ]
+            },
+            "ventas": {
+                "columns": [
+                    "amexdlls",
+                    "amexpesos",
+                    "autorizo_cancelacion",
+                    "autorizo_descuento",
+                    "autorizo_revivir",
+                    "cambiopesos",
+                    "canada",
+                    "confirma",
+                    "cupon",
+                    "cxc_pago",
+                    "descuento",
+                    "descuento_extra",
+                    "dolares",
+                    "euros",
+                    "fecha",
+                    "grupo_fotos",
+                    "hora",
+                    "id_caja",
+                    "id_cajero",
+                    "id_canal_venta",
+                    "id_cliente",
+                    "id_locacion",
+                    "id_moneda",
+                    "id_produccion",
+                    "id_reserva",
+                    "id_venta",
+                    "ind_cortesia",
+                    "ind_cxc",
+                    "iva_monto",
+                    "locacion_transfer",
+                    "location_code",
+                    "mcdlls",
+                    "mcpesos",
+                    "notas",
+                    "observaciones",
+                    "paypalpesos",
+                    "pesos",
+                    "punto_venta",
+                    "rowid",
+                    "status",
+                    "status_pago",
+                    "tarjeta_credito",
+                    "ticket",
+                    "tipo_cobro",
+                    "tipo_de_cambio",
+                    "tipo_de_cambiocan",
+                    "tipo_de_cambioeuros",
+                    "tipo_descuento",
+                    "tipo_tarjeta_cred",
+                    "tipo_venta",
+                    "total",
+                    "totalreal",
+                    "tranferencia_dolares",
+                    "visadlls"
+                ]
+            },
+            "ventas_clientes": {
+                "columns": [
+                    "agrupo_rep_ingreso",
+                    "agrupo_rep_parques",
+                    "cancela_antes_checkin",
+                    "ciudad",
+                    "clabe",
+                    "cod_cliente",
+                    "cp",
+                    "dias_credito",
+                    "direccion",
+                    "email",
+                    "estado",
+                    "fax",
+                    "frecuente",
+                    "id_agencia",
+                    "id_banco",
+                    "id_cliente",
+                    "id_moneda_credito",
+                    "id_tipo_cliente",
+                    "id_tipo_pago",
+                    "medios_visible",
+                    "nom_cliente",
+                    "nombre_cuenta",
+                    "nomto_credito",
+                    "num_cuenta",
+                    "peso",
+                    "razon_social",
+                    "rfc",
+                    "rowguid",
+                    "status",
+                    "subclasif",
+                    "sucursal",
+                    "telefono",
+                    "uniqid",
+                    "web"
+                ]
+            },
+            "video_clip": {
+                "columns": [
+                    "create_at",
+                    "date_sync",
+                    "date_upload",
+                    "id",
+                    "id_grupo_fotos",
+                    "location_code",
+                    "size_in_bytes",
+                    "status",
+                    "sync",
+                    "uniqid",
+                    "upload"
+                ]
+            },
+            "XposDailyBill": {
+                "columns": [
+                    "aplicaiva",
+                    "ARD_CpnyID",
+                    "ARD_CustId",
+                    "ARD_DocType",
+                    "ARD_RefNbr",
+                    "ART_Coupons",
+                    "ART_CuryTranAmt",
+                    "ART_CuryUnitPrice",
+                    "ART_ExtRefNbr",
+                    "ART_Qty",
+                    "ART_SalesAcct",
+                    "ART_SalesSub",
+                    "ART_SatProdId",
+                    "ART_SatUnit",
+                    "ART_TaxIdDflt",
+                    "ART_TranDate",
+                    "ART_TranDesc",
+                    "BAT_ARBatNbr",
+                    "BAT_CuryId",
+                    "BAT_CuryRate",
+                    "BAT_INBatNbr",
+                    "BAT_PerPost",
+                    "BAT_Status",
+                    "fecha_envio_pos",
+                    "FullBillLoad",
+                    "id_tipo",
+                    "INT_InvtId",
+                    "INT_Kit",
+                    "INT_Location",
+                    "INT_SiteID",
+                    "INT_UnitDesc",
+                    "INT_UnitPrice",
+                    "INT_WhseLoc",
+                    "ModuleControl",
+                    "POSUserId",
+                    "ProcStat",
+                    "RecordID",
+                    "S4Future01",
+                    "S4Future02",
+                    "S4Future03",
+                    "S4Future04",
+                    "S4Future05",
+                    "S4Future06",
+                    "S4Future07",
+                    "S4Future08",
+                    "S4Future09",
+                    "S4Future10",
+                    "S4Future11",
+                    "S4Future12",
+                    "StatusBatNbr",
+                    "StatusDynamics",
+                    "StatusMail",
+                    "tstamp",
+                    "User1",
+                    "User2",
+                    "User3",
+                    "User4",
+                    "User5",
+                    "User6",
+                    "User7",
+                    "User8"
+                ]
+            },
+            "XposDailyBill_back": {
+                "columns": [
+                    "aplicaiva",
+                    "ARD_CpnyID",
+                    "ARD_CustId",
+                    "ARD_DocType",
+                    "ARD_RefNbr",
+                    "ART_Coupons",
+                    "ART_CuryTranAmt",
+                    "ART_CuryUnitPrice",
+                    "ART_ExtRefNbr",
+                    "ART_Qty",
+                    "ART_SalesAcct",
+                    "ART_SalesSub",
+                    "ART_SatProdId",
+                    "ART_SatUnit",
+                    "ART_TaxIdDflt",
+                    "ART_TranDate",
+                    "ART_TranDesc",
+                    "BAT_ARBatNbr",
+                    "BAT_CuryId",
+                    "BAT_CuryRate",
+                    "BAT_INBatNbr",
+                    "BAT_PerPost",
+                    "BAT_Status",
+                    "fecha_envio_pos",
+                    "FullBillLoad",
+                    "id_tipo",
+                    "INT_InvtId",
+                    "INT_Kit",
+                    "INT_Location",
+                    "INT_SiteID",
+                    "INT_UnitDesc",
+                    "INT_UnitPrice",
+                    "INT_WhseLoc",
+                    "ModuleControl",
+                    "POSUserId",
+                    "ProcStat",
+                    "RecordID",
+                    "S4Future01",
+                    "S4Future02",
+                    "S4Future03",
+                    "S4Future04",
+                    "S4Future05",
+                    "S4Future06",
+                    "S4Future07",
+                    "S4Future08",
+                    "S4Future09",
+                    "S4Future10",
+                    "S4Future11",
+                    "S4Future12",
+                    "StatusBatNbr",
+                    "StatusDynamics",
+                    "StatusMail",
+                    "tstamp",
+                    "User1",
+                    "User2",
+                    "User3",
+                    "User4",
+                    "User5",
+                    "User6",
+                    "User7",
+                    "User8"
+                ]
+            },
+            "XposDailyBill_P": {
+                "columns": [
+                    "aplicaiva",
+                    "ARD_CpnyID",
+                    "ARD_CustId",
+                    "ARD_DocType",
+                    "ARD_RefNbr",
+                    "ART_Coupons",
+                    "ART_CuryTranAmt",
+                    "ART_CuryUnitPrice",
+                    "ART_ExtRefNbr",
+                    "ART_Qty",
+                    "ART_SalesAcct",
+                    "ART_SalesSub",
+                    "ART_TaxIdDflt",
+                    "ART_TranDate",
+                    "ART_TranDesc",
+                    "BAT_ARBatNbr",
+                    "BAT_CuryId",
+                    "BAT_CuryRate",
+                    "BAT_INBatNbr",
+                    "BAT_PerPost",
+                    "BAT_Status",
+                    "fecha_envio_pos",
+                    "FullBillLoad",
+                    "id_tipo",
+                    "INT_InvtId",
+                    "INT_Kit",
+                    "INT_Location",
+                    "INT_SiteID",
+                    "INT_UnitDesc",
+                    "INT_UnitPrice",
+                    "INT_WhseLoc",
+                    "ModuleControl",
+                    "POSUserId",
+                    "ProcStat",
+                    "RecordID",
+                    "S4Future01",
+                    "S4Future02",
+                    "S4Future03",
+                    "S4Future04",
+                    "S4Future05",
+                    "S4Future06",
+                    "S4Future07",
+                    "S4Future08",
+                    "S4Future09",
+                    "S4Future10",
+                    "S4Future11",
+                    "S4Future12",
+                    "StatusBatNbr",
+                    "StatusDynamics",
+                    "StatusMail",
+                    "tstamp",
+                    "User1",
+                    "User2",
+                    "User3",
+                    "User4",
+                    "User5",
+                    "User6",
+                    "User7",
+                    "User8"
+                ]
+            },
+            "XposRefNbr": {
+                "columns": [
+                    "cod_locacion",
+                    "future",
+                    "id_tipo",
+                    "id_usuario",
+                    "RecordID"
+                ]
+            },
+            "XposTipos": {
+                "columns": [
+                    "Codigo",
+                    "Nombre",
+                    "RecordID"
+                ]
+            }
+        },
+        "Views": {
+            "anticipos_v": {
+                "columns": [
+                    "fecha",
+                    "id",
+                    "id_anticipo",
+                    "id_venta",
+                    "monedas",
+                    "monto",
+                    "tarjeta",
+                    "tipo_pago"
+                ]
+            },
+            "catalogo_fotos_all_v": {
+                "columns": [
+                    "cliente",
+                    "codigoprograma",
+                    "confirma",
+                    "correo",
+                    "entrenador",
+                    "fecha_nado",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_foto",
+                    "hora_nado",
+                    "horanado_programa",
+                    "id_maquina",
+                    "identrenador",
+                    "idfotografo",
+                    "idusuario",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "nombre_fotografo",
+                    "programa",
+                    "status_pago",
+                    "status_tipo",
+                    "vendedornuevo",
+                    "visitantes"
+                ]
+            },
+            "catalogo_fotos_all_ventas_v": {
+                "columns": [
+                    "americanxpress",
+                    "anio",
+                    "autoriza_cancelacion",
+                    "autoriza_descuento",
+                    "autorizo_revivir",
+                    "cajero",
+                    "cambio",
+                    "cambiocan",
+                    "cambioeur",
+                    "cambiousd",
+                    "can",
+                    "cliente",
+                    "codigoprograma",
+                    "correo",
+                    "cortesia",
+                    "cxc",
+                    "cxc_pago",
+                    "descuento_autorizado",
+                    "entrenador",
+                    "eur",
+                    "fecha_nado",
+                    "fecha_nado_es",
+                    "fecha_pago_es",
+                    "fechacobro",
+                    "folio",
+                    "fotografo",
+                    "grupo_fotos",
+                    "hora_nado",
+                    "horacobro",
+                    "horanado_programa",
+                    "id_locacion",
+                    "id_produccion",
+                    "idcajero",
+                    "identrenador",
+                    "idfotografo",
+                    "location",
+                    "locationcode",
+                    "mx",
+                    "no_contar_pax",
+                    "nombre_autoriza_descuento",
+                    "observaciones",
+                    "pagado",
+                    "paypal",
+                    "programa",
+                    "status_produccion",
+                    "subtotal",
+                    "tipocambiousd",
+                    "total",
+                    "transferencia",
+                    "usd",
+                    "visadolares",
+                    "visapesos",
+                    "visitantes"
+                ]
+            },
+            "catalogo_fotos_tienda_v": {
+                "columns": [
+                    "cliente",
+                    "codigoprograma",
+                    "confirma",
+                    "correo",
+                    "entrenador",
+                    "fecha_nado",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_foto",
+                    "hora_nado",
+                    "horanado_programa",
+                    "id_delphines",
+                    "id_idioma",
+                    "id_maquina",
+                    "identrenador",
+                    "idfotografo",
+                    "idusuario",
+                    "locacion_transfer",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "programa",
+                    "status_entrenador",
+                    "status_fotografo",
+                    "tipo1",
+                    "tipo2",
+                    "visitantes"
+                ]
+            },
+            "catalogo_fotos_v": {
+                "columns": [
+                    "cliente",
+                    "codigoprograma",
+                    "confirma",
+                    "correo",
+                    "entrenador",
+                    "fecha_nado",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_foto",
+                    "hora_nado",
+                    "horanado_programa",
+                    "id_delphines",
+                    "id_idioma",
+                    "id_maquina",
+                    "identrenador",
+                    "idfotografo",
+                    "idusuario",
+                    "idvendedor",
+                    "locacion_transfer",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "nombre_fotografo",
+                    "pax_aux",
+                    "programa",
+                    "status_entrenador",
+                    "status_fotografo",
+                    "tipo1",
+                    "tipo2",
+                    "vendedornuevo",
+                    "visitantes"
+                ]
+            },
+            "catalogo_fotos_ventas_tienda_v": {
+                "columns": [
+                    "americanxpress",
+                    "anio",
+                    "autoriza_cancelacion",
+                    "autoriza_descuento",
+                    "cajero",
+                    "cambio",
+                    "cambiocan",
+                    "cambioeur",
+                    "cambiousd",
+                    "can",
+                    "cliente",
+                    "codigoprograma",
+                    "confirma",
+                    "correo",
+                    "cortesia",
+                    "cxc",
+                    "cxc_pago",
+                    "descuento_autorizado",
+                    "entrenador",
+                    "eur",
+                    "fecha_nado",
+                    "fecha_nado_es",
+                    "fecha_pago_es",
+                    "fechacobro",
+                    "folio",
+                    "fotografo",
+                    "grupo_fotos",
+                    "hora_nado",
+                    "horacobro",
+                    "horanado_programa",
+                    "id_delphines",
+                    "id_idioma",
+                    "id_locacion",
+                    "id_maquina",
+                    "id_produccion",
+                    "idcajero",
+                    "identrenador",
+                    "idfotografo",
+                    "locacion_transfer",
+                    "location",
+                    "locationcode",
+                    "mx",
+                    "no_contar_pax",
+                    "nombre_autoriza_descuento",
+                    "observaciones",
+                    "pagado",
+                    "paypal",
+                    "programa",
+                    "punto_venta",
+                    "status_entrenador",
+                    "status_fotografo",
+                    "status_produccion",
+                    "subtotal",
+                    "tipo1",
+                    "tipo2",
+                    "tipocambiousd",
+                    "total",
+                    "transferencia",
+                    "usd",
+                    "Vendedor",
+                    "visadolares",
+                    "visapesos",
+                    "visitantes"
+                ]
+            },
+            "catalogo_fotos_ventas_v": {
+                "columns": [
+                    "americanxpress",
+                    "anio",
+                    "autoriza_cancelacion",
+                    "autoriza_descuento",
+                    "autorizo_revivir",
+                    "cajero",
+                    "cambio",
+                    "cambiocan",
+                    "cambioeur",
+                    "cambiousd",
+                    "can",
+                    "cliente",
+                    "codigoprograma",
+                    "confirma",
+                    "correo",
+                    "cortesia",
+                    "cxc",
+                    "cxc_pago",
+                    "descuento_autorizado",
+                    "entrenador",
+                    "eur",
+                    "fecha_nado",
+                    "fecha_nado_es",
+                    "fecha_pago_es",
+                    "fechacobro",
+                    "folio",
+                    "fotografo",
+                    "grupo_fotos",
+                    "hora_nado",
+                    "horacobro",
+                    "horanado_programa",
+                    "id_delphines",
+                    "id_idioma",
+                    "id_locacion",
+                    "id_maquina",
+                    "id_produccion",
+                    "idcajero",
+                    "identrenador",
+                    "idfotografo",
+                    "locacion_transfer",
+                    "location",
+                    "locationcode",
+                    "mx",
+                    "no_contar_pax",
+                    "nombre_autoriza_descuento",
+                    "nombre_fotografo",
+                    "observaciones",
+                    "pagado",
+                    "pax_aux",
+                    "paypal",
+                    "programa",
+                    "punto_venta",
+                    "status_entrenador",
+                    "status_fotografo",
+                    "status_produccion",
+                    "subtotal",
+                    "tipo1",
+                    "tipo2",
+                    "tipocambiousd",
+                    "total",
+                    "transferencia",
+                    "usd",
+                    "vendedornuevo",
+                    "visadolares",
+                    "visapesos",
+                    "visitantes"
+                ]
+            },
+            "cobros_v": {
+                "columns": [
+                    "anticipo",
+                    "cambio_pesos",
+                    "conversion",
+                    "fecha",
+                    "hora",
+                    "id_metodo",
+                    "id_moneda",
+                    "id_pago",
+                    "id_tarjeta",
+                    "id_venta",
+                    "location_code",
+                    "monto",
+                    "status_pago",
+                    "tipo_cambio",
+                    "tipocambio"
+                ]
+            },
+            "detalle_venta_paquetes_all_v": {
+                "columns": [
+                    "aplica",
+                    "cantidad_fotos",
+                    "descuento_aplicado",
+                    "folio",
+                    "foto_digital",
+                    "id_detalle_venta",
+                    "id_producto",
+                    "idpaquete",
+                    "ind_cortesia",
+                    "locationcode",
+                    "paquete",
+                    "porcentaje",
+                    "precio_venta",
+                    "status",
+                    "status_redes_sociales",
+                    "tipo",
+                    "tipo_de_cambio",
+                    "tipos",
+                    "total",
+                    "total_pesos",
+                    "video_clip",
+                    "video_digital"
+                ]
+            },
+            "detalle_venta_paquetes_v": {
+                "columns": [
+                    "cantidad_fotos",
+                    "descuento_aplicado",
+                    "folio",
+                    "id_detalle_venta",
+                    "id_producto",
+                    "idpaquete",
+                    "locationcode",
+                    "paquete",
+                    "precio_venta",
+                    "status",
+                    "tipo",
+                    "tipo_de_cambio",
+                    "tipos",
+                    "total",
+                    "total_pesos"
+                ]
+            },
+            "detalle_venta_paquetes_v_nuevo": {
+                "columns": [
+                    "cantidad_fotos",
+                    "descripcion",
+                    "descuento_aplicado",
+                    "folio",
+                    "id_detalle_venta",
+                    "id_producto",
+                    "idpaquete",
+                    "ind_cortesia",
+                    "locationcode",
+                    "paquete",
+                    "porcentaje",
+                    "precio_venta",
+                    "status",
+                    "status_paquete",
+                    "tipo",
+                    "tipo_de_cambio",
+                    "tipos",
+                    "total",
+                    "total_pesos"
+                ]
+            },
+            "detalle_ventaprod_v": {
+                "columns": [
+                    "folio",
+                    "foto_tienda",
+                    "idpaquete",
+                    "idproducto",
+                    "locationcode",
+                    "paquete",
+                    "producto",
+                    "sl_clavesl",
+                    "sl_codigo",
+                    "sl_cuenta",
+                    "sl_entidad",
+                    "tipo",
+                    "tipo_de_cambio",
+                    "total_pesos",
+                    "totalreal"
+                ]
+            },
+            "gastos_fa_v": {
+                "columns": [
+                    "grupo_fotos",
+                    "location",
+                    "precio",
+                    "preciosiniva",
+                    "programa",
+                    "visitantes"
+                ]
+            },
+            "hoja_trabajo_gral": {
+                "columns": [
+                    "cajero",
+                    "cliente",
+                    "confirma",
+                    "correo",
+                    "cortesia",
+                    "cxc",
+                    "descuento_autorizado",
+                    "entrenador",
+                    "fecha_nado",
+                    "fechacobro",
+                    "folio",
+                    "foto_tienda",
+                    "fotografo",
+                    "grupo_fotos",
+                    "hora_nado",
+                    "id_locacion",
+                    "idpaquete",
+                    "idproducto",
+                    "locacion_transfer",
+                    "location",
+                    "locationcode",
+                    "nombre_fotografo",
+                    "observaciones",
+                    "pagado",
+                    "paquete",
+                    "producto",
+                    "programa",
+                    "sl_clavesl",
+                    "sl_codigo",
+                    "sl_cuenta",
+                    "sl_entidad",
+                    "subtotal",
+                    "tipo",
+                    "tipocambiousd",
+                    "total",
+                    "totalreal",
+                    "vendedornuevo",
+                    "visitantes"
+                ]
+            },
+            "hubspot": {
+                "columns": [
+                    "cajero",
+                    "cliente",
+                    "codigoprograma",
+                    "confirma",
+                    "correo",
+                    "cortesia",
+                    "cupon",
+                    "cxc",
+                    "descuento_autorizado",
+                    "entrenador",
+                    "Expr1",
+                    "fecha_nado",
+                    "fechacobro",
+                    "folio",
+                    "fotografo",
+                    "grupo_fotos",
+                    "hora_nado",
+                    "hotel",
+                    "id_idioma",
+                    "id_locacion",
+                    "id_reservacion",
+                    "idpaquete",
+                    "idproducto",
+                    "location",
+                    "locationcode",
+                    "nombre_delphin",
+                    "nombre_fotografo",
+                    "observaciones",
+                    "pagado",
+                    "pais",
+                    "paquete",
+                    "pax_aux",
+                    "producto",
+                    "programa",
+                    "sl_clavesl",
+                    "sl_cuenta",
+                    "sl_entidad",
+                    "subtotal",
+                    "tipo",
+                    "tipocambiousd",
+                    "total",
+                    "totalreal",
+                    "visitantes"
+                ]
+            },
+            "inventoryPos_v": {
+                "columns": [
+                    "CpnyID",
+                    "Descr",
+                    "DfltSOUnit",
+                    "id_producto",
+                    "int_satprodid",
+                    "int_satunit",
+                    "InvtID",
+                    "location_code",
+                    "LocDescr",
+                    "SiteID",
+                    "StkItem",
+                    "TaxCat",
+                    "WhseLoc"
+                ]
+            },
+            "metodos_pago_cobros_v": {
+                "columns": [
+                    "fecha",
+                    "id_venta",
+                    "location_code",
+                    "Metodo",
+                    "monto",
+                    "status_pago",
+                    "tipo_cambio",
+                    "tipocambio"
+                ]
+            },
+            "preciopaq_v": {
+                "columns": [
+                    "cantidad_producto",
+                    "id_paquete",
+                    "max_pax",
+                    "min_pax",
+                    "nombre",
+                    "precio",
+                    "status",
+                    "swim_code",
+                    "swim_name"
+                ]
+            },
+            "presupuesto_global_v": {
+                "columns": [
+                    "location",
+                    "location_code",
+                    "mes",
+                    "mes_numerico",
+                    "monto_usd",
+                    "tipo",
+                    "year"
+                ]
+            },
+            "presupuesto_v": {
+                "columns": [
+                    "codigoprograma",
+                    "locationcode",
+                    "mes",
+                    "monto",
+                    "programa",
+                    "tipo",
+                    "year"
+                ]
+            },
+            "programas": {
+                "columns": [
+                    "location_code",
+                    "swim_code",
+                    "swim_codew",
+                    "swim_name"
+                ]
+            },
+            "programas_v": {
+                "columns": [
+                    "Expr1",
+                    "location_code",
+                    "rel_id",
+                    "swim_id",
+                    "swim_name"
+                ]
+            },
+            "SAMSChedRates_v": {
+                "columns": [
+                    "location_code",
+                    "location_name",
+                    "swim_code",
+                    "swim_name",
+                    "swim_schedule"
+                ]
+            },
+            "SAMSwims_v": {
+                "columns": [
+                    "location_code",
+                    "location_name",
+                    "swim_code",
+                    "swim_name"
+                ]
+            },
+            "sas_cortesias": {
+                "columns": [
+                    "cliente",
+                    "Descuento",
+                    "fecha_nado",
+                    "fechacobro",
+                    "folio",
+                    "hora_nado",
+                    "id_locacion",
+                    "locacion",
+                    "locationcode",
+                    "nombre_autoriza_descuento",
+                    "programa",
+                    "Subtotal",
+                    "Total",
+                    "Vendedor",
+                    "visitantes"
+                ]
+            },
+            "sas_cxc": {
+                "columns": [
+                    "cliente",
+                    "Descuento",
+                    "fecha_nado",
+                    "fechacobro",
+                    "folio",
+                    "hora_nado",
+                    "id_locacion",
+                    "locacion",
+                    "locationcode",
+                    "nombre_autoriza_descuento",
+                    "programa",
+                    "Subtotal",
+                    "Total",
+                    "Vendedor",
+                    "visitantes"
+                ]
+            },
+            "sas_folios_ventas": {
+                "columns": [
+                    "cliente",
+                    "codigoprograma",
+                    "correo",
+                    "Descuento",
+                    "entrenador",
+                    "fecha_nado",
+                    "fechacobro",
+                    "folio",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_foto",
+                    "hora_nado",
+                    "id_locacion",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "pagado",
+                    "programa",
+                    "SubTotal",
+                    "Tipo",
+                    "Total",
+                    "visitantes"
+                ]
+            },
+            "sas_fotoyvideo": {
+                "columns": [
+                    "anio",
+                    "codigoprograma",
+                    "descuento",
+                    "dia",
+                    "entrenador",
+                    "fecha_nado",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_nado",
+                    "location",
+                    "locationcode",
+                    "mes",
+                    "mes_numerico",
+                    "monto",
+                    "no_contar_pax",
+                    "nombre_delphin",
+                    "presupuesto",
+                    "programa",
+                    "total_visitantes"
+                ]
+            },
+            "sas_fotoyvideo_detalle": {
+                "columns": [
+                    "anio",
+                    "codigoprograma",
+                    "descuento",
+                    "dia",
+                    "entrenador",
+                    "fecha_nado",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_nado",
+                    "location",
+                    "locationcode",
+                    "mes",
+                    "mes_numerico",
+                    "monto",
+                    "nombre_delphin",
+                    "paquete",
+                    "presupuesto",
+                    "programa",
+                    "total_visitantes"
+                ]
+            },
+            "sas_fotoyvideo_real": {
+                "columns": [
+                    "anio",
+                    "codigoprograma",
+                    "descuento",
+                    "dia",
+                    "entrenador",
+                    "fecha_nado",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_nado",
+                    "location",
+                    "locationcode",
+                    "mes",
+                    "mes_numerico",
+                    "monto",
+                    "no_contar_pax",
+                    "nombre_delphin",
+                    "presupuesto",
+                    "programa",
+                    "total_visitantes"
+                ]
+            },
+            "sas_fotoyvideo_reservas": {
+                "columns": [
+                    "adultos",
+                    "anio",
+                    "cod_clasificacion",
+                    "cod_idioma",
+                    "cod_loc",
+                    "codigo_programa",
+                    "codigoprograma",
+                    "codpais",
+                    "confirma",
+                    "cortesia_foto",
+                    "cupon",
+                    "descuento",
+                    "dia",
+                    "entrenador",
+                    "extra_acompates",
+                    "fecha_nado",
+                    "folio_chekin",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_nado",
+                    "hotel",
+                    "id_agencia",
+                    "id_canal_venta",
+                    "id_clasificacion",
+                    "id_grupo_fotos",
+                    "id_locacion",
+                    "id_pasajero",
+                    "id_promo",
+                    "id_rep",
+                    "id_reservacion",
+                    "id_subclas",
+                    "idhotel",
+                    "location",
+                    "locationcode",
+                    "menores",
+                    "mes",
+                    "mes_numerico",
+                    "monto",
+                    "nado_programa",
+                    "name_locacion",
+                    "no_contar_pax",
+                    "nom_agencia",
+                    "nom_clasificacion",
+                    "nom_idioma",
+                    "nom_pasajero",
+                    "nom_rep",
+                    "nom_subclas",
+                    "nombre_canal",
+                    "nombre_delphin",
+                    "nombre_promo",
+                    "pais",
+                    "pax",
+                    "presupuesto",
+                    "programa",
+                    "rdescuento",
+                    "rfecha_nado",
+                    "rhora_nado",
+                    "status_pago",
+                    "total_visitantes",
+                    "upname",
+                    "upservicio"
+                ]
+            },
+            "sas_grupos_postventa": {
+                "columns": [
+                    "cliente",
+                    "codigoprograma",
+                    "confirma",
+                    "correo",
+                    "Descuento",
+                    "entrenador",
+                    "fecha_nado",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_foto",
+                    "hora_nado",
+                    "horanado_programa",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "programa",
+                    "status_pago",
+                    "SubTotal",
+                    "Tipo",
+                    "Total",
+                    "visitantes"
+                ]
+            },
+            "sas_hoja_trabajo": {
+                "columns": [
+                    "americanxpress",
+                    "autoriza_cancelacion",
+                    "autoriza_descuento",
+                    "cajero",
+                    "cambio",
+                    "can",
+                    "cliente",
+                    "codigoprograma",
+                    "confirma",
+                    "cortesia",
+                    "cxc",
+                    "descuento_autorizado",
+                    "DescuentoPesos",
+                    "DescuentoUsd",
+                    "entrenador",
+                    "eur",
+                    "fecha_nado",
+                    "fechacobro",
+                    "folio",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_nado",
+                    "horacobro",
+                    "id_locacion",
+                    "id_produccion",
+                    "id_reserva",
+                    "idcajero",
+                    "location",
+                    "locationcode",
+                    "mx",
+                    "no_contar_pax",
+                    "nombre_autoriza_descuento",
+                    "observaciones",
+                    "pagado",
+                    "Paquete",
+                    "paypal",
+                    "Producto",
+                    "programa",
+                    "status_produccion",
+                    "subtotal",
+                    "SubTotalProducto",
+                    "SubTotalProductoPesos",
+                    "tipo_cambiocan",
+                    "tipo_cambioeur",
+                    "tipo_cambiousd",
+                    "total",
+                    "TotalPesos",
+                    "TotalUsd",
+                    "transferencia",
+                    "usd",
+                    "visadolares",
+                    "visapesos",
+                    "visitantes"
+                ]
+            },
+            "sas_montos": {
+                "columns": [
+                    "anio",
+                    "descuento",
+                    "dia",
+                    "fechacobro",
+                    "grupo_fotos",
+                    "locationcode",
+                    "mes",
+                    "monto"
+                ]
+            },
+            "sas_montos_detalle": {
+                "columns": [
+                    "anio",
+                    "descuento",
+                    "dia",
+                    "fechacobro",
+                    "grupo_fotos",
+                    "locationcode",
+                    "mes",
+                    "monto",
+                    "paquete"
+                ]
+            },
+            "sas_ppto_real_habitat": {
+                "columns": [
+                    "anio",
+                    "location",
+                    "mes",
+                    "real"
+                ]
+            },
+            "sas_ppto_real_habitat_v": {
+                "columns": [
+                    "anio",
+                    "location",
+                    "mes",
+                    "real",
+                    "tipo"
+                ]
+            },
+            "sas_ppto_real_programa": {
+                "columns": [
+                    "anio",
+                    "location",
+                    "mes",
+                    "programa",
+                    "real"
+                ]
+            },
+            "sas_ppto_real_programa_v": {
+                "columns": [
+                    "anio",
+                    "location",
+                    "mes",
+                    "programa",
+                    "real",
+                    "tipo"
+                ]
+            },
+            "sas_subgrupos": {
+                "columns": [
+                    "cliente",
+                    "codigoprograma",
+                    "confirma",
+                    "Descuento",
+                    "entrenador",
+                    "fecha_nado",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_foto",
+                    "hora_nado",
+                    "horanado_programa",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "nombre_fotografo",
+                    "programa",
+                    "SubTotal",
+                    "Tipo",
+                    "Total",
+                    "vendedornuevo",
+                    "visitantes"
+                ]
+            },
+            "sas_ventas_detalle_paquete": {
+                "columns": [
+                    "aplica",
+                    "Cantidad",
+                    "cliente",
+                    "codigoprograma",
+                    "Descuento",
+                    "entrenador",
+                    "fecha_nado",
+                    "fechacobro",
+                    "folio",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_foto",
+                    "hora_nado",
+                    "id_locacion",
+                    "location",
+                    "locationcode",
+                    "MontoPesos",
+                    "MontoUsd",
+                    "no_contar_pax",
+                    "pagado",
+                    "Paquete",
+                    "programa",
+                    "SubTotal",
+                    "Tipo",
+                    "Total",
+                    "totalreal",
+                    "visitantes"
+                ]
+            },
+            "sas_ventas_v": {
+                "columns": [
+                    "Descuento",
+                    "id_locacion",
+                    "locacion",
+                    "locationcode",
+                    "SubGrupo",
+                    "SubTotal",
+                    "Total"
+                ]
+            },
+            "sas_ventasfolio_v": {
+                "columns": [
+                    "Descuento",
+                    "fechacobro",
+                    "folio",
+                    "id_locacion",
+                    "locacion",
+                    "locationcode",
+                    "pagado",
+                    "SubGrupo",
+                    "SubTotal",
+                    "Total"
+                ]
+            },
+            "sas_visitantes": {
+                "columns": [
+                    "anio",
+                    "codigoprograma",
+                    "dia",
+                    "entrenador",
+                    "fecha_nado",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_nado",
+                    "locacion_transfer",
+                    "location",
+                    "locationcode",
+                    "mes",
+                    "mes_numerico",
+                    "no_contar_pax",
+                    "nombre_delphin",
+                    "programa",
+                    "total_visitantes",
+                    "visitantes"
+                ]
+            },
+            "sas-foto": {
+                "columns": [
+                    "codigoprograma",
+                    "entrenador",
+                    "Expr1",
+                    "Expr2",
+                    "fecha_nado",
+                    "fechacobro",
+                    "fotografo",
+                    "grupo_fotos",
+                    "grupofotos",
+                    "locationcode",
+                    "programa",
+                    "status_fotografo",
+                    "visitantes"
+                ]
+            },
+            "SYNC_anticipos_1__58": {
+                "columns": [
+                    "fecha",
+                    "hora",
+                    "id_anticipo",
+                    "id_cajero",
+                    "id_venta",
+                    "location_code",
+                    "monto"
+                ]
+            },
+            "SYNC_anticipos_detalle_1__58": {
+                "columns": [
+                    "cambio_pesos",
+                    "comentarios",
+                    "conversion",
+                    "denominacion",
+                    "fecha",
+                    "hora",
+                    "id",
+                    "id_anticipo",
+                    "id_cajero",
+                    "id_metodo",
+                    "id_moneda",
+                    "id_pago",
+                    "id_tarjeta",
+                    "id_venta",
+                    "location_code",
+                    "monto",
+                    "nombre_cliente",
+                    "status_pago",
+                    "tipo_base",
+                    "tipo_cambio"
+                ]
+            },
+            "SYNC_catalogo_fotos_1__58": {
+                "columns": [
+                    "confirma",
+                    "correo",
+                    "etiquetas",
+                    "fecha",
+                    "hora",
+                    "id_delphines",
+                    "id_fotografo",
+                    "id_grupo_fotos",
+                    "id_guia",
+                    "id_idioma",
+                    "id_maquina",
+                    "id_reserva",
+                    "id_usuario",
+                    "idfotografo",
+                    "idvendedor",
+                    "locacion_transfer",
+                    "location_code",
+                    "no_contar_pax",
+                    "nombrecliente",
+                    "pax",
+                    "pax_aux",
+                    "rowid",
+                    "status",
+                    "status_pago",
+                    "swim_code",
+                    "swim_schedule",
+                    "telefeno"
+                ]
+            },
+            "SYNC_cobros_1__58": {
+                "columns": [
+                    "anticipo",
+                    "cambio_pesos",
+                    "conversion",
+                    "fecha",
+                    "hora",
+                    "id_cobro",
+                    "id_metodo",
+                    "id_moneda",
+                    "id_pago",
+                    "id_tarjeta",
+                    "id_venta",
+                    "location_code",
+                    "monto",
+                    "status_pago",
+                    "tipo_cambio",
+                    "tipocambio"
+                ]
+            },
+            "SYNC_delphines_1__58": {
+                "columns": [
+                    "id_delphines",
+                    "location_code",
+                    "nombre_delphin",
+                    "status"
+                ]
+            },
+            "SYNC_descuento_colaborador_1__58": {
+                "columns": [
+                    "cxc",
+                    "descuento_colaborador",
+                    "fecha",
+                    "id_descuento",
+                    "id_ventas",
+                    "location_code",
+                    "nombre_colaborador",
+                    "num_colaborador",
+                    "quincenas"
+                ]
+            },
+            "SYNC_detalle_cobro_1__58": {
+                "columns": [
+                    "cupon",
+                    "cxc",
+                    "descuento_colaborador",
+                    "fecha",
+                    "id_agencia",
+                    "id_descuento",
+                    "id_ventas",
+                    "location_code",
+                    "nombre_colaborador",
+                    "num_colaborador",
+                    "quincenas",
+                    "razon_social",
+                    "rfc"
+                ]
+            },
+            "SYNC_detalle_ticket_pago_1__58": {
+                "columns": [
+                    "fecha",
+                    "id_detalle",
+                    "id_moneda",
+                    "id_pago",
+                    "id_tarjeta",
+                    "id_ticket",
+                    "id_venta",
+                    "location_code",
+                    "monto",
+                    "status",
+                    "tipo",
+                    "tipo_cambio"
+                ]
+            },
+            "SYNC_detalle_venta_1__58": {
+                "columns": [
+                    "cantidad",
+                    "cantidad_sl",
+                    "costo",
+                    "descripcion",
+                    "descuento_aplicado",
+                    "foto_digital",
+                    "foto_fisico",
+                    "id_detalle_venta",
+                    "id_paquete",
+                    "id_producto",
+                    "id_venta",
+                    "ind_cortesia",
+                    "iva_monto",
+                    "location_code",
+                    "porcentaje",
+                    "precio_venta",
+                    "rowid",
+                    "status",
+                    "tipo",
+                    "tipocambio",
+                    "totalpesos",
+                    "totalreal",
+                    "video_clip",
+                    "video_digital",
+                    "video_fisico"
+                ]
+            },
+            "SYNC_detalle_venta_ticket_1__58": {
+                "columns": [
+                    "fecha",
+                    "id",
+                    "id_paquete",
+                    "id_producto",
+                    "id_ticket",
+                    "id_venta",
+                    "location_code",
+                    "precio",
+                    "status",
+                    "tipo",
+                    "tipo_cambio"
+                ]
+            },
+            "SYNC_detalle_ventaprod_1__58": {
+                "columns": [
+                    "descuento_aplicado",
+                    "detalle_id",
+                    "id_detalle_venta",
+                    "id_paquete",
+                    "id_producto",
+                    "id_venta",
+                    "ind_cortesia",
+                    "location_code",
+                    "porcentaje",
+                    "tipo",
+                    "tipocambio",
+                    "total",
+                    "totalpesos",
+                    "totalreal"
+                ]
+            },
+            "SYNC_empleados_1__58": {
+                "columns": [
+                    "correo",
+                    "eventual",
+                    "id_empleado",
+                    "id_tipo_empleado",
+                    "id_usuarios",
+                    "location_code",
+                    "nombre",
+                    "rowid",
+                    "status",
+                    "status_mobile",
+                    "status_tipo"
+                ]
+            },
+            "SYNC_envio_hotel_1__58": {
+                "columns": [
+                    "correo",
+                    "descuento",
+                    "fecha",
+                    "habitacion",
+                    "hora_entrega",
+                    "hotel",
+                    "id_envio",
+                    "id_grupo",
+                    "id_venta",
+                    "idenvio",
+                    "location_code",
+                    "observacion",
+                    "programa",
+                    "telefono",
+                    "total"
+                ]
+            },
+            "SYNC_formas_pagos_1__58": {
+                "columns": [
+                    "id_pago",
+                    "location_code",
+                    "nombre",
+                    "opcion",
+                    "status"
+                ]
+            },
+            "SYNC_InventoryPOS_1__58": {
+                "columns": [
+                    "Cantidad_Reorden",
+                    "Clase",
+                    "Cod_UPC",
+                    "Costo_Promedio",
+                    "CpnyID",
+                    "Descr",
+                    "DfltSOUnit",
+                    "Estatus",
+                    "Existencia_Seguridad",
+                    "ID",
+                    "Id_Clase",
+                    "Id_TipoMaterial",
+                    "int_satprodid",
+                    "int_satunit",
+                    "InvtID",
+                    "Linea",
+                    "location_code",
+                    "LocDescr",
+                    "Name",
+                    "nombre_almacen",
+                    "PACKING",
+                    "Punto_Reorden",
+                    "QtyAvail",
+                    "QtyOnHand",
+                    "RFC",
+                    "SalesValid",
+                    "SiteID",
+                    "STATUS_PRODUCTO",
+                    "StkItem",
+                    "TaxCat",
+                    "Tipo_Material",
+                    "Ultimo_Costo",
+                    "UM_Compra",
+                    "UnitPrcMXN",
+                    "UntiPrcUSD",
+                    "Vendedor",
+                    "WhseLoc"
+                ]
+            },
+            "SYNC_Lenguajes_1__58": {
+                "columns": [
+                    "lenguaje_id",
+                    "lenguaje_name",
+                    "lenguaje_siglas",
+                    "location_code"
+                ]
+            },
+            "SYNC_metas_1__63": {
+                "columns": [
+                    "anio",
+                    "id_clasificacion",
+                    "id_cliente",
+                    "id_locacion",
+                    "id_meta",
+                    "id_promo",
+                    "id_servicios",
+                    "id_subclas",
+                    "location_code",
+                    "mes",
+                    "meta",
+                    "swim_code"
+                ]
+            },
+            "SYNC_metas_combinaciones_1__63": {
+                "columns": [
+                    "anio",
+                    "cuenta_ingreso",
+                    "cuenta_pax",
+                    "id_clasificacion",
+                    "id_cliente",
+                    "id_locacion",
+                    "id_meta",
+                    "id_metas_combinaciones",
+                    "id_promo",
+                    "id_servicios",
+                    "id_subclas",
+                    "location_code",
+                    "mes",
+                    "swim_code"
+                ]
+            },
+            "SYNC_monedas_1__58": {
+                "columns": [
+                    "control",
+                    "id_moneda",
+                    "location_code",
+                    "nombre",
+                    "status"
+                ]
+            },
+            "SYNC_paquetes_1__58": {
+                "columns": [
+                    "aplica_descuento",
+                    "app",
+                    "codigo_sl",
+                    "emailnotif",
+                    "fecha_final",
+                    "fecha_inicial",
+                    "foto_digital",
+                    "foto_fisico",
+                    "icono",
+                    "id_paquete",
+                    "location_code",
+                    "n_producto_variable",
+                    "nombre",
+                    "orden",
+                    "rowid",
+                    "status",
+                    "status_redes_sociales",
+                    "tipo",
+                    "video_clip",
+                    "video_digital",
+                    "video_fisico"
+                ]
+            },
+            "SYNC_presupuesto_1__58": {
+                "columns": [
+                    "id_esquema_tipo_presupuesto",
+                    "id_presupuesto",
+                    "ingreso_usd",
+                    "location_code",
+                    "mes",
+                    "monto_usd",
+                    "swim_code",
+                    "tipo",
+                    "year"
+                ]
+            },
+            "SYNC_presupuesto_global_1__58": {
+                "columns": [
+                    "id_presupuesto_global",
+                    "location_code",
+                    "mes",
+                    "monto_usd",
+                    "tipo",
+                    "year"
+                ]
+            },
+            "SYNC_productos_1__58": {
+                "columns": [
+                    "aplica_descuento",
+                    "descripcion",
+                    "id_producto",
+                    "location_code",
+                    "nombre",
+                    "sl_clavesl",
+                    "sl_codigo",
+                    "sl_cuenta",
+                    "sl_entidad",
+                    "status"
+                ]
+            },
+            "SYNC_SAMLocation_1__79": {
+                "columns": [
+                    "created_at",
+                    "location_code",
+                    "location_code_fac",
+                    "location_conde_rsv",
+                    "location_id",
+                    "location_name",
+                    "location_vacaciones",
+                    "updated_at"
+                ]
+            },
+            "SYNC_SAMLocSwims_1__69": {
+                "columns": [
+                    "location_code",
+                    "rel_active",
+                    "rel_calculapickup",
+                    "rel_childapply",
+                    "rel_cuentacont",
+                    "rel_entidadcont",
+                    "rel_entidadcontn",
+                    "rel_id",
+                    "rel_identconfirma",
+                    "rowguid",
+                    "swim_code"
+                ]
+            },
+            "SYNC_tbl_reservas_1__71": {
+                "columns": [
+                    "adultos",
+                    "cod_clasificacion",
+                    "cod_idioma",
+                    "cod_loc",
+                    "codigo_programa",
+                    "codpais",
+                    "confirma",
+                    "correo",
+                    "cortesia_foto",
+                    "cupon",
+                    "cupon_foto",
+                    "descuento",
+                    "extra_acompates",
+                    "fecha_nado",
+                    "folio_chekin",
+                    "hora_nado",
+                    "hotel",
+                    "id_agencia",
+                    "id_canal_venta",
+                    "id_clasificacion",
+                    "id_grupo_fotos",
+                    "id_locacion",
+                    "id_pasajero",
+                    "id_promo",
+                    "id_rep",
+                    "id_reservacion",
+                    "id_rsr_fto",
+                    "id_servicio",
+                    "id_subclas",
+                    "idhotel",
+                    "locacion_transfer",
+                    "menores",
+                    "nado_programa",
+                    "name_locacion",
+                    "nom_agencia",
+                    "nom_clasificacion",
+                    "nom_idioma",
+                    "nom_pasajero",
+                    "nom_rep",
+                    "nom_subclas",
+                    "nombre_canal",
+                    "nombre_promo",
+                    "pais",
+                    "pax",
+                    "status",
+                    "status_pago",
+                    "upname",
+                    "upservicio"
+                ]
+            },
+            "SYNC_tipo_tarjetas_1__77": {
+                "columns": [
+                    "id_tarjeta",
+                    "location_code",
+                    "nombre",
+                    "status"
+                ]
+            },
+            "SYNC_tipo_usuario_1__58": {
+                "columns": [
+                    "id_tipo_usuario",
+                    "location_code",
+                    "order_id",
+                    "status",
+                    "tipo_usuario"
+                ]
+            },
+            "SYNC_TipoCambio_1__58": {
+                "columns": [
+                    "fechafin",
+                    "fechaini",
+                    "id",
+                    "location",
+                    "moneda",
+                    "tipocambio"
+                ]
+            },
+            "SYNC_usuarios_1__58": {
+                "columns": [
+                    "clasificacion",
+                    "correo",
+                    "created_at",
+                    "id_tipo_usuario",
+                    "id_usuario",
+                    "image",
+                    "location_code",
+                    "nombre",
+                    "password",
+                    "reportes",
+                    "rowid",
+                    "status",
+                    "updated_at",
+                    "usuario"
+                ]
+            },
+            "SYNC_ventas_1__70": {
+                "columns": [
+                    "amexdlls",
+                    "amexpesos",
+                    "autorizo_cancelacion",
+                    "autorizo_descuento",
+                    "autorizo_revivir",
+                    "cambiopesos",
+                    "canada",
+                    "confirma",
+                    "cupon",
+                    "cxc_pago",
+                    "descuento",
+                    "descuento_extra",
+                    "dolares",
+                    "euros",
+                    "fecha",
+                    "grupo_fotos",
+                    "hora",
+                    "id_caja",
+                    "id_cajero",
+                    "id_canal_venta",
+                    "id_cliente",
+                    "id_locacion",
+                    "id_moneda",
+                    "id_produccion",
+                    "id_reserva",
+                    "id_venta",
+                    "ind_cortesia",
+                    "ind_cxc",
+                    "iva_monto",
+                    "locacion_transfer",
+                    "location_code",
+                    "mcdlls",
+                    "mcpesos",
+                    "notas",
+                    "observaciones",
+                    "paypalpesos",
+                    "pesos",
+                    "punto_venta",
+                    "rowid",
+                    "status",
+                    "status_pago",
+                    "tarjeta_credito",
+                    "ticket",
+                    "tipo_cobro",
+                    "tipo_de_cambio",
+                    "tipo_de_cambiocan",
+                    "tipo_de_cambioeuros",
+                    "tipo_descuento",
+                    "tipo_tarjeta_cred",
+                    "tipo_venta",
+                    "total",
+                    "totalreal",
+                    "tranferencia_dolares",
+                    "visadlls"
+                ]
+            },
+            "SYNC_video_clip_1__66": {
+                "columns": [
+                    "create_at",
+                    "date_sync",
+                    "date_upload",
+                    "id",
+                    "id_grupo_fotos",
+                    "location_code",
+                    "size_in_bytes",
+                    "status",
+                    "sync",
+                    "uniqid",
+                    "upload"
+                ]
+            },
+            "syncobj_0x3244414438304630": {
+                "columns": [
+                    "confirma",
+                    "etiquetas",
+                    "fecha",
+                    "hora",
+                    "id_fotografo",
+                    "id_grupo_fotos",
+                    "id_guia",
+                    "id_idioma",
+                    "id_maquina",
+                    "id_reserva",
+                    "id_usuario",
+                    "location_code",
+                    "nombrecliente",
+                    "pax",
+                    "rowid",
+                    "status",
+                    "status_pago",
+                    "swim_code",
+                    "swim_schedule"
+                ]
+            },
+            "syncobj_0x3335344435313441": {
+                "columns": [
+                    "correo",
+                    "id_empleado",
+                    "id_tipo_empleado",
+                    "location_code",
+                    "nombre",
+                    "rowid",
+                    "status"
+                ]
+            },
+            "syncobj_0x3337373343364336": {
+                "columns": [
+                    "correo",
+                    "id_tipo_usuario",
+                    "id_usuario",
+                    "location_code",
+                    "nombre",
+                    "password",
+                    "rowid",
+                    "status",
+                    "usuario"
+                ]
+            },
+            "syncobj_0x3737333537464335": {
+                "columns": [
+                    "fecha_final",
+                    "fecha_inicial",
+                    "icono",
+                    "id_paquete",
+                    "location_code",
+                    "n_producto_variable",
+                    "nombre",
+                    "orden",
+                    "rowid",
+                    "status"
+                ]
+            },
+            "syncobj_0x3742414243313144": {
+                "columns": [
+                    "cantidad",
+                    "cantidad_sl",
+                    "costo",
+                    "descripcion",
+                    "descuento_aplicado",
+                    "id_detalle_venta",
+                    "id_paquete",
+                    "id_producto",
+                    "id_venta",
+                    "iva_monto",
+                    "location_code",
+                    "precio_venta",
+                    "rowid",
+                    "status",
+                    "tipocambio",
+                    "totalpesos",
+                    "totalreal"
+                ]
+            },
+            "syncobj_0x4239343344333837": {
+                "columns": [
+                    "amexdlls",
+                    "amexpesos",
+                    "autorizo_cancelacion",
+                    "autorizo_descuento",
+                    "cambiopesos",
+                    "canada",
+                    "confirma",
+                    "descuento",
+                    "dolares",
+                    "euros",
+                    "fecha",
+                    "grupo_fotos",
+                    "hora",
+                    "id_caja",
+                    "id_cajero",
+                    "id_canal_venta",
+                    "id_cliente",
+                    "id_locacion",
+                    "id_moneda",
+                    "id_produccion",
+                    "id_reserva",
+                    "id_venta",
+                    "ind_cortesia",
+                    "ind_cxc",
+                    "iva_monto",
+                    "location_code",
+                    "mcdlls",
+                    "mcpesos",
+                    "notas",
+                    "observaciones",
+                    "pesos",
+                    "rowid",
+                    "status",
+                    "status_pago",
+                    "tarjeta_credito",
+                    "ticket",
+                    "tipo_cobro",
+                    "tipo_de_cambio",
+                    "tipo_de_cambiocan",
+                    "tipo_de_cambioeuros",
+                    "tipo_tarjeta_cred",
+                    "tipo_venta",
+                    "total",
+                    "totalreal",
+                    "visadlls"
+                ]
+            },
+            "sysextendedarticlesview": {
+                "columns": [
+                    "artid",
+                    "creation_script",
+                    "custom_script",
+                    "del_cmd",
+                    "del_scripting_proc",
+                    "description",
+                    "dest_owner",
+                    "dest_table",
+                    "filter",
+                    "filter_clause",
+                    "fire_triggers_on_snapshot",
+                    "ins_cmd",
+                    "ins_scripting_proc",
+                    "name",
+                    "objid",
+                    "pre_creation_cmd",
+                    "pubid",
+                    "schema_option",
+                    "status",
+                    "sync_objid",
+                    "type",
+                    "upd_cmd",
+                    "upd_scripting_proc"
+                ]
+            },
+            "tbl_reservas_group_v": {
+                "columns": [
+                    "cod_loc",
+                    "codigo_programa",
+                    "fecha_nado",
+                    "id_grupo_fotos",
+                    "id_locacion",
+                    "nado_programa",
+                    "name_locacion",
+                    "nom_agencia",
+                    "pais",
+                    "upname",
+                    "upservicio"
+                ]
+            },
+            "tbl_reservas_v": {
+                "columns": [
+                    "cod_clasificacion",
+                    "cod_loc",
+                    "cupon",
+                    "descuento",
+                    "fecha_nado",
+                    "hotel",
+                    "id_grupo_fotos",
+                    "id_reservacion",
+                    "pais"
+                ]
+            },
+            "venta_subgrupo_detalle_v": {
+                "columns": [
+                    "americanxpress",
+                    "anio",
+                    "autoriza_cancelacion",
+                    "autoriza_descuento",
+                    "cajero",
+                    "cambio",
+                    "cambiocan",
+                    "cambioeur",
+                    "cambiousd",
+                    "can",
+                    "cliente",
+                    "codigoprograma",
+                    "cortesia",
+                    "cxc",
+                    "descuento_autorizado",
+                    "entrenador",
+                    "eur",
+                    "fecha_nado",
+                    "fecha_nado_es",
+                    "fecha_pago_es",
+                    "fechacobro",
+                    "folio",
+                    "fotografo",
+                    "grupo_fotos",
+                    "hora_nado",
+                    "horacobro",
+                    "horanado_programa",
+                    "idcajero",
+                    "identrenador",
+                    "idfotografo",
+                    "location",
+                    "locationcode",
+                    "mx",
+                    "no_contar_pax",
+                    "nombre",
+                    "nombre_autoriza_descuento",
+                    "pagado",
+                    "paypal",
+                    "programa",
+                    "status_entrenador",
+                    "status_fotografo",
+                    "status_produccion",
+                    "subtotal",
+                    "tipo",
+                    "tipo1",
+                    "tipo2",
+                    "tipocambiousd",
+                    "total",
+                    "transferencia",
+                    "usd",
+                    "visadolares",
+                    "visapesos",
+                    "visitantes"
+                ]
+            },
+            "ventas_paquetes_v": {
+                "columns": [
+                    "americanxpress",
+                    "autoriza_cancelacion",
+                    "autoriza_descuento",
+                    "cajero",
+                    "cambio",
+                    "can",
+                    "cortesia",
+                    "cxc",
+                    "descuento_autorizado",
+                    "eur",
+                    "Expr1",
+                    "fechacobro",
+                    "grupofotos",
+                    "horacobro",
+                    "idcajero",
+                    "idpaquete",
+                    "locacion",
+                    "locationcode",
+                    "mx",
+                    "nombre_autoriza_descuento",
+                    "pagado",
+                    "paquete",
+                    "paypal",
+                    "status_produccion",
+                    "subtotal",
+                    "tipo_cambiocan",
+                    "tipo_cambioeur",
+                    "tipo_cambiousd",
+                    "total",
+                    "transferencia",
+                    "usd",
+                    "visadolares",
+                    "visapesos"
+                ]
+            },
+            "ventas_v": {
+                "columns": [
+                    "americanxpress",
+                    "autoriza_cancelacion",
+                    "autoriza_descuento",
+                    "autorizo_revivir",
+                    "cajero",
+                    "cambio",
+                    "can",
+                    "cortesia",
+                    "cxc",
+                    "cxc_pago",
+                    "descuento_autorizado",
+                    "eur",
+                    "fechacobro",
+                    "folio",
+                    "grupofotos",
+                    "horacobro",
+                    "id_locacion",
+                    "id_produccion",
+                    "id_reserva",
+                    "idcajero",
+                    "locacion",
+                    "location_code_fac",
+                    "location_conde_rsv",
+                    "locationcode",
+                    "mx",
+                    "nombre_autoriza_descuento",
+                    "observaciones",
+                    "pagado",
+                    "paypal",
+                    "punto_venta",
+                    "status_produccion",
+                    "subtotal",
+                    "tipo_cambiocan",
+                    "tipo_cambioeur",
+                    "tipo_cambiousd",
+                    "total",
+                    "transferencia",
+                    "usd",
+                    "Vendedor",
+                    "visadolares",
+                    "visapesos"
+                ]
+            },
+            "ventasubgrupo_v": {
+                "columns": [
+                    "codigoprograma",
+                    "entrenador",
+                    "fecha_nado",
+                    "fotografo",
+                    "grupo_fotos",
+                    "hora_nado",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "pagado",
+                    "programa",
+                    "visitantes"
+                ]
+            },
+            "visitantes_monto_pagado_v": {
+                "columns": [
+                    "codigoprograma",
+                    "descuento",
+                    "entrenador",
+                    "fecha_pago_es",
+                    "fechacobro",
+                    "fotografo",
+                    "grupo_fotos",
+                    "hora_nado",
+                    "iva",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "pagado",
+                    "paquete",
+                    "programa",
+                    "status_entrenador",
+                    "status_fotografo",
+                    "tipo",
+                    "tipo_de_cambio",
+                    "total",
+                    "visitantes"
+                ]
+            },
+            "visitantes_monto_prod_v": {
+                "columns": [
+                    "codigoprograma",
+                    "fecha_pago_es",
+                    "fechacobro",
+                    "hora_nado",
+                    "idcajero",
+                    "identrenador",
+                    "idfotografo",
+                    "idpaquete",
+                    "idproducto",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "paquete",
+                    "producto",
+                    "programa",
+                    "total"
+                ]
+            },
+            "visitantes_monto_reservas_v": {
+                "columns": [
+                    "cod_clasificacion",
+                    "codigoprograma",
+                    "descuento",
+                    "entrenador",
+                    "fecha_pago_es",
+                    "fechacobro",
+                    "fotografo",
+                    "grupo_fotos",
+                    "hora_nado",
+                    "iva",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "paquete",
+                    "programa",
+                    "status_entrenador",
+                    "status_fotografo",
+                    "tipo",
+                    "tipo_de_cambio",
+                    "total"
+                ]
+            },
+            "visitantes_monto_v": {
+                "columns": [
+                    "anio",
+                    "codigoprograma",
+                    "descuento",
+                    "dia",
+                    "entrenador",
+                    "fecha_pago_es",
+                    "fechacobro",
+                    "fotografo",
+                    "grupo_fotos",
+                    "hora_nado",
+                    "iva",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "paquete",
+                    "programa",
+                    "status_entrenador",
+                    "status_fotografo",
+                    "tipo",
+                    "tipo_de_cambio",
+                    "total"
+                ]
+            },
+            "visitantes_reservas_v": {
+                "columns": [
+                    "cod_clasificacion",
+                    "codigoprograma",
+                    "descuento",
+                    "entrenador",
+                    "fecha_nado",
+                    "fecha_nado_es",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_nado",
+                    "id_delphines",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "programa",
+                    "status_entrenador",
+                    "status_fotografo",
+                    "visitantes"
+                ]
+            },
+            "visitantes_v": {
+                "columns": [
+                    "anio",
+                    "codigoprograma",
+                    "dia",
+                    "entrenador",
+                    "fecha_nado",
+                    "fecha_nado_es",
+                    "fotografo",
+                    "grupofotos",
+                    "hora_nado",
+                    "id_delphines",
+                    "locacion_transfer",
+                    "location",
+                    "locationcode",
+                    "no_contar_pax",
+                    "nombre_delphin",
+                    "programa",
+                    "status_entrenador",
+                    "status_fotografo",
+                    "visitantes"
+                ]
+            }
+        },
+        "Procedures": {
+            "cambia_status_correo": {
+                "columns": []
+            },
+            "CARGA_FACTURA": {
+                "columns": []
+            },
+            "CARGA_FACTURA_RESPALDO_JULIO": {
+                "columns": []
+            },
+            "CARGA_FACTURA_TEST": {
+                "columns": []
+            },
+            "CORTESIA_CAJA": {
+                "columns": []
+            },
+            "executejob": {
+                "columns": []
+            },
+            "hoja_trabajo_foto_agencia_pais": {
+                "columns": []
+            },
+            "ingreso_producto_actual": {
+                "columns": []
+            },
+            "marca_sincronizado_cero": {
+                "columns": []
+            },
+            "NO_CONTARPAX": {
+                "columns": []
+            },
+            "PAGO_REDES_SOCIALES": {
+                "columns": []
+            },
+            "presupuestos": {
+                "columns": []
+            },
+            "SENT_MAIL": {
+                "columns": []
+            },
+            "SP_ACTAULIZA_INVENTARIO": {
+                "columns": []
+            },
+            "SP_ACTAULIZA_INVENTARIO_P": {
+                "columns": []
+            },
+            "SP_Actualiza_Tablas_Reservas": {
+                "columns": []
+            },
+            "SP_ACTUALIZA_TBLRESERVAS_Y_CORREOS_SAMRESERVAS": {
+                "columns": []
+            },
+            "sp_alterdiagram": {
+                "columns": []
+            },
+            "SP_BANK_TRANSACTIONS": {
+                "columns": []
+            },
+            "SP_COMISIONES_VENDEDORES": {
+                "columns": []
+            },
+            "SP_CORTE_CAJA": {
+                "columns": []
+            },
+            "sp_creatediagram": {
+                "columns": []
+            },
+            "sp_dropdiagram": {
+                "columns": []
+            },
+            "SP_DYNAMIC_INVENTORY": {
+                "columns": []
+            },
+            "SP_DYNAMIC_INVENTORY_P": {
+                "columns": []
+            },
+            "SP_DYNAMIC_INVENTORY_SIN_EXISTENCIA": {
+                "columns": []
+            },
+            "SP_DYNAMIC_INVENTORY_SIN_EXISTENCIA_P": {
+                "columns": []
+            },
+            "SP_ENVIA_APP_CORREO": {
+                "columns": []
+            },
+            "SP_ENVIA_CD_ONLINE_CORREO": {
+                "columns": []
+            },
+            "SP_ENVIA_CD_ONLINE_CORREO_DOS": {
+                "columns": []
+            },
+            "SP_ENVIA_COBRO_LOG": {
+                "columns": []
+            },
+            "SP_ENVIA_CORREOS": {
+                "columns": []
+            },
+            "SP_ENVIAR_FACTURA": {
+                "columns": []
+            },
+            "SP_GENERA_FOLIOS": {
+                "columns": []
+            },
+            "SP_GENERA_FOLIOS_P": {
+                "columns": []
+            },
+            "SP_GENERAFACTURAFOTO": {
+                "columns": []
+            },
+            "SP_GENERAFACTURAFOTO_P": {
+                "columns": []
+            },
+            "SP_GENERAFACTURAFOTO_RESPALDO_2023": {
+                "columns": []
+            },
+            "SP_GENERAFACTURAFOTO_RESPALDO_JULIO": {
+                "columns": []
+            },
+            "SP_GENERAFACTURATIENDA": {
+                "columns": []
+            },
+            "SP_GENERAFACTURATIENDA_P": {
+                "columns": []
+            },
+            "sp_helpdiagramdefinition": {
+                "columns": []
+            },
+            "sp_helpdiagrams": {
+                "columns": []
+            },
+            "SP_INGRESOS_FOTOS": {
+                "columns": []
+            },
+            "SP_INGRESOS_TIENDA": {
+                "columns": []
+            },
+            "SP_MYSQL_DEPARTAMENTOS_LOCACIONES": {
+                "columns": []
+            },
+            "SP_MYSQL_PERSONAS": {
+                "columns": []
+            },
+            "sp_notifica_espacio": {
+                "columns": []
+            },
+            "SP_OBTEN_LOTES": {
+                "columns": []
+            },
+            "SP_OPTIMIZA_DETALLE_FOTO": {
+                "columns": []
+            },
+            "SP_POSFACTURADYNAMICS": {
+                "columns": []
+            },
+            "SP_POSFACTURADYNAMICS_P": {
+                "columns": []
+            },
+            "sp_presupuesto_general": {
+                "columns": []
+            },
+            "SP_PRODUCTOS_TIENDA": {
+                "columns": []
+            },
+            "sp_promedio_por_pax": {
+                "columns": []
+            },
+            "SP_REENVIAR_CORRE": {
+                "columns": []
+            },
+            "sp_renamediagram": {
+                "columns": []
+            },
+            "SP_REPORTE_METAS": {
+                "columns": []
+            },
+            "SP_REPORTE_METAS_EQUIPOS": {
+                "columns": []
+            },
+            "SP_REPORTE_VENDEDORES_R": {
+                "columns": []
+            },
+            "SP_RESERVAS_NO_EXISTENTES": {
+                "columns": []
+            },
+            "SP_RESULTADOS_POR_AGENCIA_R": {
+                "columns": []
+            },
+            "SP_SAS_FOTOYVIDEO": {
+                "columns": []
+            },
+            "SP_SAS_RESERVAS_DUPLICADAS": {
+                "columns": []
+            },
+            "SP_SINCRONIZA_FOTOS_OFLINE": {
+                "columns": []
+            },
+            "sp_upgraddiagrams": {
+                "columns": []
+            },
+            "sp_venta_diario": {
+                "columns": []
+            },
+            "SP_VENTA_DIARIO_NUEVO": {
+                "columns": []
+            },
+            "sp_venta_diario_pax": {
+                "columns": []
+            },
+            "SP_VENTA_DIARIO_VENDEDORES": {
+                "columns": []
+            },
+            "sp_venta_foto_paquete_colaborador": {
+                "columns": []
+            },
+            "SP_VERIFICA_DIRECTORIO": {
+                "columns": []
+            },
+            "SPU_REENVIA_CORREO_AUTOMATICO": {
+                "columns": []
+            },
+            "SPU_VALIDA_CORREO_ENVIADO": {
+                "columns": []
+            }
+        },
+        "Functions": {
+            "fechacortatext": {
+                "columns": []
+            },
+            "fn_diagramobjects": {
+                "columns": []
+            },
+            "fn_obtener_monto_porciento": {
+                "columns": []
+            },
+            "LimpiarCaracteres": {
+                "columns": []
+            },
+            "mes_clompleto": {
+                "columns": []
+            },
+            "mescorto": {
+                "columns": []
+            },
+            "ObtenFolio": {
+                "columns": []
+            },
+            "UNIX_TIMESTAMP": {
+                "columns": []
+            }
+        }
+    }
+}

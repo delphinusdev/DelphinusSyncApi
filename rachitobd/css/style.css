@@ -1,0 +1,1093 @@
+:root {
+
+--vscode-bg-primary: #1e1e1e;
+
+--vscode-bg-secondary: #252526;
+
+--vscode-bg-tertiary: #333333; /* Color para elementos un poco más claros, como headers de paneles */
+
+--vscode-text-color: #cccccc;
+
+--vscode-text-light: #f0f0f0;
+
+--vscode-text-dark: #6a6a6a;
+
+--vscode-border-color: #3f3f46;
+
+--vscode-accent-blue: #007acc;
+
+--vscode-success-green: #28a745;
+
+--vscode-error-red: #cc293d;
+
+
+
+/* Nuevas variables para la cuadrícula de datos (Tabulator) */
+
+--vscode-data-grid-border: #444444;
+
+--vscode-data-grid-header-bg: #2d2d2d;
+
+--vscode-data-grid-row-hover-bg: #3c3c3c;
+
+--vscode-data-grid-cell-padding: 8px 12px;
+
+--vscode-data-grid-font-size: 0.9em;
+
+
+
+/* Nuevas variables para el scrollbar */
+
+--scrollbar-thumb-color: #5a5a5a;
+
+--scrollbar-track-color: #2d2d2d;
+
+--scrollbar-thumb-hover-color: #7a7a7a;
+
+}
+
+
+
+body {
+
+font-family: 'Inter', sans-serif;
+
+margin: 0;
+
+padding: 0;
+
+background-color: var(--vscode-bg-primary);
+
+color: var(--vscode-text-color);
+
+display: flex;
+
+flex-direction: column; /* Cambiado a columna para el layout principal */
+
+min-height: 100vh;
+
+overflow: hidden; /* Controla el overflow globalmente */
+
+font-size: 14px;
+
+}
+
+
+
+/* --- Contenedor principal de la aplicación (simula la ventana IDE) --- */
+
+#app-container {
+
+display: flex;
+
+flex-direction: column;
+
+height: 100vh; /* Ocupa el 100% del viewport height */
+
+width: 100vw; /* Ocupa el 100% del viewport width */
+
+overflow: hidden;
+
+}
+
+
+
+/* --- Barra Superior (Top Bar) --- */
+
+#top-bar {
+
+background-color: var(--vscode-bg-secondary);
+
+border-bottom: 1px solid var(--vscode-border-color);
+
+padding: 8px 15px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 10px; /* Espacio entre elementos */
+
+flex-shrink: 0; /* No permite que se encoja */
+
+height: 40px; /* Altura fija para la barra superior */
+
+box-sizing: border-box; /* Incluye padding y borde en la altura */
+
+}
+
+
+
+#top-bar .logo {
+
+color: var(--vscode-accent-blue);
+
+font-weight: 600;
+
+font-size: 1.1em;
+
+display: flex;
+
+align-items: center;
+
+gap: 8px;
+
+}
+
+
+
+#top-bar .top-bar-actions {
+
+display: flex;
+
+align-items: center;
+
+gap: 10px;
+
+}
+
+
+
+.db-selector {
+
+background-color: var(--vscode-bg-primary);
+
+color: var(--vscode-text-color);
+
+border: 1px solid var(--vscode-border-color);
+
+padding: 5px 8px;
+
+border-radius: 4px;
+
+cursor: pointer;
+
+font-size: 0.9em;
+
+}
+
+
+
+.db-selector:focus {
+
+outline: none;
+
+border-color: var(--vscode-accent-blue);
+
+}
+
+
+
+.current-db-display {
+
+color: var(--vscode-text-light);
+
+font-size: 0.9em;
+
+padding: 0 5px;
+
+}
+
+
+
+/* --- Contenedor Principal de Contenido (Sidebar + Paneles de Trabajo) --- */
+
+#main-content-container {
+
+display: flex;
+
+flex: 1; /* Permite que este contenedor ocupe el espacio restante */
+
+overflow: hidden; /* Asegura que los paneles internos manejen su propio scroll */
+
+}
+
+
+
+/* --- Sidebar del Explorador de Esquema --- */
+
+#schema-sidebar {
+
+width: 250px; /* Ancho inicial de la sidebar */
+
+min-width: 150px; /* Ancho mínimo para la sidebar */
+
+max-width: 50vw; /* Ancho máximo, para evitar que ocupe demasiado */
+
+background-color: var(--vscode-bg-secondary);
+
+border-right: 1px solid var(--vscode-border-color);
+
+display: flex;
+
+flex-direction: column;
+
+overflow: hidden; /* Oculta el scrollbar principal si el contenido es más pequeño */
+
+position: relative; /* Necesario para el resizable handle */
+
+}
+
+
+
+#schema-sidebar .sidebar-header {
+
+padding: 10px 15px;
+
+border-bottom: 1px solid var(--vscode-border-color);
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 10px;
+
+flex-shrink: 0;
+
+}
+
+
+
+#schema-sidebar .sidebar-header h3 {
+
+margin: 0;
+
+font-size: 1em;
+
+font-weight: 500;
+
+color: var(--vscode-text-light);
+
+}
+
+
+
+#schema-sidebar .search-box {
+
+padding: 10px 15px;
+
+border-bottom: 1px solid var(--vscode-border-color);
+
+flex-shrink: 0;
+
+}
+
+
+
+#schema-sidebar .search-input {
+
+width: 100%;
+
+padding: 8px;
+
+background-color: var(--vscode-bg-primary);
+
+border: 1px solid var(--vscode-border-color);
+
+border-radius: 4px;
+
+color: var(--vscode-text-color);
+
+font-size: 0.9em;
+
+box-sizing: border-box; /* Incluye padding y borde en el ancho */
+
+}
+
+
+
+#schema-sidebar .search-input::placeholder {
+
+color: var(--vscode-text-dark);
+
+}
+
+
+
+#schema-sidebar .schema-tree-container {
+
+flex: 1; /* Ocupa el espacio restante */
+
+overflow-y: auto; /* Permite el scroll vertical si el contenido excede la altura */
+
+padding: 10px 0; /* Padding interno para el árbol */
+
+box-sizing: border-box;
+
+}
+
+
+
+#schema-sidebar .schema-status {
+
+padding: 8px 15px;
+
+font-size: 0.85em;
+
+color: var(--vscode-text-dark);
+
+border-top: 1px solid var(--vscode-border-color);
+
+flex-shrink: 0;
+
+}
+
+/* Por defecto, la lista de objetos está oculta */
+
+.column-list {
+
+display: none;
+
+/* O para una animación suave:
+
+max-height: 0;
+
+overflow: hidden;
+
+transition: max-height 0.3s ease-out;
+
+*/
+
+}
+
+
+
+/* Cuando la clase 'show' está presente, la lista se muestra */
+
+.column-list.show {
+
+display: block;
+
+/* O para una animación suave:
+
+max-height: 500px; /* Un valor lo suficientemente grande para contener el contenido */
+
+
+}
+
+
+
+/* Para el icono de flecha */
+
+.table-item .fa-chevron-down {
+
+transform: rotate(0deg);
+
+transition: transform 0.2s ease-out;
+
+}
+
+
+
+.table-item .fa-chevron-right {
+
+transform: rotate(-90deg); /* El estado inicial del icono de la derecha */
+
+transition: transform 0.2s ease-out;
+
+}
+
+
+
+.table-item.expanded .fa-chevron-down {
+
+transform: rotate(0deg); /* Cuando está expandido, la flecha hacia abajo */
+
+}
+
+
+
+.table-item.expanded .fa-chevron-right {
+
+transform: rotate(0deg); /* Cuando está expandido, la flecha hacia la derecha girada */
+
+}
+
+/* Optimización general para evitar repaints frecuentes */
+.ui-resizable-handle {
+    will-change: transform;
+}
+
+/* Optimización de la sidebar */
+#schema-sidebar, #editor-area {
+    contain: layout;
+    will-change: width, height;
+}
+
+
+/* Estilos de JQuery UI para resizable */
+
+.ui-resizable-e {
+
+cursor: ew-resize;
+
+position: relative; /* Asegura que el handle se posicione correctamente */
+
+}
+
+
+
+.ui-resizable-e .ui-resizable-handle {
+
+width: 8px; /* Ancho del handle */
+
+background-color: transparent; /* Fondo transparente por defecto */
+
+position: absolute;
+
+right: -4px; /* Centra el handle en el borde */
+
+top: 0;
+
+height: 100%;
+
+z-index: 90; /* Asegura que sea clickeable */
+
+}
+
+
+
+.ui-resizable-e .ui-resizable-handle:hover {
+
+background-color: rgba(0, 122, 204, 0.3); /* Un sutil color azul al pasar el ratón */
+
+}
+
+
+
+/* --- Panel Principal de Trabajo (Editor + Resultados) --- */
+
+#work-panel {
+
+flex-grow: 1; /* Ocupa todo el espacio horizontal restante */
+
+display: flex;
+
+flex-direction: column; /* Divide el panel en editor y resultados verticalmente */
+
+overflow: hidden; /* Contiene los scrolls del editor y resultados */
+
+}
+
+
+
+/* --- Área del Editor SQL --- */
+
+#editor-area {
+
+
+/*flex-grow: 1; /* Permite que el editor ocupe el espacio disponible */
+
+min-height: 100px; /* Altura mínima del editor */
+
+position: relative; /*Necesario para el resizable handle */
+
+border-bottom: 1px solid var(--vscode-border-color);
+
+overflow: hidden; /* Monaco Editor gestiona su propio overflow */
+
+}
+
+
+
+/* Estilos de JQuery UI para resizable (vertical) */
+
+.ui-resizable-s {
+
+cursor: ns-resize;
+
+position: relative;
+
+}
+
+
+
+.ui-resizable-s .ui-resizable-handle {
+
+height: 8px;
+
+background-color: transparent;
+
+position: absolute;
+
+bottom: -4px;
+
+left: 0;
+
+width: 100%;
+
+z-index: 90;
+
+}
+
+
+
+.ui-resizable-s .ui-resizable-handle:hover {
+
+background-color: rgba(0, 122, 204, 0.3);
+
+}
+
+
+
+#editorContainer {
+
+width: 100%;
+
+height: 100%; /* Asegura que el editor ocupe el 100% de su contenedor (#editor-area) */
+
+}
+
+
+
+/* --- Sección de Resultados --- */
+
+#results-section {
+
+/* flex-grow: 1; */
+
+flex-shrink: 0; /* Por defecto, no se encoge */
+
+flex-basis: 0; /* Altura base 0 */
+
+height: 0; /*Altura inicial en 0, para ocultar */
+
+overflow: hidden;
+
+background-color: var(--vscode-bg-primary);
+
+border-top: 1px solid var(--vscode-border-color);
+
+display: flex;
+
+flex-direction: column;
+
+/*transition: all 0.3s ease-out; /* Transición suave para todos los cambios de tamaño/flex */
+
+padding: 0 15px; /* Quita el padding inicial para que la transición sea más limpia */
+
+box-sizing: border-box; /* Importante para que el padding no afecte el cálculo de altura */
+
+}
+
+
+
+#results-section.expanded {
+
+flex-grow: 1; /* ¡Esto es CLAVE! Permite que ocupe el espacio restante */
+
+height: auto; /* Permite que el contenido determine la altura, PERO flex-grow es dominante */
+
+overflow-y: auto; /* Permite scroll vertical para el contenido de resultados */
+
+padding: 10px 15px; /* Aplica el padding solo cuando está expandido */
+
+min-height: 100px; /* Asegura una altura mínima visible */
+
+/* Eliminar max-height aquí a menos que tengas un límite superior muy específico */
+
+}
+
+
+
+#results-section .status-message {
+
+margin-bottom: 10px;
+
+padding: 8px 12px;
+
+border-radius: 4px;
+
+font-size: 0.9em;
+
+text-align: center;
+
+opacity: 0;
+
+transform: translateY(-10px);
+
+/*transition: opacity 0.3s ease, transform 0.3s ease;*/
+
+/*will-change: opacity, transform;*/
+
+}
+
+
+
+#results-section .status-message.show {
+
+opacity: 1;
+
+transform: translateY(0);
+
+}
+
+
+
+#results-section .status-message.info { background-color: #3e3e42; color: var(--vscode-text-light); }
+
+#results-section .status-message.success { background-color: var(--vscode-success-green); color: white; }
+
+#results-section .status-message.error { background-color: var(--vscode-error-red); color: white; }
+
+
+
+#results-section #exportButtonsContainer {
+
+padding-bottom: 10px;
+
+text-align: right;
+
+flex-shrink: 0; /* Evita que se encoja */
+
+}
+
+
+
+#results-section .table-responsive { /* Este es el #resultsTableContainer */
+
+flex: 1; /* ¡Esto es CRUCIAL! Ocupa todo el espacio disponible dentro de results-section */
+
+overflow: auto; /* Asegura el scroll de la tabla */
+
+max-height: 100%; /* Sigue siendo útil para un límite de seguridad */
+
+/* Añadir display flex si Tabulator está dentro de un div con altura 100% */
+
+display: flex;
+
+flex-direction: column;
+
+}
+
+
+
+/* --- Estilos Generales de Botones de Acción --- */
+
+.action-button {
+
+background-color: var(--vscode-accent-blue);
+
+color: white;
+
+border: none;
+
+padding: 8px 12px;
+
+border-radius: 4px;
+
+cursor: pointer;
+
+font-size: 0.9em;
+
+display: inline-flex;
+
+align-items: center;
+
+gap: 8px;
+
+transition: background-color 0.2s ease, transform 0.1s ease;
+
+white-space: nowrap; /* Evita que el texto se rompa */
+
+}
+
+
+
+.action-button:hover {
+
+background-color: #005f99;
+
+transform: translateY(-1px);
+
+}
+
+
+
+.action-button:active {
+
+background-color: #004c7a;
+
+transform: translateY(0);
+
+}
+
+
+
+.action-button:disabled {
+
+background-color: #4a4a4a;
+
+cursor: not-allowed;
+
+}
+
+
+
+.action-button i {
+
+font-size: 1em;
+
+}
+
+
+
+/* --- Estilos de Tabulator (Data Grid) --- */
+
+.tabulator {
+
+background-color: var(--vscode-bg-primary);
+
+border: 1px solid var(--vscode-border-color);
+
+font-size: var(--vscode-data-grid-font-size);
+
+color: var(--vscode-text-color);
+
+border-radius: 4px;
+
+}
+
+
+
+/* Encabezados de columna */
+
+.tabulator .tabulator-header {
+
+background-color: var(--vscode-data-grid-header-bg);
+
+color: var(--vscode-text-light);
+
+border-bottom: 1px solid var(--vscode-data-grid-border);
+
+}
+
+
+
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title {
+
+padding: var(--vscode-data-grid-cell-padding);
+
+}
+
+
+
+/* Filtros de encabezado */
+
+.tabulator .tabulator-header .tabulator-col .tabulator-header-filter input {
+
+background-color: var(--vscode-bg-primary);
+
+border: 1px solid var(--vscode-border-color);
+
+color: var(--vscode-text-color);
+
+border-radius: 4px;
+
+padding: 4px;
+
+}
+
+
+
+/* Filas */
+
+.tabulator .tabulator-tableholder .tabulator-table .tabulator-row {
+
+background-color: var(--vscode-bg-secondary);
+
+}
+
+
+
+.tabulator .tabulator-tableholder .tabulator-table .tabulator-row:nth-child(even) {
+
+background-color: var(--vscode-bg-primary);
+
+}
+
+
+
+.tabulator .tabulator-tableholder .tabulator-table .tabulator-row:hover {
+
+background-color: var(--vscode-data-grid-row-hover-bg);
+
+}
+
+
+
+/* Celdas */
+
+.tabulator .tabulator-row .tabulator-cell {
+
+border-right: 1px solid var(--vscode-data-grid-border);
+
+padding: var(--vscode-data-grid-cell-padding);
+
+}
+
+
+
+/* Botones personalizados para exportar */
+
+.tabulator-btn {
+
+background: var(--vscode-bg-tertiary);
+
+color: var(--vscode-text-color);
+
+border: 1px solid transparent;
+
+border-radius: 3px;
+
+padding: 4px 6px;
+
+cursor: pointer;
+
+margin: 0 2px;
+
+}
+
+.tabulator-btn:hover {
+
+background: var(--vscode-accent-blue);
+
+color: white;
+
+}
+
+
+
+
+
+/* --- ESTILOS PARA EL SCROLLBAR (fondo del scroll) --- */
+
+::-webkit-scrollbar {
+
+width: 12px;
+
+height: 12px;
+
+}
+
+::-webkit-scrollbar-track {
+
+background: var(--scrollbar-track-color);
+
+border-radius: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+
+background: var(--scrollbar-thumb-color);
+
+border-radius: 10px;
+
+border: 3px solid var(--scrollbar-track-color); /* padding alrededor del thumb */
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+background: var(--scrollbar-thumb-hover-color);
+
+}
+
+
+
+/* Estilos para el árbol de la sidebar */
+
+.tree-view {
+
+list-style: none;
+
+padding: 0;
+
+margin: 0;
+
+}
+
+
+
+.tree-view ul {
+
+list-style: none;
+
+padding-left: 15px; /* Indentación para subelementos */
+
+margin: 0;
+
+}
+
+
+
+.tree-view li {
+
+margin: 0;
+
+}
+
+
+
+.table-item, .column-item {
+
+padding: 5px 15px;
+
+cursor: pointer;
+
+display: flex;
+
+align-items: center;
+
+gap: 8px;
+
+white-space: nowrap;
+
+overflow: hidden;
+
+text-overflow: ellipsis;
+
+transition: background-color 0.15s ease;
+
+}
+
+
+
+.table-item:hover, .column-item:hover {
+
+background-color: var(--vscode-bg-tertiary); /* Un hover sutil */
+
+}
+
+
+
+.table-item.expanded > .fas.fa-chevron-down {
+
+transform: rotate(0deg);
+
+}
+
+
+
+.table-item.collapsed > .fas.fa-chevron-down {
+
+transform: rotate(-90deg);
+
+}
+
+
+
+.table-item i {
+
+font-size: 0.9em;
+
+width: 14px; /* Ancho fijo para los iconos de flecha */
+
+text-align: center;
+
+transition: transform 0.2s ease;
+
+}
+
+
+
+.table-item span, .column-item span {
+
+flex-grow: 1; /* Permite que el texto ocupe el espacio restante */
+
+overflow: hidden;
+
+text-overflow: ellipsis;
+
+}
+
+
+
+.table-item-container .object-list {
+
+display: none; /* Por defecto oculto */
+
+}
+
+
+
+.table-item-container .object-list.show {
+
+display: block; /* Muestra cuando se expande */
+
+}
+
+
+
+/* Estilos para arrastrar y soltar */
+
+.table-item.ui-draggable-dragging,
+
+.column-item.ui-draggable-dragging {
+
+background-color: var(--vscode-accent-blue);
+
+color: white;
+
+border-radius: 4px;
+
+padding-left: 10px; /* Un poco de padding extra para el elemento arrastrado */
+
+z-index: 1000; /* Asegura que esté por encima de otros elementos */
+
+box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+
+
+/* Estilos para el placeholder de drag-and-drop */
+
+.ui-sortable-placeholder {
+
+border: 1px dashed var(--vscode-accent-blue) !important;
+
+background: rgba(0, 122, 204, 0.1) !important;
+
+visibility: visible !important;
+
+border-radius: 4px;
+
+}
+
+
+
+/* Esconder las flechas de chevron en elementos de categoría sin hijos visibles */
+
+.category-container[style*="display: none"] .table-item.expanded > .fas.fa-chevron-down {
+
+display: none;
+
+}
+
+
+
+/* Monaco Editor specific adjustments for full height */
+
+#editorContainer > .monaco-editor {
+
+height: 100% !important;
+
+width: 100% !important;
+
+}
+
+
+
+/* Ocultar el espacio del minimap si está deshabilitado */
+
+.monaco-editor .editor-widget.minimap {
+
+display: none !important;
+
+}

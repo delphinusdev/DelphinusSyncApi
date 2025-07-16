@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script>
+        // Verificar si la sesión está activa al cargar la página
+        async function checkLogin() {
+            try {
+                const response = await fetch('check_session.php');
+                const result = await response.json();
+                if (!result.loggedIn) window.location.href = 'index.html';
+            } catch (error) {
+                console.error("Error al verificar la sesión:", error);
+                window.location.href = 'index.html';
+            }
+        }
+        checkLogin();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Server Web IDE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css"/>
+    <style>
+        :root {
+            --vscode-bg-primary: #1e1e1e; --vscode-bg-secondary: #252526; --vscode-bg-tertiary: #333333;
+            --vscode-text-color: #cccccc; --vscode-text-light: #f0f0f0; --vscode-text-dark: #6a6a6a;
+            --vscode-border-color: #3f3f46; --vscode-accent-blue: #007acc; --vscode-success-green: #28a745;
+            --vscode-error-red: #cc293d;
+        }
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--vscode-bg-primary); color: var(--vscode-text-color); display: flex; height: 100vh; overflow: hidden; }
+        .ide-container { width: 100%; height: 100%; display: flex; flex-direction: column; }
+        h1 { color: var(--vscode-text-light); text-align: center; margin: 15px 0; font-weight: 500; font-size: 1.8em; letter-spacing: 0.5px; flex-shrink: 0; }
+        .ide-body { display: flex; flex-grow: 1; overflow: hidden; padding: 0 20px 20px 20px; gap: 15px; }
+        
+        /* --- PANEL LATERAL DE ESQUEMA --- */
+        .schema-sidebar { width: 280px; min-width: 220px; background-color: var(--vscode-bg-secondary); border: 1px solid var(--vscode-border-color); border-radius: 6px; display: flex; flex-direction: column; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); }
+        .sidebar-header { padding: 10px; border-bottom: 1px solid var(--vscode-border-color); flex-shrink: 0; }
+        .sidebar-header h3 { margin: 0 0 10px 0; font-size: 1.1em; color: var(--vscode-text-light); }
+        /* NUEVO: Estilo para el buscador */
+        #schema-search-input { width: 100%; padding: 8px; background-color: var(--vscode-bg-primary); border: 1px solid var(--vscode-border-color); color: var(--vscode-text-color); border-radius: 4px; box-sizing: border-box; }
+        #schema-search-input:focus { border-color: var(--vscode-accent-blue); outline: none; }
+        #schema-tree-container { flex-grow: 1; overflow-y: auto; padding: 10px; }
+        .tree-view { list-style: none; padding-left: 0; }
+        .tree-view ul { list-style: none; padding-left: 20px; }
+        .table-item-container { margin-bottom: 2px; } /* Contenedor para la tabla y sus columnas */
+        .table-item, .column-item { padding: 5px; cursor: pointer; border-radius: 3px; display: flex; align-items: center; gap: 8px; user-select: none; }
+        .table-item:hover, .column-item:hover { background-color: var(--vscode-bg-tertiary); }
+        .table-item .fa-chevron-right { transition: transform 0.2s ease; }
+        .table-item.expanded > .fa-chevron-right { transform: rotate(90deg); }
+        .column-list { display: none; }
+        .column-list.show { display: block; }
+
+        .main-content-wrapper { display: flex; flex-direction: column; flex-grow: 1; overflow: hidden; }
+        .main-content-pane { display: flex; flex-direction: column; flex-grow: 1; overflow: hidden; background-color: var(--vscode-bg-secondary); border: 1px solid var(--vscode-border-color); border-radius: 6px; padding: 15px; }
+        .query-section { height: 350px; min-height: 200px; display: flex; flex-direction: column; }
+        .ui-resizable-handle { background-color: var(--vscode-border-color); height: 8px; cursor: ns-resize; bottom: -4px; z-index: 10; }
+        .ui-resizable-handle:hover { background-color: var(--vscode-accent-blue); }
+        #editorContainer { border: 1px solid var(--vscode-border-color); border-radius: 4px; flex-grow: 1; overflow: hidden; }
+        .button-bar { display: flex; align-items: center; gap: 12px; padding: 15px 5px 5px 5px; }
+        .action-button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.95em; }
+        #executeButton { background-color: var(--vscode-accent-blue); color: white; }
+        .refresh-button { background-color: var(--vscode-bg-tertiary); color: var(--vscode-text-color); border: 1px solid var(--vscode-border-color); }
+        .results-section { flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .status-message { padding: 10px 15px; margin-top: 10px; border-radius: 4px; opacity: 0; transition: opacity 0.3s ease; flex-shrink: 0; }
+        .status-message.show { opacity: 1; }
+        .status-message.success { background-color: rgba(40, 167, 69, 0.2); color: var(--vscode-success-green); }
+        .status-message.error { background-color: rgba(204, 41, 61, 0.2); color: var(--vscode-error-red); }
+        .table-responsive { overflow: auto; flex-grow: 1; }
+        .dataTables_wrapper { color: var(--vscode-text-color); font-size: 0.95em; }
+        .dataTables_filter input, .dataTables_length select { background-color: var(--vscode-bg-primary); border: 1px solid var(--vscode-border-color); color: var(--vscode-text-color); }
+        table.dataTable thead th { background-color: var(--vscode-bg-tertiary); border-bottom: 1px solid var(--vscode-border-color); }
+        table.dataTable tbody tr:nth-child(even) { background-color: var(--vscode-bg-primary); }
+        .dataTables_paginate .paginate_button { background-color: var(--vscode-bg-tertiary) !important; color: var(--vscode-text-color) !important; border: 1px solid var(--vscode-border-color) !important; }
+        .dataTables_paginate .paginate_button.current { background-color: var(--vscode-accent-blue) !important; color: white !important; }
+        .dt-buttons .dt-button { background-color: var(--vscode-bg-tertiary); color: var(--vscode-text-color); border: 1px solid var(--vscode-border-color); }
+    </style>
+</head>
+<body>
+    <div class="ide-container">
+        <h1>SQL Server Web IDE</h1>
+        <div class="ide-body">
+            <div id="schema-sidebar" class="schema-sidebar">
+                <div class="sidebar-header">
+                    <h3>Explorador de Objetos</h3>
+                    <input type="text" id="schema-search-input" placeholder="Buscar tabla o columna...">
+                </div>
+                <div id="schema-tree-container"></div>
+            </div>
+
+            <div class="main-content-wrapper">
+                <div class="main-content-pane">
+                    <div class="query-section" id="querySectionResizable">
+                        <div id="editorContainer"></div>
+                        <div class="button-bar">
+                            <button id="executeButton" class="action-button" onclick="executeQuery()"><i class="fas fa-play"></i> <span id="buttonText">Ejecutar</span></button>
+                            <button id="refreshSchemaButton" class="action-button refresh-button" onclick="forceRefreshSchema()" title="Refrescar Esquema"><i class="fas fa-sync-alt"></i></button>
+                            <button id="logoutButton" class="action-button refresh-button" onclick="logout()" title="Cerrar Sesión"><i class="fas fa-sign-out-alt"></i></button>
+                            <span id="schemaStatus" class="schema-status" style="margin-left:auto;"></span>
+                        </div>
+                    </div>
+                    <div class="results-section" id="resultsSection">
+                        <div id="statusMessage" class="status-message"></div>
+                        <div class="table-responsive" id="resultsTableContainer" style="display: none;">
+                            <table id="resultsTable" class="display nowrap" style="width:100%"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.49.0/min/vs/loader.js"></script>
+
+    <script>
+        let dbSchema = {};
+        let dataTableInstance = null;
+        let monacoEditorInstance;
+        let completionProviderDisposable; // Para manejar el autocompletado
+
+        async function logout() {
+            localStorage.removeItem('dbSchema');
+            try {
+                const response = await fetch('logout.php');
+                const result = await response.json();
+                if (result.success) window.location.href = 'index.html';
+            } catch (error) { console.error("Error al cerrar sesión:", error); }
+        }
+
+        function forceRefreshSchema() {
+            localStorage.removeItem('dbSchema');
+            document.getElementById('schemaStatus').textContent = 'Refrescando...';
+            loadAndCacheSchema();
+        }
+
+        async function loadAndCacheSchema() {
+            const cachedSchema = localStorage.getItem('dbSchema');
+            const schemaStatusSpan = document.getElementById('schemaStatus');
+            if (cachedSchema) {
+                try {
+                    dbSchema = JSON.parse(cachedSchema);
+                    schemaStatusSpan.textContent = 'Esquema (Caché)';
+                    populateSchemaSidebar();
+                    registerMonacoCompletionProvider(); // <-- RESTAURADO
+                    return;
+                } catch(e) { localStorage.removeItem('dbSchema'); }
+            }
+            schemaStatusSpan.textContent = 'Cargando esquema...';
+            try {
+                const response = await fetch('get_schema.php');
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                dbSchema = await response.json();
+                if (Object.keys(dbSchema).length > 0) {
+                    localStorage.setItem('dbSchema', JSON.stringify(dbSchema));
+                    schemaStatusSpan.textContent = 'Esquema (OK)';
+                    populateSchemaSidebar();
+                    registerMonacoCompletionProvider(); // <-- RESTAURADO
+                } else {
+                    schemaStatusSpan.textContent = 'Esquema vacío';
+                }
+            } catch (error) {
+                schemaStatusSpan.textContent = `Error Esquema`;
+                showStatusMessage(`Error al cargar el esquema: ${error.message}`, 'error');
+            }
+        }
+        
+// --- FUNCIÓN DE AUTOCOMPLETADO RESTAURADA ---
+function registerMonacoCompletionProvider() {
+    if (typeof monaco === 'undefined' || !monacoEditorInstance) return;
+    if (completionProviderDisposable) completionProviderDisposable.dispose();
+
+    completionProviderDisposable = monaco.languages.registerCompletionItemProvider('sql', {
+        // Add trigger characters for common SQL syntax
+        triggerCharacters: [' ', '.', '\t', '\n'], // Trigger on space, dot, tab, newline
+
+        provideCompletionItems: (model, position) => {
+            const suggestions = [];
+            const textUntilPosition = model.getValueInRange({ startLineNumber: 1, startColumn: 1, endLineNumber: position.lineNumber, endColumn: position.column });
+            const word = model.getWordUntilPosition(position);
+            const range = { startLineNumber: position.lineNumber, endLineNumber: position.lineNumber, startColumn: word.startColumn, endColumn: word.endColumn };
+            
+            // Sugerencias de palabras clave de SQL
+            const sqlKeywords = ["SELECT", "FROM", "WHERE", "GROUP BY", "ORDER BY", "INSERT INTO", "VALUES", "UPDATE", "SET", "DELETE FROM", "JOIN", "INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "ON", "AS", "TOP", "COUNT", "SUM", "AVG", "MAX", "MIN", "AND", "OR", "NOT", "NULL", "TRUE", "FALSE", "LIKE", "IN", "BETWEEN", "IS"]; // Added more common keywords
+            sqlKeywords.forEach(k => suggestions.push({
+                label: k,
+                kind: monaco.languages.CompletionItemKind.Keyword,
+                insertText: k,
+                range: range,
+                // Add detail for better context
+                detail: 'SQL Keyword',
+                sortText: 'a_' + k // Ensure keywords appear at the top
+            }));
+
+            // Sugerencias de tablas y columnas del esquema
+            if (dbSchema) {
+                // Detectar alias (ej: FROM Customers AS c)
+                const aliases = {};
+                const aliasRegex = /(?:FROM|JOIN)\s+([a-zA-Z0-9_."\[\]]+)\s+(?:AS\s+)?([a-zA-Z0-9_]+)/gi;
+                let match;
+                // Important: Reset lastIndex for global regex in loops
+                aliasRegex.lastIndex = 0; 
+                while ((match = aliasRegex.exec(textUntilPosition)) !== null) {
+                    aliases[match[2].toLowerCase()] = match[1].replace(/[\[\]"]/g, '');
+                }
+
+                const lastChar = textUntilPosition.slice(-1);
+                const lastWordMatch = textUntilPosition.match(/([a-zA-Z0-9_]+)\.$/); // For 'table.column'
+
+                // --- NEW LOGIC FOR TABLE SUGGESTIONS AFTER FROM/JOIN ---
+                // Check if the current context is right after "FROM " or "JOIN "
+                const textBeforeCursor = textUntilPosition.slice(0, position.column - 1);
+                const isAfterFromOrJoin = /(?:FROM|JOIN)\s+([a-zA-Z0-9_."\[\]]*)$/i.test(textBeforeCursor);
+
+                // Get the current word being typed
+                const currentWord = word.word.toLowerCase();
+
+                if (lastWordMatch) { // If user types "alias." or "table."
+                    const prefix = lastWordMatch[1].toLowerCase();
+                    const tableName = aliases[prefix] || Object.keys(dbSchema.Tables || {}).find(tn => tn.toLowerCase() === prefix); // Ensure dbSchema.Tables exists
+                    if (tableName && dbSchema.Tables[tableName] && dbSchema.Tables[tableName].columns) { // Ensure columns exist
+                        dbSchema.Tables[tableName].columns.forEach(col => {
+                            suggestions.push({
+                                label: col,
+                                kind: monaco.languages.CompletionItemKind.Field,
+                                insertText: col,
+                                range: range,
+                                detail: `${tableName} Column`,
+                                sortText: 'c_' + col // Sort columns after keywords
+                            });
+                        });
+                    }
+                } else if (isAfterFromOrJoin || currentWord.length > 0) { // Suggest table names if after FROM/JOIN or if typing
+                    if (dbSchema.Tables) { // Ensure dbSchema.Tables exists
+                        Object.keys(dbSchema.Tables).forEach(tableName => {
+                            // Filter suggestions based on the current word being typed
+                            if (tableName.toLowerCase().startsWith(currentWord)) {
+                                suggestions.push({
+                                    label: tableName,
+                                    kind: monaco.languages.CompletionItemKind.Struct, // Use Struct for tables
+                                    insertText: tableName,
+                                    range: range,
+                                    detail: 'Database Table',
+                                    sortText: 'b_' + tableName // Sort tables after keywords
+                                });
+                            }
+                        });
+                    }
+                }
+            }
+            return { suggestions: suggestions };
+        }
+    });
+}
+
+
+ function populateSchemaSidebar() {
+    const container = document.getElementById('schema-tree-container');
+    container.innerHTML = ''; // Limpiar contenido anterior
+
+    const categoryNames = {
+        'Tables': { name: 'Tablas', icon: 'fa-table', color: 'var(--vscode-accent-blue)' },
+        'Views': { name: 'Vistas', icon: 'fa-eye', color: '#3d9a54' },
+        'Procedures': { name: 'Procedimientos', icon: 'fa-database', color: '#b58e3a' },
+        'Functions': { name: 'Funciones', icon: 'fa-cogs', color: '#c586c0' } // Cambiado a un icono más genérico
+    };
+
+    const tree = document.createElement('ul');
+    tree.className = 'tree-view';
+
+    for (const categoryKey in dbSchema) {
+        const categoryData = categoryNames[categoryKey] || { name: categoryKey, icon: 'fa-folder', color: 'var(--vscode-text-dark)' };
+        const objects = dbSchema[categoryKey];
+
+        if (Object.keys(objects).length === 0) continue; 
+
+        const categoryLi = document.createElement('li');
+        categoryLi.className = 'category-container';
+        
+        const categoryHeader = document.createElement('div');
+        categoryHeader.className = 'table-item expanded'; 
+        // Empezamos con fa-chevron-down porque está expandido por defecto
+        categoryHeader.innerHTML = `<i class="fas fa-chevron-down"></i><i class="fas ${categoryData.icon}" style="color:${categoryData.color};"></i><span>${categoryData.name}</span>`;
+        
+        const objectList = document.createElement('ul');
+        objectList.className = 'column-list show';
+
+        const sortedObjectNames = Object.keys(objects).sort();
+
+        sortedObjectNames.forEach(objectName => {
+            const objectData = objects[objectName];
+            const hasColumns = objectData.columns && objectData.columns.length > 0;
+
+            const objectLi = document.createElement('li');
+            objectLi.className = 'table-item-container';
+            
+            let itemHTML = `<div class="table-item" data-name="${objectName}">`;
+            itemHTML += hasColumns ? `<i class="fas fa-chevron-right"></i>` : `<span style="width:14px; display:inline-block;"></span>`;
+            itemHTML += `<i class="fas ${categoryKey === 'Tables' || categoryKey === 'Views' ? 'fa-table' : 'fa-gear'}" style="color:var(--vscode-text-dark);"></i>`;
+            itemHTML += `<span>${objectName}</span></div>`;
+            objectLi.innerHTML = itemHTML;
+
+            if (hasColumns) {
+                const columnList = document.createElement('ul');
+                columnList.className = 'column-list';
+                objectData.columns.sort().forEach(columnName => {
+                    const colLi = document.createElement('li');
+                    colLi.innerHTML = `<div class="column-item" data-name="${columnName}"><i class="fas fa-columns" style="color:var(--vscode-success-green);"></i><span>${columnName}</span></div>`;
+                    columnList.appendChild(colLi);
+                });
+                objectLi.appendChild(columnList);
+            }
+            objectList.appendChild(objectLi);
+        });
+
+        // // --- INICIO DE LA CORRECCIÓN ---
+        // categoryHeader.addEventListener('click', (e) => {
+        //     e.stopPropagation();
+            
+        //     // 1. Buscar el icono UNA SOLA VEZ y guardarlo en una variable
+        //     const icon = categoryHeader.querySelector('.fa-chevron-down, .fa-chevron-right');
+            
+        //     // 2. Comprobar que el icono existe antes de manipularlo
+        //     if (icon) {
+        //         // 3. Alternar ambas clases en la variable guardada
+        //         icon.classList.toggle('fa-chevron-down');
+        //         icon.classList.toggle('fa-chevron-right');
+        //     }
+            
+        //     // 4. Mostrar u ocultar la lista de objetos
+        //     objectList.classList.toggle('show');
+        // });
+        // // --- FIN DE LA CORRECCIÓN ---
+
+         categoryHeader.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            // 1. Buscar el icono UNA SOLA VEZ y guardarlo en una variable
+            const icon = categoryHeader.querySelector('.fa-chevron-down, .fa-chevron-right');
+            
+            // 2. Comprobar que el icono existe antes de manipularlo
+            if (icon) {
+                // 3. Alternar ambas clases en la variable guardada
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-right');
+            }
+            
+            // 4. Mostrar u ocultar la lista de objetos
+            objectList.classList.toggle('show');
+        });
+
+        categoryLi.appendChild(categoryHeader);
+        categoryLi.appendChild(objectList);
+        tree.appendChild(categoryLi);
+    }
+    container.appendChild(tree);
+}
+        
+function setupSidebarInteractions() {
+    const sidebar = document.getElementById('schema-sidebar');
+    sidebar.addEventListener('click', e => {
+        const tableItem = e.target.closest('.table-item');
+        // Asegurarse de no interferir con el click del encabezado de categoría que tiene su propio listener
+        if (tableItem && !tableItem.closest('.category-container > .table-item')) {
+            tableItem.classList.toggle('expanded');
+            tableItem.nextElementSibling?.classList.toggle('show');
+        }
+    });
+    sidebar.addEventListener('dblclick', e => {
+        const item = e.target.closest('.table-item, .column-item');
+        if (item && monacoEditorInstance) {
+            monacoEditorInstance.trigger('keyboard', 'type', { text: item.dataset.name });
+            monacoEditorInstance.focus();
+        }
+    });
+}
+        
+        // --- NUEVA FUNCIÓN: BÚSQUEDA EN EL PANEL LATERAL ---
+ function setupSchemaSearch() {
+    const searchInput = document.getElementById('schema-search-input');
+    searchInput.addEventListener('input', function() {
+        const filter = this.value.toLowerCase();
+        
+        // Iterar sobre cada contenedor de objeto (tablas, vistas, etc.)
+        const objectContainers = document.querySelectorAll('.table-item-container');
+        
+        objectContainers.forEach(container => {
+            const itemDiv = container.querySelector('.table-item');
+            const itemName = itemDiv.dataset.name.toLowerCase();
+            const columnItems = container.querySelectorAll('.column-item');
+            
+            let isItemVisible = itemName.includes(filter);
+            let hasVisibleColumns = false;
+
+            // Filtrar columnas
+            columnItems.forEach(col => {
+                const colName = col.dataset.name.toLowerCase();
+                if (colName.includes(filter)) {
+                    col.style.display = 'flex';
+                    hasVisibleColumns = true;
+                } else {
+                    col.style.display = 'none';
+                }
+            });
+
+            // Mostrar el contenedor del objeto si el objeto mismo o alguna de sus columnas coincide
+            if (isItemVisible || hasVisibleColumns) {
+                container.style.display = 'block';
+                // Si la búsqueda no está vacía y se encontraron columnas, expandir el padre
+                if (filter && hasVisibleColumns) {
+                    itemDiv.classList.add('expanded');
+                    itemDiv.nextElementSibling?.classList.add('show');
+                }
+            } else {
+                container.style.display = 'none';
+            }
+        });
+
+        // Filtrar las categorías principales
+        const categoryContainers = document.querySelectorAll('.category-container');
+        categoryContainers.forEach(catContainer => {
+            // Verificar si algún hijo de esta categoría está visible
+            const visibleItems = catContainer.querySelectorAll('.table-item-container[style*="display: block"]');
+            if (visibleItems.length > 0) {
+                catContainer.style.display = 'block';
+            } else {
+                catContainer.style.display = 'none';
+            }
+        });
+    });
+}
+
+        function showStatusMessage(message, type = 'info', duration = 6000) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.innerHTML = `<b>${message}</b>`;
+            statusDiv.className = `status-message ${type} show`;
+            setTimeout(() => statusDiv.classList.remove('show'), duration);
+        }
+        
+        async function executeQuery() {
+            const selection = monacoEditorInstance.getSelection();
+            const query = monacoEditorInstance.getModel().getValueInRange(selection).trim() || monacoEditorInstance.getValue();
+            if (!query.trim()) return;
+            if (dataTableInstance) dataTableInstance.destroy();
+            $('#resultsTable').empty();
+            document.getElementById('resultsTableContainer').style.display = 'none';
+            document.getElementById('executeButton').disabled = true;
+            try {
+                const response = await fetch('execute_query.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ query: query }) });
+                const result = await response.json();
+                if (result.success) {
+                    if (result.columns && result.rows) {
+                        document.getElementById('resultsTableContainer').style.display = 'block';
+                        dataTableInstance = $('#resultsTable').DataTable({
+                            data: result.rows,
+                            columns: result.columns.map(col => ({ title: col })),
+                            scrollX: true, dom: 'Bfrtip', buttons: ['copy', 'csv', 'excel'],
+                            language: {"search": "Buscar:", "lengthMenu": "Mostrar _MENU_", "info": "Mostrando _START_ a _END_ de _TOTAL_", "infoEmpty": "No hay resultados", "paginate": {"next": "Siguiente", "previous": "Anterior"}}
+                        });
+                        showStatusMessage(`Éxito: ${result.rows.length} filas encontradas.`, 'success');
+                    } else {
+                        showStatusMessage(`Éxito: ${result.message || ''} ${result.rowsAffected !== undefined ? `${result.rowsAffected} filas afectadas.` : ''}`, 'success');
+                    }
+                } else { showStatusMessage(`Error: ${result.message}`, 'error'); }
+            } catch (error) { showStatusMessage(`Error de Conexión: ${error.message}`, 'error'); }
+            finally { document.getElementById('executeButton').disabled = false; }
+        }
+
+        $(async function() {
+            $("#querySectionResizable").resizable({ handles: 's', resize: () => monacoEditorInstance?.layout() });
+            require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.49.0/min/vs' } });
+            require(['vs/editor/editor.main'], async () => {
+                monacoEditorInstance = monaco.editor.create(document.getElementById('editorContainer'), {
+                    value: "-- ¡Autocompletado y buscador listos!\n-- Escribe 'SELECT' o el alias de una tabla seguido de un punto.\n-- Utiliza el buscador de la izquierda para filtrar objetos.",
+                    language: 'sql', theme: 'vs-dark', automaticLayout: true, minimap: { enabled: false }, wordWrap: 'on'
+                });
+                await loadAndCacheSchema();
+                setupSidebarInteractions();
+                setupSchemaSearch(); // <-- Activar la nueva función de búsqueda
+            });
+        });
+    </script>
+</body>
+</html>

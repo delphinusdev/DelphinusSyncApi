@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Server Query Tool (PHP)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        textarea {
+            width: 80%;
+            height: 180px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .status-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: none; /* Oculto por defecto */
+        }
+        .status-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        .status-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #e9ecef;
+            color: #495057;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h1>SQL Server Query Tool</h1>
+
+    <textarea id="sqlQuery" placeholder="Escribe tu consulta SQL aquí...&#10;Ejemplo: SELECT TOP 10 * FROM YourTable;"></textarea><br>
+    <button onclick="executeQuery()">Ejecutar Consulta</button>
+
+    <div id="statusMessage" class="status-message"></div>
+
+    <table id="resultsTable">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        async function executeQuery() {
+            const query = document.getElementById('sqlQuery').value;
+            const statusMessageDiv = document.getElementById('statusMessage');
+            const tableHead = document.querySelector('#resultsTable thead');
+            const tableBody = document.querySelector('#resultsTable tbody');
+
+            // Limpiar mensajes y tablas anteriores
+            statusMessageDiv.textContent = '';
+            statusMessageDiv.className = 'status-message'; // Resetear clases
+            tableHead.innerHTML = '';
+            tableBody.innerHTML = '';
+
+            if (!query.trim()) { // .trim() para quitar espacios en blanco al inicio/final
+                statusMessageDiv.textContent = 'Por favor, escribe una consulta SQL antes de ejecutar.';
+                statusMessageDiv.classList.add('error');
+                return;
+            }
+
+            try {
+                // Realizar la solicitud al script PHP
+                const response = await fetch('http://192.168.9.2:8180/execute_query.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query: query })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    if (result.success) {
+                        if (result.columns && result.rows) {
+                            // Crear encabezados de tabla
+                            let headerRow = '<tr>';
+                            result.columns.forEach(col => {
+                                headerRow += `<th>${col}</th>`;
+                            });
+                            headerRow += '</tr>';
+                            tableHead.innerHTML = headerRow;
+
+                            // Crear filas de tabla
+                            result.rows.forEach(row => {
+                                let bodyRow = '<tr>';
+                                // Asegúrate de que cada celda se maneje correctamente, incluso si es null
+                                row.forEach(cell => {
+                                    bodyRow += `<td>${cell !== null ? cell : 'NULL'}</td>`;
+                                });
+                                bodyRow += '</tr>';
+                                tableBody.innerHTML += bodyRow;
+                            });
+                            statusMessageDiv.textContent = `Consulta ejecutada con éxito. Filas afectadas: ${result.rows.length}`;
+                            statusMessageDiv.classList.add('success');
+                        } else {
+                            // Para consultas que no devuelven resultados como INSERT, UPDATE, DELETE
+                            statusMessageDiv.textContent = `Consulta ejecutada con éxito. Filas afectadas/actualizadas: ${result.rowsAffected || 0}`;
+                            statusMessageDiv.classList.add('success');
+                        }
+                    } else {
+                        // Error reportado por el PHP (ej. error en la consulta SQL)
+                        statusMessageDiv.textContent = `Error: ${result.message}`;
+                        statusMessageDiv.classList.add('error');
+                    }
+                } else {
+                    // Error de red o del servidor HTTP (ej. 500 Internal Server Error)
+                    statusMessageDiv.textContent = `Error del servidor: ${result.message || 'No se pudo conectar con el script PHP.'}`;
+                    statusMessageDiv.classList.add('error');
+                }
+            } catch (error) {
+                // Errores de JavaScript (ej. problema de red)
+                statusMessageDiv.textContent = `Error de conexión o script: ${error.message}`;
+                statusMessageDiv.classList.add('error');
+            }
+        }
+    </script>
+</body>
+</html>

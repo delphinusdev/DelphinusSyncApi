@@ -1,0 +1,457 @@
+/* Contenedor principal del modal */
+.modal-reserva-overlay {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#miModalReserva .modal-reserva-contenido {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 95%;
+    max-width: 650px;
+    border-radius: 8px;
+    position: relative;
+    max-height: 95vh;
+    overflow-y: auto;
+    font-family: sans-serif;
+    font-size: 0.95em;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Botón de cerrar */
+#miModalReserva .modal-reserva-cerrar {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: 700;
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    line-height: 1;
+}
+
+#miModalReserva .modal-reserva-cerrar:focus,
+#miModalReserva .modal-reserva-cerrar:hover {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Títulos del modal */
+#modalReservaTitulo {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.3em;
+}
+
+/* Información de Reserva consolidada (Nueva clase) */
+.info-reserva-compacta {
+    font-size: 0.85em;
+    color: #555;
+    background: #f8f8f8;
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-top: -5px;
+    margin-bottom: 15px;
+    display: flex;
+    /* Usamos flexbox para alinear */
+    flex-wrap: wrap;
+    /* Permite que los elementos se envuelvan si no hay espacio */
+    justify-content: space-between;
+    /* Distribuye el espacio entre los elementos */
+    gap: 8px 15px;
+    /* Espacio entre los elementos */
+    border: 1px solid #eee;
+}
+
+.info-reserva-compacta span {
+    white-space: nowrap;
+    /* Evita que los textos individuales se rompan */
+    position: relative;
+}
+
+/* Añade un separador visual entre los spans, excepto el último */
+.info-reserva-compacta span:not(:last-child)::after {
+    content: '|';
+    margin-left: 15px;
+    color: #ccc;
+    font-weight: 400;
+}
+
+
+/* Títulos de sección */
+#miModalReserva h5 {
+    font-size: 1.05em;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+}
+
+/* Estilos para las secciones (Nueva clase) */
+.seccion-modal {
+    margin-bottom: 15px;
+    /* Espacio entre secciones */
+    padding-bottom: 5px;
+    /* Pequeño padding para consistencia */
+}
+
+/* Quitar el margin-bottom de la última seccion-modal si hay un mensaje inferior */
+.seccion-modal:last-of-type:has(+ .mensaje-inferior) {
+    margin-bottom: 5px;
+}
+
+
+/* Formularios */
+#miModalReserva #formPago,
+#miModalReserva #formReserva {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Grillas de formulario compactas (Nueva clase) */
+.form-grid-compact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+/* Grupos de formulario */
+#miModalReserva .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+#miModalReserva label {
+    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 0.88em;
+    color: #444;
+}
+
+#miModalReserva input[type=number],
+#miModalReserva input[type=text],
+#miModalReserva select {
+    width: 100%;
+    padding: 8px;
+    height: auto !important;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #fff;
+    font-size: 0.95em;
+}
+
+#miModalReserva input:focus,
+#miModalReserva select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Botones de submit */
+#miModalReserva button[type=submit] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 9px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-top: 5px;
+    font-size: 0.95em;
+    transition: background-color 0.2s ease;
+}
+
+#miModalReserva button[type=submit]:hover {
+    background-color: #0056b3;
+}
+
+#miModalReserva button[type=submit]:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Mensajes del modal (Nueva clase) */
+#modalReservaMensaje.mensaje-inferior {
+    font-size: 0.85em;
+    margin-top: 15px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: none;
+    text-align: center;
+}
+
+#modalReservaMensaje.mensaje-inferior.complete {
+    color: #ffffff;
+    background-color: #454545;
+    border: 1px solid #c3e6cb;
+    display: block;
+}
+
+#modalReservaMensaje.mensaje-inferior.success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    display: block;
+}
+
+#modalReservaMensaje.mensaje-inferior.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    display: block;
+}
+
+/* Para 'no aplica impuesto' (Nueva clase) */
+.mensaje-alerta {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+    font-size: 0.9em;
+    line-height: 1.4;
+    text-align: center;
+}
+
+/* Vista previa del impuesto (Nueva clase) */
+.preview-box {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+/* Caja de resumen (Nueva clase) */
+.summary-box-compact {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 12px 15px;
+    margin-top: 15px;
+}
+
+.summary-box-compact h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+/* Nueva cuadrícula para el detalle del impuesto y saldos */
+.detalle-impuesto-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    /* Una columna para la etiqueta, otra para el valor */
+    gap: 6px 15px;
+    /* Espacio entre filas y columnas */
+    font-size: 0.9em;
+    align-items: center;
+}
+
+.detalle-impuesto-grid strong {
+    font-weight: 600;
+}
+
+.detalle-impuesto-grid .text-right {
+    text-align: right;
+}
+
+.detalle-impuesto-grid .grid-divider {
+    grid-column: 1 / -1;
+    /* Ocupa todas las columnas */
+    border: 0;
+    border-top: 1px dashed #eee;
+    margin: 8px 0;
+}
+
+.detalle-impuesto-grid .saldo-label {
+    font-weight: bold;
+    /* Etiquetas de saldo más prominentes */
+}
+
+.detalle-impuesto-grid .saldo-mxn {
+    font-size: 0.9em;
+    /* Tamaño de texto más pequeño para MXN */
+    color: #666;
+    margin-left: 5px;
+}
+
+.detalle-impuesto-grid .por-pagar-label {
+    color: #c0392b;
+    /* Color para "Por Pagar" */
+}
+
+.detalle-impuesto-grid .por-pagar-valor {
+    color: #c0392b;
+    font-weight: 700;
+}
+
+
+/* Tabla de pagos */
+.tabla-scroll-container {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#miModalReserva .tabla-pagos-reserva {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85em;
+    min-width: 400px;
+}
+
+#miModalReserva .tabla-pagos-reserva th,
+#miModalReserva .tabla-pagos-reserva td {
+    border: 1px solid #eee;
+    padding: 7px 10px;
+    text-align: left;
+}
+
+#miModalReserva .tabla-pagos-reserva th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+#miModalReserva .tabla-pagos-reserva tbody tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+/* Ajustes para el campo de monto a pagar (Nueva clase) */
+.monto-group {
+    /* Usa la nueva clase en lugar de un selector complejo */
+    width: 50%;
+    min-width: 180px;
+    max-width: 250px;
+}
+
+/* ========================================= */
+/* Estilos y Animaciones de Carga (Loading)  */
+/* ========================================= */
+
+/* Animación de pulso para el texto */
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Animación de giro para el spinner */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Estilos para el contenedor de vista previa (Calculando...) */
+.preview-box {
+    position: relative;
+    /* Necesario para posicionar el spinner */
+    padding-left: 35px;
+    /* Espacio para el spinner */
+    min-height: 30px;
+    /* Asegura espacio si el texto es corto */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* Alinea contenido y spinner a la izquierda */
+    font-weight: 600;
+    /* Texto un poco más grueso */
+    color: #4a4a4a;
+    /* Color de texto más oscuro */
+    animation: pulse 1.5s infinite ease-in-out;
+    /* Aplica la animación de pulso al texto */
+}
+
+/* Spinner dentro del preview-box */
+.preview-box::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    /* Posición del spinner */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 123, 255, 0.3);
+    /* Color claro del borde */
+    border-top: 3px solid #007bff;
+    /* Color principal del spinner */
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    /* Animación de giro */
+}
+
+/* Estilo para un estado de carga genérico en el mensaje inferior */
+/* Puedes añadir la clase 'loading' a #modalReservaMensaje con JS cuando cargue */
+.mensaje-inferior.loading {
+    color: #0056b3;
+    /* Color de texto para el estado de carga */
+    background-color: #e6f2ff;
+    /* Fondo sutil */
+    border: 1px solid #b3d9ff;
+    display: flex;
+    /* Para centrar contenido y spinner */
+    align-items: center;
+    justify-content: center;
+    padding-left: 40px;
+    /* Espacio para el spinner */
+    min-height: 40px;
+    animation: pulse 1.5s infinite ease-in-out;
+    /* Pulso para el mensaje */
+}
+
+/* Spinner dentro del mensaje-inferior.loading */
+.mensaje-inferior.loading::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    /* Posición del spinner */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border: 4px solid rgba(0, 123, 255, 0.3);
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}

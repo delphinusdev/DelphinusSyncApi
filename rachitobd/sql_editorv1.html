@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <script>
+        // Verificar si la sesión está activa al cargar la página
+        async function checkLogin() {
+            try {
+                const response = await fetch('./backend/check_session.php');
+                const result = await response.json();
+                if (!result.loggedIn) window.location.href = 'index.html';
+            } catch (error) {
+                console.error("Error al verificar la sesión:", error);
+                window.location.href = 'index.html';
+            }
+        }
+        checkLogin();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Server Web IDE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link href="https://unpkg.com/tabulator-tables@6.2.1/dist/css/tabulator_midnight.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+
+</head>
+
+<body>
+    <div class="ide-container">
+        <div class="ide-body">
+            <div id="schema-sidebar" class="schema-sidebar">
+                <div class="sidebar-header">
+                    <h3>Explorador de Objetos</h3>
+                    <select id="databaseSelector"></select> <span id="currentDatabaseDisplay"></span> <input type="text"
+                        id="schema-search-input" placeholder="Buscar tabla o columna...">
+                </div>
+                <div id="schema-tree-container"></div>
+            </div>
+
+            <div class="main-content-wrapper">
+                <div class="main-content-pane">
+                    <div class="query-section" id="querySectionResizable">
+                        <div id="editorContainer"></div>
+                        <div class="button-bar">
+                            <button id="executeButton" class="action-button" ><i
+                                    class="fas fa-play"></i> <span id="buttonText">Ejecutar</span></button>
+                             <button id="openFileButton" class="action-button refresh-button" title="Abrir archivo SQL"><i class="fas fa-folder-open"></i></button>
+                            <button id="refreshSchemaButton" class="action-button refresh-button"
+                                 title="Refrescar Esquema"><i
+                                    class="fas fa-sync-alt"></i></button>
+                            <button id="logoutButton" class="action-button refresh-button" 
+                                title="Cerrar Sesión"><i class="fas fa-sign-out-alt"></i></button>
+                            <span id="schemaStatus" class="schema-status" style="margin-left:auto;"></span>
+                        </div>
+                    </div>
+                    <div class="results-section" id="resultsSection">
+                        <div id="statusMessage" class="status-message"></div>
+                        <div id="exportButtonsContainer" style="margin-bottom: 10px; text-align: right; display: none;">
+                            <button id="exportCsvBtn" class="action-button"><i class="fas fa-file-csv"></i> Exportar CSV</button>
+                            <button id="exportExcelBtn" class="action-button"><i class="fas fa-file-excel"></i> Exportar Excel</button>
+                        </div>
+                        <div class="table-responsive" id="resultsTableContainer" style="display: none;">
+                            <div id="resultsTable"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.2.1/dist/js/tabulator.min.js"></script>
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+
+    <script>
+        require = { paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.49.0/min/vs' } };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.49.0/min/vs/loader.js"></script>
+    
+    <script type="module" src="./js/main.js"></script>
+
+
+
+</body>
+
+</html>

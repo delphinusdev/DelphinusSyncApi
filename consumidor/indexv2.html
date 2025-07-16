@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="miModalReserva" class="modal-reserva-overlay" style="display:none;">
+    <div class="modal-reserva-contenido">
+        <span class="modal-reserva-cerrar">&times;</span>
+        <h4 id="modalReservaTitulo">Gestión de Impuesto ISEPAAA</h4>
+        
+        <div class="info-reserva-compacta">
+           <p class="reserva-info"><strong>Habitat:</strong> <span id="HabitatName"></span> | <strong>Confirma:</strong> <span id="confirmaId"></span> | <strong>Pasajero:</strong> <span id="pasajeroNombre"></span></p>
+        </div>
+
+        <div id="noAplicaImpuestoPreview" class="mensaje-alerta" style="display:none;">No aplica impuesto</div>
+        
+        <div id="seccionCrearImpuesto" class="seccion-modal" style="display:none;">
+            <h5>Calcular Impuesto</h5>
+            <form id="formReserva">
+                <input type="hidden" id="sessionUser" name="sessionUser" required>
+                <input type="hidden" id="altaIdLocacion" name="altaIdLocacion" required>
+                <input type="hidden" id="idLocacion" name="idLocacion" required>
+                <input type="hidden" id="sessionPass" name="sessionPass" required>
+                <div class="form-grid-compact">
+                    <div class="form-group"><label for="adultos">Adultos:</label><input type="number" min="0" id="adultos" name="adultos" required></div>
+                    <div class="form-group"><label for="menores">Menores:</label><input type="number" min="0" id="menores" name="menores" required></div>
+                </div>
+                <div id="impuestoPreview" class="preview-box">Calculando...</div>
+                <button type="submit" id="btnSubmitReserva">Guardar y Calcular Impuesto</button>
+            </form>
+        </div>
+
+        <div id="seccionGestionPago" class="seccion-modal" style="display:none;">
+            <div class="summary-box-compact">
+                <h4>Detalles del Impuesto & Saldos</h4>
+                <div class="detalle-impuesto-grid">
+                    <span>Confirma Impuesto:</span><strong class="text-right" id="impGenConfirmaImpuesto"></strong>
+                    <span>Personas:</span><span class="text-right"><span id="impGenAdultos"></span> Adultos, <span id="impGenMenores"></span> Menores</span>
+                    <span>Tarifa/Paridad:</span><span class="text-right">$<span id="impGenTarifaUSD"></span> USD @ $<span id="impGenParidad"></span> MXN</span>
+                    
+                    <hr class="grid-divider"> 
+
+                    <span class="saldo-label">Total:</span><strong class="text-right">$<span id="saldoTotalUSD">0.00</span> USD <span class="saldo-mxn">($<span id="saldoTotalMXN">0.00</span> MXN)</span></strong>
+                    <span class="saldo-label">Pagado:</span><strong class="text-right">$<span id="saldoPagadoUSD">0.00</span> USD <span class="saldo-mxn">($<span id="saldoPagadoMXN">0.00</span> MXN)</span></strong>
+                    <span class="saldo-label por-pagar-label">Por Pagar:</span><strong class="text-right por-pagar-valor">$<span id="saldoPorPagarUSD">0.00</span> USD <span class="saldo-mxn">($<span id="saldoPorPagarMXN">0.00</span> MXN)</span></strong>
+                </div>
+            </div>
+
+            <div id="seccionPago" class="seccion-modal">
+                <h5>Agregar Pago</h5>
+                <form id="formPago">
+                    <div class="form-grid-compact">
+                        <div class="form-group"><label for="tipoPago">Forma de Pago:</label><select id="tipoPago" name="id_tipo_pago" required></select></div>
+                        <div class="form-group"><label for="monedaPago">Moneda:</label><select id="monedaPago" name="id_moneda" required></select></div>
+                    </div>
+                    <div id="camposTarjetaCredito" style="display:none;" class="form-grid-compact">
+                         <div class="form-group"><label for="tipoTarjeta">Tarjeta:</label><select id="tipoTarjeta" name="id_tipo_tarjeta"></select></div>
+                        <div class="form-group"><label for="referencia_pago">Referencia (Opcional):</label><input type="text" id="referencia_pago" name="referencia_pago"></div>
+                    </div>
+                    <div class="form-group monto-group"><label for="monto">Monto a Pagar:</label><input type="text" inputmode="numeric" id="monto" name="monto" required></div>
+                    <button type="submit" id="btnSubmitPago">Confirmar Pago</button>
+                </form>
+            </div>
+            
+            <div id="seccionPagosRealizados" class="seccion-modal" style="display:none;">
+                <h5>Pagos Realizados</h5>
+                <div class="tabla-scroll-container">
+                    <table id="tablaPagos" class="tabla-pagos-reserva">
+                        <thead><tr><th>ID</th><th>Forma Pago</th><th>Moneda</th><th>Monto</th><th>Referencia</th><th>Fecha</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="modalReservaMensaje" class="mensaje-inferior"></div>
+    </div>
+</div>
+<button type="button" class="btn-modal-reserva-trigger btn btn-default '.$hide.'" 
+        data-action="view"
+        data-alta-id-locacion="1"
+        data-session-user="sistemas"
+        data-session-pass="t1c9gvd$$"
+        data-api-endpoint="/Reservas/37663196"
+        data-otrareserva="37504255,37382210,37504335"
+        data-populate-form="true"
+        data-modal-title="ASIGNAR IMPUESTO ISEPAAA AL FOLIO: 37498683">
+        <i class="icon-ok"></i>AGREGAR ISEPAAA
+    </button>
+<script src="./apiservice.js"></script>
+<script  src="./modal.js"></script>
+</body>
+</html>
