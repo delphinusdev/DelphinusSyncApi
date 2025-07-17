@@ -59,6 +59,7 @@ return function(App $app): void {
         $group->get('/config_sync/{location_code}',[FotosAppStagingController::class, 'configSync']);
         $group->get('/config_sync_net/{location_code}',[FotosAppStagingController::class, 'configSyncNet']);
         $group->get('/clouds/{location}/{fechad}/{fechah}',[FotosAppStagingController::class, 'clouds']);
+        $group->get('/clouds_st_procedure/{location}/{fechad}/{fechah}',[FotosAppStagingController::class, 'cloudsStoreProcedure']);
         $group->get('/thumbs/{location}/{fechad}/{fechah}',[FotosAppStagingController::class, 'thumbs']);
         $group->get('/pictures/{location}/{fechad}/{fechah}',[FotosAppStagingController::class, 'mypictures']);
         $group->get('/shares/{location}/{fechad}/{fechah}',[FotosAppStagingController::class, 'share']);

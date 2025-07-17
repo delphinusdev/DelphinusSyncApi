@@ -42,6 +42,18 @@ class FotosAppStagingService
         return ConfigSyncLocaciones::getConfigNet($location_code);
     }
 
+    public function cloudsStoreProcedure(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
+    {
+
+        $params =   array(':param0' => $location, ':param1' => $tipo);
+        $pedidosResult = $this->repo->select("EXEC sp_GetCloudPhotos :para0,:param1", $params);
+        if (empty($pedidosResult)) {
+            return [];
+        }
+        return $pedidosResult;
+    
+    }
+
     public function clouds(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
     {
         // 1. Obtener los datos crudos y los IDs para actualizar.

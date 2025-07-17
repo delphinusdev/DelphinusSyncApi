@@ -94,6 +94,9 @@ class PhotosService
         ->where(gruposClouds::IdLocation(null, 'c'), '=', $location[0])
         ->build(); 
 
+        print_r($query);
+        exit;
+
         return $this->photosContext->select($query['sql'], $query['params']);
     }
 
