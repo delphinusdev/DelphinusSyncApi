@@ -45,8 +45,8 @@ class FotosAppStagingService
     public function cloudsStoreProcedure(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
     {
 
-        $params =   array(':param0' => $location[1], ':param1' => $tipo);
-        $pedidosResult = $this->repo->select("EXEC sp_GetCloudPhotos :para0,:param1", $params);
+        $params =   array(':param0' => $location[0], ':param1' => $tipo);
+        $pedidosResult = $this->repo->select("EXEC sp_GetCloudPhotos :param0,:param1", $params);
         if (empty($pedidosResult)) {
             return [];
         }
