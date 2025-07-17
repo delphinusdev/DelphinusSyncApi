@@ -213,7 +213,7 @@ class FotosAppStagingService
 
             $updateSql = sprintf(
                 "UPDATE %s SET isRead = 1 WHERE %s IN (%s)",
-                pedidos::tableName(),
+                pedidos::tableName('p'),
                 pedidos::IDPEDIDO(),
                 $placeholders
             );
