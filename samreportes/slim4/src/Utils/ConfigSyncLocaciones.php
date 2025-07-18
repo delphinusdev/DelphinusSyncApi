@@ -56,7 +56,7 @@ Class ConfigSyncLocaciones
         $urls = [
             'thumbs' => $host . '/fotosStaging/thumbs',
             'cloud' => $host . '/fotosStaging/clouds_st_procedure',
-            'app' => $host . '/fotosStaging/pictures',
+            'app' => $host . '/fotosStaging/pictures_st_procedure',
             'photoshare' => $host . '/fotosStaging/shares',
             'videoclips' => $host . '/videos/clips',
             'tmd_videos' => $host . '/videos/tmdvideos',
