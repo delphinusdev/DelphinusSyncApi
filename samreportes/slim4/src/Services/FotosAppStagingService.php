@@ -260,7 +260,7 @@ class FotosAppStagingService
         return $this->repo->select($query['sql'], $query['params']);
     }
 
-    public function mypicturesStoreProcedure(string $fechad, string $fechah, $location): array
+    public function mypicturesStoreProcedure(string $fechad, string $fechah, array $location): array
     {
         $params =   array(':param0' => $location[0], ':param1' => 'app');
         $pedidosResult = $this->repo->select("EXEC sp_GetMypicturesApp :param0,:param1", $params);

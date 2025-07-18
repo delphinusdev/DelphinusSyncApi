@@ -133,11 +133,13 @@ class FotosAppStagingController
         // $req = $fechad;
 
         try {
-            // if ($req === null || empty($req)) { // Mejorar la verificación de parámetros
-            //     throw new \InvalidArgumentException('Faltan parámetros en la solicitud.');
-            // }
+            if (empty($fechad) || empty($fechah) || empty($location)) {
+                throw new \InvalidArgumentException('Parámetros requeridos: fechad, fechah, location');
+            }
 
-            $data = $this->fotosAppStaging->mypicturesStoreProcedure($fechad,$fechah,$location);
+            $locacion = Configuration::getLocation($location);
+
+            $data = $this->fotosAppStaging->mypicturesStoreProcedure($fechad,$fechah,$locacion);
 
             // Respuesta exitosa
             $response->getBody()->write(json_encode(ApiResponse::success($data)));
