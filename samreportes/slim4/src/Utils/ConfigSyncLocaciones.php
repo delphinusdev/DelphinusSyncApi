@@ -549,7 +549,7 @@ Class ConfigSyncLocaciones
                         'compras_en_linea' => 
                                 [
                                     'status' => 1,
-                                    'url' => "{$urls['compras_en_linea']}/{$locationsCode['HZ']}/{$fecha_desde}/{$fecha_hasta}",
+                                    'url' => "{$urls['compras_en_linea']}/{$locationsCode['PY']}/{$fecha_desde}/{$fecha_hasta}",
                                     'local' => ['path' => '\\\192.168.91.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'], 
                                     'remote' => ['path' => '/Del-PY/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
                                 ]
