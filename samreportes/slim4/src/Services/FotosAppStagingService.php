@@ -260,6 +260,16 @@ class FotosAppStagingService
         return $this->repo->select($query['sql'], $query['params']);
     }
 
+    public function mypicturesStoreProcedure($fechad, $fechah, $location): array
+    {
+        $params =   array(':param0' => $location[0], ':param1' => 'app');
+        $pedidosResult = $this->repo->select("EXEC sp_GetMypicturesApp :param0,:param1", $params);
+        if (empty($pedidosResult)) {
+            return [];
+        }
+        return $pedidosResult;
+    }
+
     public function mypictures($fechad, $fechah, $location): array
     {
 
@@ -278,6 +288,9 @@ class FotosAppStagingService
             ->where(sprintf('CAST(%s AS DATE)', catalogoFotos::Fecha(null, 'p')), '<=', $fechah)
             ->where(sprintf('CAST(%s AS VARCHAR(20))', catalogoFotos::LocationCode(null, 'p')), '=', $location)
             ->build();
+
+            print_r($query);
+            exit;
 
         $query_result = $this->repo->select($query['sql'], $query['params']);
 
