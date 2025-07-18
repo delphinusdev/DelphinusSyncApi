@@ -97,7 +97,7 @@ class FotosAppStagingController
                 throw new \RuntimeException('Locación no encontrada');
             }
 
-            $result = $this->fotosAppStaging->comprasEnLineaStoreProcedure($fechad, $fechah, $locacion, 'cloud');
+            $result = $this->fotosAppStaging->comprasEnLineaStoreProcedure($fechad, $fechah, $locacion, 'compras_en_linea');
             $response->getBody()->write(json_encode(ApiResponse::success($result, 'Órdenes obtenidas')));
             return $response->withHeader('Content-Type', 'application/json');
         } catch (\Throwable $ex) {
