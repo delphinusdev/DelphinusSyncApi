@@ -54,6 +54,18 @@ class FotosAppStagingService
     
     }
 
+    public function comprasEnLineaStoreProcedure(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
+    {
+
+        $params =   array(':param0' => $location[0], ':param1' => $tipo);
+        $pedidosResult = $this->repo->select("EXEC sp_GetComprasEnLineaPhotos :param0,:param1", $params);
+        if (empty($pedidosResult)) {
+            return [];
+        }
+        return $pedidosResult;
+    
+    }
+
     public function clouds(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
     {
         // 1. Obtener los datos crudos y los IDs para actualizar.

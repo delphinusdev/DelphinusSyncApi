@@ -60,7 +60,7 @@ Class ConfigSyncLocaciones
             'photoshare' => $host . '/fotosStaging/shares',
             'videoclips' => $host . '/videos/clips',
             'tmd_videos' => $host . '/videos/tmdvideos',
-            'compras_en_linea' => $host . '/fotos/compras_en_linea'
+            'compras_en_linea' => $host . '/fotos/compras_st_procedure'
         ];
 
         $ftpConfig = Configuration::getFtpConfig();
