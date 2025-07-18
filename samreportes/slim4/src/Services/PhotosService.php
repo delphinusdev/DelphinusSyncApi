@@ -117,7 +117,7 @@ class PhotosService
             ->where(pedidos::ESTADO(null, 'p'), '=', 1)
             ->where(sprintf('ISNULL(%s,0)', pedidos::IDVENTA(null, 'p')), "{$simbolo}" , 0)
             ->where(pedidos::IDLOCACION(null, 'p'), '=', $location[0])
-            ->where(pedidos::FOTOS(null, 'p'), '!=', '')
+            ->where(pedidos::FOTOS(null, 'p'), '!=', "''")
             ->orderBy(pedidos::IDPEDIDO())
             ->build();
 
