@@ -11,6 +11,7 @@ use App\Models\FotosStagingModel\StgGruposFotosLocacionesModel as gruposClouds;
 use App\Models\FotosStagingModel\StgSharedPhotoshareModel as tbshared;
 use App\Utils\FilterExtracUrl;
 use App\Utils\ConfigSyncLocaciones;
+use App\Utils\TypeConverter;
 
 class FotosAppStagingService
 {
@@ -51,7 +52,10 @@ class FotosAppStagingService
         if (empty($pedidosResult) || $pedidosResult === null) {
             return [];
         }
-        return $pedidosResult;
+        
+        
+        return TypeConverter::castNumericFields($pedidosResult, ['IdVenta', 'IdPedido']);
+     
     }
 
     public function comprasEnLineaStoreProcedure(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
@@ -64,7 +68,7 @@ class FotosAppStagingService
         if (empty($pedidosResult)) {
             return [];
         }
-        return $pedidosResult;
+        return TypeConverter::castNumericFields($pedidosResult, ['IdVenta', 'IdPedido']);
     }
 
     public function clouds(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
@@ -265,7 +269,8 @@ class FotosAppStagingService
             ->where(gruposClouds::IdLocation(null, 'c'), '=', $location[0])
             ->build();
 
-        return $this->repo->select($query['sql'], $query['params']);
+        $data  = $this->repo->select($query['sql'], $query['params']);
+        return TypeConverter::castNumericFields($data, ['IdVenta', 'IdPedido']);
     }
 
     public function mypicturesStoreProcedure(string $fechad, string $fechah, array $location): array
@@ -275,7 +280,7 @@ class FotosAppStagingService
         if (empty($pedidosResult)) {
             return [];
         }
-        return $pedidosResult;
+        return TypeConverter::castNumericFields($pedidosResult, ['IdVenta', 'IdPedido']);
     }
 
     public function mypictures($fechad, $fechah, $location): array
@@ -333,7 +338,7 @@ class FotosAppStagingService
                     $result[] = [
                         'IdVenta'       => null,                        // IdVenta es nulo para este tipo
                         'IdPedido'      => null,                        // IdPedido es nulo para este tipo
-                        'ConfirmaId'    => $val['id_grupo_fotos'],      // Aquí va el valor de confirma_id
+                        'ConfirmaId'    => isset($val['id_grupo_fotos']) ? (int)$val['id_grupo_fotos'] : null,
                         'tipo'          => 'photoshare',
                         'subfolder'     => $url['subfolder'],
                         'uniqid'        => $url['basename'],
