@@ -46,12 +46,12 @@ class FotosAppStagingService
     {
 
         $params =   array(':param0' => $location[0], ':param1' => $tipo);
-        $pedidosResult = $this->repo->select("EXEC sp_GetCloudPhotos :param0,:param1", $params);
-        if (empty($pedidosResult)) {
+        $pedidosResult = $this->repo->select("EXEC sp_GetCloudPhotos :param0,:param1, null, null", $params);
+
+        if (empty($pedidosResult) || $pedidosResult === null) {
             return [];
         }
         return $pedidosResult;
-    
     }
 
     public function comprasEnLineaStoreProcedure(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
@@ -59,11 +59,12 @@ class FotosAppStagingService
 
         $params =   array(':param0' => $location[0], ':param1' => $tipo);
         $pedidosResult = $this->repo->select("EXEC sp_GetComprasEnLineaPhotos :param0,:param1", $params);
+
+
         if (empty($pedidosResult)) {
             return [];
         }
         return $pedidosResult;
-    
     }
 
     public function clouds(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
@@ -250,7 +251,14 @@ class FotosAppStagingService
     {
         $query = gruposClouds::from('c')
             ->newQuery()
-            ->select(["'thumbs' AS tipo", gruposClouds::Folder('subfolder', 'c'), gruposClouds::Uniqid(null, 'c'), gruposClouds::LocationCode(null, 'c')])
+            ->select([
+                "NULL AS IdVenta",      // Añadir IdVenta como NULL
+                "NULL AS IdPedido",     // Añadir IdPedido como NULL
+                "'thumbs' AS tipo",
+                gruposClouds::Folder('subfolder', 'c'),
+                gruposClouds::Uniqid(null, 'c'),
+                gruposClouds::LocationCode(null, 'c')
+            ])
             ->from(sprintf('FOTOS.dbo.%s', gruposClouds::tableName('c')))
             ->where(sprintf('CAST(%s AS DATE)', gruposClouds::Fecha(null, 'c')), '>=', $fechad)
             ->where(sprintf('CAST(%s AS DATE)', gruposClouds::Fecha(null, 'c')), '<=', $fechah)
@@ -289,8 +297,8 @@ class FotosAppStagingService
             ->where(sprintf('CAST(%s AS VARCHAR(20))', catalogoFotos::LocationCode(null, 'p')), '=', $location)
             ->build();
 
-            print_r($query);
-            exit;
+        print_r($query);
+        exit;
 
         $query_result = $this->repo->select($query['sql'], $query['params']);
 
@@ -302,33 +310,39 @@ class FotosAppStagingService
 
     public function share($fechad, $fechah, $location): array
     {
-
         $result = [];
         $query = tbshared::from('t')
             ->newQuery()
+            // La consulta ya obtiene el ConfirmaId (aliado como id_grupo_fotos), así que está bien.
             ->select([tbshared::ConfirmaId('id_grupo_fotos', 'p'), tbshared::ImageUrl(null, 'p'), tbshared::LocationId(null, 'p')])
             ->from(tbshared::tableName('p'))
             ->where(sprintf('CAST(%s AS DATE)', tbshared::CreatedAt(null, 'p')), '>=', $fechad)
             ->where(sprintf('CAST(%s AS DATE)', tbshared::CreatedAt(null, 'p')), '<=', $fechah)
             ->where(sprintf('CAST(%s AS VARCHAR(20))', tbshared::LocationId(null, 'p')), '=', $location)
             ->where(tbshared::StatusPago(null, 'p'), '=', 1)
-
             ->build();
 
-        if (!empty($this->repo->select($query['sql'], $query['params']))); {
-            $query_result = $this->repo->select($query['sql'], $query['params']);
-            // echo count($query_result);
-            // exit;
+        $query_result = $this->repo->select($query['sql'], $query['params']);
+
+        if (!empty($query_result)) {
             foreach ($query_result as $key => $val) {
                 $url = FilterExtracUrl::extractUrl($val['image_url']);
                 if ($url != null) {
-                    $result[] = array('tipo' => 'photoshare', 'subfolder' => $url['subfolder'], 'uniqid' => $url['basename'], 'location_code' => $val['location_id']);
+                    // --- INICIO DEL CAMBIO ---
+                    // Construir el array con la estructura completa y consistente.
+                    $result[] = [
+                        'IdVenta'       => null,                        // IdVenta es nulo para este tipo
+                        'IdPedido'      => null,                        // IdPedido es nulo para este tipo
+                        'ConfirmaId'    => $val['id_grupo_fotos'],      // Aquí va el valor de confirma_id
+                        'tipo'          => 'photoshare',
+                        'subfolder'     => $url['subfolder'],
+                        'uniqid'        => $url['basename'],
+                        'location_code' => $val['location_id']
+                    ];
+                    // --- FIN DEL CAMBIO ---
                 }
             }
         }
-
-
-
 
         return $result;
     }
