@@ -4,37 +4,18 @@ class ApiService {
         this.token = null;
     }
 
-    /**
-     * Establece el token de autenticación para futuras solicitudes.
-     * @param {string} token - El token JWT.
-     */
     setToken(token) {
         this.token = token;
     }
 
-    /**
-     * Realiza el proceso de autenticación.
-     * @param {string} authEndpoint - El endpoint para la autenticación.
-     * @param {object} credentials - Las credenciales del usuario.
-     * @returns {Promise<object>} - La respuesta de la API.
-     */
     async authenticate(authEndpoint, credentials) {
-        const response = await this.post(authEndpoint, credentials, false); // No requiere token para autenticarse
+        const response = await this.post(authEndpoint, credentials, false);
         if (response && response.token) {
             this.setToken(response.token);
         }
         return response;
     }
 
-    /**
-     * Realiza una solicitud a la API.
-     * @param {string} endpoint - El endpoint.
-     * @param {string} method - El método HTTP.
-     * @param {object|null} body - El cuerpo de la solicitud.
-     * @param {boolean} requiresAuth - Indica si la solicitud necesita autenticación.
-     * @returns {Promise<object>} - Los datos de la respuesta en formato JSON.
-     * @private
-     */
     async _request(endpoint, method, body = null, requiresAuth = true) {
         const url = `${this.baseURL}${endpoint}`;
         const headers = { 'Content-Type': 'application/json' };
@@ -53,12 +34,19 @@ class ApiService {
 
         try {
             const response = await fetch(url, config);
+
             if (!response.ok) {
-                const errorData = await response.json().catch(() => ({ message: 'Error sin detalles.' }));
-                throw new Error(`Error HTTP ${response.status}: ${errorData.errors || response.statusText}`);
+                const errorData = await response.json().catch(() => ({ message: `Error ${response.status}` }));
+                throw new Error(`Error HTTP ${response.status}: ${errorData.errors || errorData.message || response.statusText}`);
             }
+
+            if (response.status === 204) {
+                return null;
+            }
+
             const responseText = await response.text();
-            return responseText ? JSON.parse(responseText) : {};
+            
+            return responseText ? JSON.parse(responseText) : null;
 
         } catch (error) {
             throw error;
@@ -66,7 +54,9 @@ class ApiService {
     }
 
     get(endpoint, requiresAuth = true) { return this._request(endpoint, 'GET', null, requiresAuth); }
-    post(endpoint, body, requiresAuth = true) { return this._request(endpoint, 'POST', body, requiresAuth); }
+
+    // ÚNICO CAMBIO: Se agrega `body = null` para mayor claridad
+    post(endpoint, body = null, requiresAuth = true) { return this._request(endpoint, 'POST', body, requiresAuth); }
 }
 
 
@@ -74,7 +64,7 @@ class ApiService {
 
 (function () {
     // --- Configuración y Estado Global ---
-    const API_BASE_URL = 'http://192.168.9.2:8084/api/v2';
+    const API_BASE_URL = 'http://192.168.87.6:8084/api/v2';
     const AUTH_ENDPOINT = '/Usuarios/Authenticate';
     const IDISEPAAA_ = 10762040; // ID de servicio para el impuesto
 
@@ -450,44 +440,41 @@ function poblarSelect(selectElement, data, valueField, textField, defaultOptionT
         displayState('crear');
     }
 
-    function prepararGestionDeImpuesto(mensaje) {
-        const usdTipoCambio = fullCatalogData.tiposCambio.find(tc => tc.moneda === 'USD');
-        const paridadMXN = usdTipoCambio ? parseFloat(usdTipoCambio.monto) : 0;
+    function prepararGestionDeImpuesto() { // <-- NOTA: Ya no necesita el parámetro 'mensaje'
+    const usdTipoCambio = fullCatalogData.tiposCambio.find(tc => tc.moneda === 'USD');
+    const paridadMXN = usdTipoCambio ? parseFloat(usdTipoCambio.monto) : 0;
 
-        impuestoDefinidoData = {
-            adultos: parseInt(currentImpuestoData.adultos) || 0,
-            menores: parseInt(currentImpuestoData.menores) || 0,
-            tarifaUSD: parseFloat(currentPrecioIsepaaaData.precioAdulto) || 0,
-            paridadMXN: paridadMXN,
-            confirma_impuesto: currentImpuestoData.confirma || 'N/A',
-            idReserva: currentImpuestoData.idReservacion || 0,
-        };
-        impuestoDefinidoData.totalUSD = (impuestoDefinidoData.adultos + impuestoDefinidoData.menores) * impuestoDefinidoData.tarifaUSD;
-        impuestoDefinidoData.totalMXN = impuestoDefinidoData.totalUSD * impuestoDefinidoData.paridadMXN;
+    impuestoDefinidoData = {
+        adultos: parseInt(currentImpuestoData.adultos) || 0,
+        menores: parseInt(currentImpuestoData.menores) || 0,
+        tarifaUSD: parseFloat(currentPrecioIsepaaaData.precioAdulto) || 0,
+        paridadMXN: paridadMXN,
+        confirma_impuesto: currentImpuestoData.confirma || 'N/A',
+        idReserva: currentImpuestoData.idReservacion || 0,
+    };
+    impuestoDefinidoData.totalUSD = (impuestoDefinidoData.adultos + impuestoDefinidoData.menores) * impuestoDefinidoData.tarifaUSD;
+    impuestoDefinidoData.totalMXN = impuestoDefinidoData.totalUSD * impuestoDefinidoData.paridadMXN;
 
-        document.getElementById('impGenConfirmaImpuesto').textContent = impuestoDefinidoData.confirma_impuesto;
-        document.getElementById('impGenAdultos').textContent = impuestoDefinidoData.adultos;
-        document.getElementById('impGenMenores').textContent = impuestoDefinidoData.menores;
-        document.getElementById('impGenTarifaUSD').textContent = impuestoDefinidoData.tarifaUSD.toFixed(2);
-        document.getElementById('impGenParidad').textContent = impuestoDefinidoData.paridadMXN.toFixed(2);
-        document.getElementById('saldoTotalUSD').textContent = impuestoDefinidoData.totalUSD.toFixed(2);
-        document.getElementById('saldoTotalMXN').textContent = impuestoDefinidoData.totalMXN.toFixed(2);
+    document.getElementById('impGenConfirmaImpuesto').textContent = impuestoDefinidoData.confirma_impuesto;
+    document.getElementById('impGenAdultos').textContent = impuestoDefinidoData.adultos;
+    document.getElementById('impGenMenores').textContent = impuestoDefinidoData.menores;
+    document.getElementById('impGenTarifaUSD').textContent = impuestoDefinidoData.tarifaUSD.toFixed(2);
+    document.getElementById('impGenParidad').textContent = impuestoDefinidoData.paridadMXN.toFixed(2);
+    document.getElementById('saldoTotalUSD').textContent = impuestoDefinidoData.totalUSD.toFixed(2);
+    document.getElementById('saldoTotalMXN').textContent = impuestoDefinidoData.totalMXN.toFixed(2);
 
-        const tiposPagoFiltrados = fullCatalogData.tiposPago.filter(tp => idsTiposPagoPermitidos.includes(tp.id));
-        poblarSelect(document.getElementById('tipoPago'), tiposPagoFiltrados, 'id', 'value');
-        poblarSelect(document.getElementById('monedaPago'), fullCatalogData.monedas, 'id', 'name');
-        
-        cargarPagosRealizados();
-        if(impuestoPagado === 0)
-        {
-            displayState('gestionar', mensaje);
-        }
-        else
-        {
-            displayState('completado', mensaje);
-        }
-        
-    }
+    const tiposPagoFiltrados = fullCatalogData.tiposPago.filter(tp => idsTiposPagoPermitidos.includes(tp.id));
+    poblarSelect(document.getElementById('tipoPago'), tiposPagoFiltrados, 'id', 'value');
+    poblarSelect(document.getElementById('monedaPago'), fullCatalogData.monedas, 'id', 'name');
+    
+    // Mostramos la sección de gestión de pago
+    displayState('gestionar');
+
+    // Esta función ahora tendrá la última palabra sobre el estado de los saldos y mensajes
+    cargarPagosRealizados();
+    
+    // --- NOTA: El bloque if/else que llamaba a displayState() al final ha sido ELIMINADO ---
+}
 
     function actualizarImpuestoPreview() {
         const adultos = parseInt(document.getElementById('adultos').value) || 0;
@@ -569,13 +556,43 @@ function poblarSelect(selectElement, data, valueField, textField, defaultOptionT
         document.getElementById('saldoPorPagarMXN').textContent = (saldoPendienteMXN > 0 ? saldoPendienteMXN : 0).toFixed(2);
 
         actualizarMontoPago();
-        if (saldoPendienteUSD <= 0) {
+        if (saldoPendienteUSD <= 0.01) {
             impuestoPagado = 1;
             showMessage('El impuesto ya está completamente pagado.', 'complete', true);
             const seccionPago = document.getElementById('seccionPago');
             if(seccionPago) seccionPago.style.display = 'none';
         }
+         else {
+        impuestoPagado = 0; // <-- NOTA: Restablecemos el estado a no pagado
+        if(seccionPago) seccionPago.style.display = 'block'; // <-- ACCIÓN: Mostrar formulario
+        // Opcional: Si el mensaje 'complete' está visible, lo ocultamos para evitar confusión.
+        const mensajeActual = document.getElementById('modalReservaMensaje');
+        if (mensajeActual && mensajeActual.classList.contains('complete')) {
+            showMessage('', 'info', false);
+        }
     }
+    }
+    /**
+ * Calcula el saldo pendiente en USD basado en una lista de pagos y los datos de la reserva.
+ * @param {Array} listaDePagos - El array de pagos (ej. currentPagosData).
+ * @param {Object} datosReserva - El objeto con los totales (ej. impuestoDefinidoData).
+ * @returns {number} El saldo pendiente en USD.
+ */
+function calcularSaldoPendienteUSD(listaDePagos, datosReserva) {
+    const paridad_USD_a_MXN = datosReserva.paridadMXN;
+    let totalPagadoUSD = 0;
+
+    listaDePagos.forEach(pago => {
+        if (!pago || !pago.tipoCambio) return;
+        const paridad_pago_a_MXN = parseFloat(pago.tipoCambio) || 1;
+        const montoEnMXN = parseFloat(pago.monto) * paridad_pago_a_MXN;
+        const montoEnUSD = (paridad_USD_a_MXN > 0) ? (montoEnMXN / paridad_USD_a_MXN) : 0;
+        totalPagadoUSD += montoEnUSD;
+    });
+
+    const saldoPendienteUSD = datosReserva.totalUSD - totalPagadoUSD;
+    return saldoPendienteUSD;
+}
 
     function getPaymentContext() {
         const selectedMonedaId = document.getElementById('monedaPago').value;
@@ -709,7 +726,7 @@ function poblarSelect(selectElement, data, valueField, textField, defaultOptionT
             showMessage('', 'success');
             const impuestoExiste = currentImpuestoData && currentImpuestoData.idReservacion;
             if (impuestoExiste) {
-                prepararGestionDeImpuesto('El impuesto se cargó correctamente.');
+                prepararGestionDeImpuesto();
             } else {
                 prepararFormularioCreacion();
             }
@@ -758,7 +775,7 @@ function poblarSelect(selectElement, data, valueField, textField, defaultOptionT
             }
             currentImpuestoData = await obtenerReserva(result.idReservacion);
             currentPagosData = [];
-            prepararGestionDeImpuesto('Impuesto guardado exitosamente.');
+            prepararGestionDeImpuesto();
         } catch (error) {
             showMessage(error.message, 'error');
             // **CORRECCIÓN: Reactivar botón si la API devuelve un error**
@@ -767,51 +784,107 @@ function poblarSelect(selectElement, data, valueField, textField, defaultOptionT
     }
 
     async function handlePaymentSubmit(event) {
-        event.preventDefault();
-        const form = event.target;
-        const submitButton = form.querySelector('button[type="submit"]');
+    event.preventDefault();
+    const form = event.target;
+    const submitButton = form.querySelector('button[type="submit"]');
 
-        submitButton.disabled = true;
-        showMessage('Procesando pago...', 'info');
+    submitButton.disabled = true;
+    showMessage('Procesando pago...', 'info');
 
-        const monto = parseFloat(form.elements['monto'].value) || 0;
-        if (monto <= 0) {
-            showMessage('El monto del pago debe ser mayor a cero.', 'error');
-            submitButton.disabled = false;
-            return;
-        }
-
-        try {
-            const idMoneda = form.elements['monedaPago'].value;
-            const tipoCambioInfo = fullCatalogData.tiposCambio.find(tc => tc.idMoneda == idMoneda);
-            
-            const pagoPayload = {
-                idTipoPago: parseInt(form.elements['tipoPago'].value),
-                idTipoTarjeta: form.elements['tipoTarjeta'].value ? parseInt(form.elements['tipoTarjeta'].value) : 0,
-                idMoneda: parseInt(idMoneda),
-                monto: monto,
-                referencia: form.elements['referencia_pago'].value || '',
-                tipoCambio: tipoCambioInfo ? tipoCambioInfo.monto : 1.0
-            };
-
-            const idImpuesto = impuestoDefinidoData.idReserva;
-            const endpoint = `/Pagos/${idImpuesto}/Pago`;
-
-            await api.post(endpoint, pagoPayload);
-            showMessage('Pago registrado exitosamente. Actualizando...', 'success');
-
-            const pagosActualizados = await obtenerPagos(idImpuesto);
-            currentPagosData = pagosActualizados && Array.isArray(pagosActualizados) ? pagosActualizados : [];
-
-            cargarPagosRealizados();
-            form.reset();
-            document.getElementById('camposTarjetaCredito').style.display = 'none';
-        } catch (error) {
-            showMessage(`Error: ${error.message}`, 'error');
-        } finally {
-            submitButton.disabled = false;
-        }
+    const monto = parseFloat(form.elements['monto'].value) || 0;
+    if (monto <= 0) {
+        showMessage('El monto del pago debe ser mayor a cero.', 'error');
+        submitButton.disabled = false;
+        return;
     }
+
+    try {
+        const idMoneda = form.elements['monedaPago'].value;
+        const tipoCambioInfo = fullCatalogData.tiposCambio.find(tc => tc.idMoneda == idMoneda);
+        
+        const pagoPayload = {
+            idTipoPago: parseInt(form.elements['tipoPago'].value),
+            idTipoTarjeta: form.elements['tipoTarjeta'].value ? parseInt(form.elements['tipoTarjeta'].value) : 0,
+            idMoneda: parseInt(idMoneda),
+            monto: monto,
+            referencia: form.elements['referencia_pago'].value || '',
+            tipoCambio: tipoCambioInfo ? tipoCambioInfo.monto : 1.0
+        };
+
+        const idReservacion = impuestoDefinidoData.idReserva; 
+        const endpointPago = `/Pagos/${idReservacion}/Pago`;
+
+        // --- INICIO DEL FLUJO MODIFICADO ---
+
+        // 1. Realizar el pago
+        await api.post(endpointPago, pagoPayload);
+        showMessage('Pago registrado. Verificando saldo total...', 'info');
+
+        // 2. Obtener la lista FRESCA de pagos, incluyendo el que acabamos de hacer
+        const pagosActualizados = await obtenerPagos(idReservacion);
+        currentPagosData = pagosActualizados && Array.isArray(pagosActualizados) ? pagosActualizados : [];
+
+        // 3. Calcular el saldo pendiente usando la lista actualizada
+        const saldoPendiente = calcularSaldoPendienteUSD(currentPagosData, impuestoDefinidoData);
+        
+        // 4. Validar si la deuda está saldada y hacer check-in si corresponde
+        // NOTA: Usamos un pequeño margen (ej. 0.01) para evitar problemas con decimales de punto flotante.
+        if (saldoPendiente <= 0.01) {
+            showMessage('El saldo ha sido cubierto. Procediendo con el check-in...', 'success');
+            await realizarCheckIn(idReservacion); // Llamamos a la función de check-in
+        } else {
+            showMessage(`Pago registrado. Saldo pendiente: ${saldoPendiente.toFixed(2)} USD`, 'info');
+        }
+
+        // 5. Actualizar la UI (tabla de pagos y saldos) al final del proceso
+        cargarPagosRealizados();
+
+        // 6. Limpiar el formulario
+        form.reset();
+        document.getElementById('camposTarjetaCredito').style.display = 'none';
+        
+        // --- FIN DEL FLUJO MODIFICADO ---
+
+    } catch (error) {
+        console.error('Ocurrió un error en el proceso de pago o check-in:', error);
+        // Las funciones internas (`obtenerPagos`, `realizarCheckIn`) ya muestran mensajes de error detallados
+        // por lo que aquí solo necesitamos registrarlo en consola.
+        // Si el pago falló, es buena idea recargar los pagos para que la UI sea consistente.
+        cargarPagosRealizados();
+    } finally {
+        submitButton.disabled = false;
+    }
+}
+
+
+
+    /**
+ * Realiza el check-in para una reservación específica.
+ * @param {number} idReservacion El ID de la reservación para hacer check-in.
+ */
+async function realizarCheckIn(idReservacion) {
+    if (!idReservacion) {
+        throw new Error('El ID de la reservación es indefinido y es necesario para el check-in.');
+    }
+
+    const endpoint = `/Reservas/${idReservacion}/CheckIn`;
+    console.log(`Iniciando check-in para la reservación: ${idReservacion}`);
+
+    try {
+        // Se asume que el método es POST, ya que realiza una acción que modifica el estado.
+        // Si el endpoint no requiere un cuerpo (payload), se puede omitir el segundo argumento.
+        await api.post(endpoint);
+        
+        showMessage('Check-in realizado exitosamente.', 'success');
+
+    } catch (error) {
+        // Muestra un mensaje de error específico para el check-in pero relanza el error
+        // para que la función que lo llamó (handlePaymentSubmit) pueda manejarlo.
+        const errorMessage = error.response?.data?.message || error.message;
+        showMessage(`Error durante el check-in: ${errorMessage}`, 'error');
+        throw error; // Relanzar el error es importante
+    }
+}
 
     function initModal() {
         const modal = document.getElementById('miModalReserva');
