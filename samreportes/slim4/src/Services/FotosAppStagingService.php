@@ -280,7 +280,7 @@ class FotosAppStagingService
         if (empty($pedidosResult)) {
             return [];
         }
-        return TypeConverter::castNumericFields($pedidosResult, ['IdVenta', 'IdPedido']);
+        return TypeConverter::castNumericFields($pedidosResult, ['IdVenta']);
     }
 
     public function mypictures($fechad, $fechah, $location): array
