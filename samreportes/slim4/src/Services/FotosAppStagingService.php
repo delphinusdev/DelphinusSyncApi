@@ -57,6 +57,20 @@ class FotosAppStagingService
         return TypeConverter::castNumericFields($pedidosResult, ['IdVenta', 'IdPedido']);
      
     }
+    public function cloudsStoreProceduretest(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
+    {
+
+        $params =   array(':param0' => $location[0], ':param1' => $tipo);
+        $pedidosResult = $this->repo->select("EXEC sp_GetCloudPhotos_Test :param0,:param1, null, null", $params);
+
+        if (empty($pedidosResult) || $pedidosResult === null) {
+            return [];
+        }
+        
+        
+        return $pedidosResult;
+     
+    }
 
     public function comprasEnLineaStoreProcedure(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
     {
@@ -70,6 +84,10 @@ class FotosAppStagingService
         }
         return TypeConverter::castNumericFields($pedidosResult, ['IdVenta', 'IdPedido']);
     }
+
+    /**
+     * @deprecated Usa cloudsStoreProcedure() – este método será removido.
+     */
 
     public function clouds(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
     {
@@ -301,9 +319,6 @@ class FotosAppStagingService
             ->where(sprintf('CAST(%s AS DATE)', catalogoFotos::Fecha(null, 'p')), '<=', $fechah)
             ->where(sprintf('CAST(%s AS VARCHAR(20))', catalogoFotos::LocationCode(null, 'p')), '=', $location)
             ->build();
-
-        print_r($query);
-        exit;
 
         $query_result = $this->repo->select($query['sql'], $query['params']);
 

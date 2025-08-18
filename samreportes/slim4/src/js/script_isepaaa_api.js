@@ -35,41 +35,70 @@ class ApiService {
         try {
             const response = await fetch(url, config);
 
+            // --- INICIO DE LA MODIFICACIÓN ---
             if (!response.ok) {
-                const errorData = await response.json().catch(() => ({ message: `Error ${response.status}` }));
-                throw new Error(`Error HTTP ${response.status}: ${errorData.errors || errorData.message || response.statusText}`);
+                // Intenta leer el cuerpo del error como JSON
+                const errorData = await response.json().catch(() => null);
+                
+                let errorMessage = response.statusText; // Mensaje por defecto
+
+                // Si hay un objeto de error con el array 'errors', úsalo
+                if (errorData && Array.isArray(errorData.errors) && errorData.errors.length > 0) {
+                    errorMessage = errorData.errors.join(', '); // Une los mensajes si hay varios
+                } 
+                // Si no, busca el campo 'message'
+                else if (errorData && errorData.message) {
+                    errorMessage = errorData.message;
+                }
+
+                throw new Error(`Error HTTP ${response.status}: ${errorMessage}`);
             }
+            // --- FIN DE LA MODIFICACIÓN ---
 
             if (response.status === 204) {
                 return null;
             }
 
             const responseText = await response.text();
-            
             return responseText ? JSON.parse(responseText) : null;
 
         } catch (error) {
+            // Re-lanza el error para que sea capturado más adelante
             throw error;
         }
     }
 
-    get(endpoint, requiresAuth = true) { return this._request(endpoint, 'GET', null, requiresAuth); }
+    get(endpoint, requiresAuth = true) {
+        return this._request(endpoint, 'GET', null, requiresAuth);
+    }
 
-    // ÚNICO CAMBIO: Se agrega `body = null` para mayor claridad
-    post(endpoint, body = null, requiresAuth = true) { return this._request(endpoint, 'POST', body, requiresAuth); }
+    post(endpoint, body = null, requiresAuth = true) {
+        return this._request(endpoint, 'POST', body, requiresAuth);
+    }
 }
 
 
 
 
 (function () {
-    // --- Configuración y Estado Global ---
-    const API_BASE_URL = 'http://192.168.87.6:8084/api/v2';
+      // --- Configuración y Estado Global ---
+    const localHostname = '192.168.87.6'; // La IP que se usará por defecto
+    const publicHostname = 'sammovilhz.delphinus.com.mx'; // El caso especial
+
+    // --- LÓGICA CORREGIDA ---
+    // Si la dirección en el navegador es el dominio público, se usa ese dominio.
+    // Para CUALQUIER OTRO CASO (DNS local, localhost, etc.), se usará la IP local.
+    const apiHostname = window.location.hostname === publicHostname
+        ? publicHostname  // Si es público, usa el dominio público
+        : localHostname;  // Si no, usa la IP local
+
+    // Construye la URL base de la API
+    const API_BASE_URL = `http://${apiHostname}:8084/api/v2`;
+
     const AUTH_ENDPOINT = '/Usuarios/Authenticate';
     const IDISEPAAA_ = 10762040; // ID de servicio para el impuesto
 
     const api = new ApiService(API_BASE_URL);
-
     // Variables de estado
     let currentReservaData = {};
     let currentImpuestoData = {};

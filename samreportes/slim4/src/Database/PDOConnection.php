@@ -40,6 +40,7 @@ class PDOConnection implements IPDOConnection
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES   => false,
             PDO::SQLSRV_ATTR_ENCODING    => PDO::SQLSRV_ENCODING_UTF8,
+            PDO::SQLSRV_ATTR_FETCHES_NUMERIC_TYPE   => true,
         ];
 
         try {

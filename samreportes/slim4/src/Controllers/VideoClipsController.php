@@ -19,19 +19,18 @@ class VideoClipsController
         $this->videoclipsService = $mypictures;
     }
 
-    public function clips(Request $request, Response $response,string $location, string $fechad, string $fechah ): Response
+    public function clips(Request $request, Response $response, string $location, string $fechad, string $fechah): Response
     {
         try {
 
             $locacion = Configuration::getLocation($location);
 
 
-            $data = $this->videoclipsService->clips($fechad,$fechah,$locacion);
+            $data = $this->videoclipsService->clips($fechad, $fechah, $locacion);
 
             // Respuesta exitosa
             $response->getBody()->write(json_encode(ApiResponse::success($data)));
             return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
-
         } catch (\InvalidArgumentException $ex) {
             // Error específico de parámetros faltantes o inválidos (cliente)
             $response->getBody()->write(json_encode(ApiResponse::error()));
@@ -52,19 +51,18 @@ class VideoClipsController
             return $response->withHeader('Content-Type', 'application/json')->withStatus(500); // 500 Internal Server Error
         }
     }
-    public function tmdVideos(Request $request, Response $response,string $location, string $fechad, string $fechah ): Response
+    public function tmdVideos(Request $request, Response $response, string $location, string $fechad, string $fechah): Response
     {
         try {
 
             $locacion = Configuration::getLocation($location);
 
 
-            $data = $this->videoclipsService->tmdVideos($fechad,$fechah,$locacion);
+            $data = $this->videoclipsService->tmdVideos($fechad, $fechah, $locacion);
 
             // Respuesta exitosa
             $response->getBody()->write(json_encode(ApiResponse::success($data)));
             return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
-
         } catch (\InvalidArgumentException $ex) {
             // Error específico de parámetros faltantes o inválidos (cliente)
             $response->getBody()->write(json_encode(ApiResponse::error()));

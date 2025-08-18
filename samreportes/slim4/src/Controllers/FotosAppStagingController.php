@@ -84,6 +84,27 @@ class FotosAppStagingController
             return $response->withStatus(400, 'Error')->withHeader('Content-Type', 'application/json');
         }
     }
+     public function cloudsStoreProceduretest(Request $request, Response $response, string $fechad, string $fechah, string $location): Response
+    {
+        try {
+            if (empty($fechad) || empty($fechah) || empty($location)) {
+                throw new \InvalidArgumentException('Parámetros requeridos: fechad, fechah, location');
+            }
+
+            $locacion = Configuration::getLocation($location);
+
+            if (empty($locacion)) {
+                throw new \RuntimeException('Locación no encontrada');
+            }
+
+            $result = $this->fotosAppStaging->cloudsStoreProceduretest($fechad, $fechah, $locacion, 'cloud');
+            $response->getBody()->write(json_encode(ApiResponse::success($result, 'Órdenes obtenidas')));
+            return $response->withHeader('Content-Type', 'application/json');
+        } catch (\Throwable $ex) {
+            $response->getBody()->write(json_encode(ApiResponse::error($ex->getMessage())));
+            return $response->withStatus(400, 'Error')->withHeader('Content-Type', 'application/json');
+        }
+    }
        public function comprasEnLineaStoreProcedure(Request $request, Response $response, string $fechad, string $fechah, string $location): Response
     {
         try {
