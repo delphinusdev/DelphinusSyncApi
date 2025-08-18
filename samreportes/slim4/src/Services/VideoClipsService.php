@@ -72,7 +72,8 @@ class VideoClipsService
 
         $data = $this->repo->select($query['sql'], $query['params']);
         
-        return TypeConverter::castNumericFields($data, ['IdVenta', 'IdPedido']);
+        // return TypeConverter::castNumericFields($data, ['IdVenta', 'IdPedido']);
+        return $data;
     }
 
     public function clips($fechad, $fechah, $location): array
@@ -105,7 +106,8 @@ class VideoClipsService
 
         $data = $this->repo->select($query['sql'], $query['params']);
         
-        return TypeConverter::castNumericFields($data, ['IdVenta', 'IdPedido']);
+        // return TypeConverter::castNumericFields($data, ['IdVenta', 'IdPedido']);
+        return $data;
     }
 
     private function caseLoc(): ?string

@@ -54,7 +54,8 @@ class FotosAppStagingService
         }
         
         
-        return TypeConverter::castNumericFields($pedidosResult, ['IdVenta', 'IdPedido']);
+        // return TypeConverter::castNumericFields($pedidosResult, ['IdVenta', 'IdPedido']);
+        return $pedidosResult;
      
     }
     public function cloudsStoreProceduretest(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
@@ -82,7 +83,8 @@ class FotosAppStagingService
         if (empty($pedidosResult)) {
             return [];
         }
-        return TypeConverter::castNumericFields($pedidosResult, ['IdVenta', 'IdPedido']);
+        // return TypeConverter::castNumericFields($pedidosResult, ['IdVenta', 'IdPedido']);
+        return $pedidosResult;
     }
 
     /**
@@ -288,17 +290,22 @@ class FotosAppStagingService
             ->build();
 
         $data  = $this->repo->select($query['sql'], $query['params']);
-        return TypeConverter::castNumericFields($data, ['IdVenta', 'IdPedido']);
+        // return TypeConverter::castNumericFields($data, ['IdVenta', 'IdPedido']);
+        return $data;
     }
 
     public function mypicturesStoreProcedure(string $fechad, string $fechah, array $location): array
     {
-        $params =   array(':param0' => $location[0], ':param1' => 'app');
-        $pedidosResult = $this->repo->select("EXEC sp_GetMypicturesApp :param0,:param1", $params);
+        $params =   array(':param0' => $location[0], ':param1' => 'app', ':param2' => $fechad, ':param3' => $fechah, ':param4' => 1);
+        $pedidosResult = $this->repo->select("EXEC sp_GetMypicturesApp @location_id = :param0, @tipo = :param1, @fechad = :param2, @fechah = :param3,  @forceReadAll = :param4", $params);
+
+
+        // $pedidosResult = $this->repo->select("EXEC sp_GetMypicturesApp :param0,:param1", $params);
         if (empty($pedidosResult)) {
             return [];
         }
-        return TypeConverter::castNumericFields($pedidosResult, ['IdVenta']);
+        // return TypeConverter::castNumericFields($pedidosResult, ['IdVenta']);
+        return $pedidosResult;
     }
 
     public function mypictures($fechad, $fechah, $location): array
