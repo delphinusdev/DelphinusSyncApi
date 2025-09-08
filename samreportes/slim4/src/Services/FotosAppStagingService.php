@@ -73,7 +73,7 @@ class FotosAppStagingService
      
     }
 
-    public function comprasEnLineaStoreProcedure(string $fechad, string $fechah, array $location, string $tipo = 'clouds'): array
+    public function comprasEnLineaStoreProcedure(string $fechad, string $fechah, array $location, string $tipo = 'compras_en_linea'): array
     {
 
         $params =   array(':param0' => $location[0], ':param1' => $tipo);
