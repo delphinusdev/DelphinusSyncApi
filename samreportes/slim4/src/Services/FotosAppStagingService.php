@@ -77,7 +77,7 @@ class FotosAppStagingService
     {
 
         $params =   array(':param0' => $location[0], ':param1' => $tipo);
-        $pedidosResult = $this->repo->select("EXEC sp_GetComprasEnLineaPhotos :param0,:param1", $params);
+        $pedidosResult = $this->repo->select("EXEC sp_GetComprasEnLineaPhotos :param0,:param1, null, null", $params);
 
 
         if (empty($pedidosResult)) {
