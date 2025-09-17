@@ -284,8 +284,9 @@ class FotosAppStagingService
                 gruposClouds::LocationCode(null, 'c')
             ])
             ->from(sprintf('FOTOS.dbo.%s', gruposClouds::tableName('c')))
-            ->where(sprintf('CAST(%s AS DATE)', gruposClouds::Fecha(null, 'c')), '>=', $fechad)
-            ->where(sprintf('CAST(%s AS DATE)', gruposClouds::Fecha(null, 'c')), '<=', $fechah)
+          //  ->where(sprintf('CAST(%s AS DATE)', gruposClouds::Fecha(null, 'c')), '>=', $fechad)
+          //  ->where(sprintf('CAST(%s AS DATE)', gruposClouds::Fecha(null, 'c')), '<=', $fechah)
+          ->where(sprintf('ISNULL(%s,0)', gruposClouds::Watermark(null, 'c')), '=', 0)
             ->where(gruposClouds::IdLocation(null, 'c'), '=', $location[0])
             ->build();
 
