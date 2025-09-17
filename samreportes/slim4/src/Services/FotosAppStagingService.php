@@ -9,6 +9,7 @@ use App\Models\FotosStagingModel\StgPedidosFotosModel as pedidos;
 use App\Models\FotosStagingModel\StgGruposFotosLocacionesModel as grupos;
 use App\Models\FotosStagingModel\StgGruposFotosLocacionesModel as gruposClouds;
 use App\Models\FotosStagingModel\StgSharedPhotoshareModel as tbshared;
+use App\Models\GruposFotosLocacionesModel as gruposLocaciones;
 use App\Utils\FilterExtracUrl;
 use App\Utils\ConfigSyncLocaciones;
 use App\Utils\TypeConverter;
@@ -279,15 +280,15 @@ class FotosAppStagingService
                 "NULL AS IdVenta",      // Añadir IdVenta como NULL
                 "NULL AS IdPedido",     // Añadir IdPedido como NULL
                 "'thumbs' AS tipo",
-                gruposClouds::Folder('subfolder', 'c'),
-                gruposClouds::Uniqid(null, 'c'),
-                gruposClouds::LocationCode(null, 'c')
+                gruposLocaciones::Folder('subfolder', 'c'),
+                gruposLocaciones::Uniqid(null, 'c'),
+                gruposLocaciones::LocationCode(null, 'c')
             ])
-            ->from(sprintf('FOTOS.dbo.%s', gruposClouds::tableName('c')))
+            ->from(sprintf('FOTOS.dbo.%s', gruposLocaciones::tableName('c')))
           //  ->where(sprintf('CAST(%s AS DATE)', gruposClouds::Fecha(null, 'c')), '>=', $fechad)
           //  ->where(sprintf('CAST(%s AS DATE)', gruposClouds::Fecha(null, 'c')), '<=', $fechah)
-          ->where(sprintf('ISNULL(%s,0)', gruposClouds::Watermark(null, 'c')), '=', 0)
-            ->where(gruposClouds::IdLocation(null, 'c'), '=', $location[0])
+          ->where(sprintf('ISNULL(%s,0)', gruposLocaciones::Watermark(null, 'c')), '=', 0)
+            ->where(gruposLocaciones::IdLocation(null, 'c'), '=', $location[0])
             ->build();
 
         $data  = $query; //$this->repo->select($query['sql'], $query['params']);
