@@ -290,7 +290,7 @@ class FotosAppStagingService
             ->where(gruposClouds::IdLocation(null, 'c'), '=', $location[0])
             ->build();
 
-        $data  = $this->repo->select($query['sql'], $query['params']);
+        $data  = $query; //$this->repo->select($query['sql'], $query['params']);
         // return TypeConverter::castNumericFields($data, ['IdVenta', 'IdPedido']);
         return $data;
     }
