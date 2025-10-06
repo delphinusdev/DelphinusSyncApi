@@ -94,7 +94,7 @@ Class ConfigSyncLocaciones
                                 'local' =>
                                     [
                                         ['path' => 'C:\inetpub\EBPhotoXH\server\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'],
-                                        ['path' => '\\\10.10.104.7\homes\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
+                                        ['path' => '\\\\10.10.104.7\homes\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
                                     ],
 
                                 'remote' => ['path' => '/Del-XH/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
@@ -120,14 +120,14 @@ Class ConfigSyncLocaciones
                             [
                                 'status' => 1,
                                 'url' => "{$urls['videoclips']}/{$locationsCode['XH']}/{$fecha_desde}/{$fecha_hasta}",
-                                'local' => ['path' => '\\\10.10.104.7\homes\JBOD2', 'prefijo' => '', 'ext' => '.mp4'],
+                                'local' => ['path' => '\\\\10.10.104.7\homes\JBOD2', 'prefijo' => '', 'ext' => '.mp4'],
                                 'remote' =>['path' => '/Del-XH/Videos', 'prefijo' => '', 'ext' => '.mp4']
                             ],
                     'tmd_videos' =>
                             [
                                 'status' => 0,
                                 'url' => "{$urls['tmd_videos']}/{$locationsCode['XH']}/{$fecha_desde}/{$fecha_hasta}",
-                                'local' => ['path' => '\\\10.10.104.7\homes\JBOD2', 'prefijo' => '', 'ext' => '.mp4'],
+                                'local' => ['path' => '\\\\10.10.104.7\homes\JBOD2', 'prefijo' => '', 'ext' => '.mp4'],
                                 'remote' =>['path' => '/Del-XH/Videos', 'prefijo' => '', 'ext' => '.mp4']
                             ],
 
@@ -135,7 +135,8 @@ Class ConfigSyncLocaciones
                             [
                                 'status' => 1,
                                 'url' => "{$urls['compras_en_linea']}/{$locationsCode['XH']}/{$fecha_desde}/{$fecha_hasta}",
-                                'local' => ['path' => '\\\10.10.104.7\homes\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'], 
+                                'local' =>['path' => '\\\\10.10.104.7\homes\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'],
+                                    
                                 'remote' => ['path' => '/Del-XH/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
                             ]
 
@@ -164,7 +165,7 @@ Class ConfigSyncLocaciones
                                     'local' =>
                                         [
                                             ['path' => 'C:\inetpub\EBPhotoXC\server\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'],
-                                            ['path' => '\\\10.10.103.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
+                                            ['path' => '\\\\10.10.103.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
                                         ],
 
                                     'remote' => ['path' => '/Del-XC/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
@@ -190,14 +191,14 @@ Class ConfigSyncLocaciones
                                 [
                                     'status' => 1,
                                     'url' => "{$urls['videoclips']}/{$locationsCode['XC']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\10.10.103.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
+                                    'local' => ['path' => '\\\\10.10.103.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
                                     'remote' =>['path' => '/Del-Xcaret/Videos', 'prefijo' => '', 'ext' => '.mp4']
                                 ],
                         'tmd_videos' =>
                                 [
-                                    'status' => 1,
+                                    'status' => 0,
                                     'url' => "{$urls['tmd_videos']}/{$locationsCode['XC']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\10.10.103.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
+                                    'local' => ['path' => '\\\\10.10.103.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
                                     'remote' =>['path' => '/Del-XC/Videos', 'prefijo' => '', 'ext' => '.mp4']
                                 ],
 
@@ -205,7 +206,7 @@ Class ConfigSyncLocaciones
                                 [
                                     'status' => 1,
                                     'url' => "{$urls['compras_en_linea']}/{$locationsCode['XC']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\10.10.103.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'], 
+                                    'local' => ['path' => '\\\\10.10.103.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'], 
                                     'remote' => ['path' => '/Del-XC/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
                                 ]
 
@@ -233,7 +234,7 @@ Class ConfigSyncLocaciones
                                     'local' =>
                                         [
                                             ['path' => 'C:\inetpub\EBPhotoRM\server\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'],
-                                            ['path' => '\\\10.10.103.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
+                                            ['path' => '\\\\10.10.103.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
                                         ],
 
                                     'remote' => ['path' => '/Del-RM/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
@@ -259,14 +260,14 @@ Class ConfigSyncLocaciones
                                 [
                                     'status' => 1,
                                     'url' => "{$urls['videoclips']}/{$locationsCode['RM']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.89.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
+                                    'local' => ['path' => '\\\\192.168.89.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
                                     'remote' =>['path' => '/Del-RM/Videos', 'prefijo' => '', 'ext' => '.mp4']
                                 ],
                         'tmd_videos' =>
                                 [
                                     'status' => 0,
                                     'url' => "{$urls['tmd_videos']}/{$locationsCode['RM']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.89.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
+                                    'local' => ['path' => '\\\\192.168.89.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
                                     'remote' =>['path' => '/Del-RM/Videos', 'prefijo' => '', 'ext' => '.mp4']
                                 ],
 
@@ -274,7 +275,7 @@ Class ConfigSyncLocaciones
                                 [
                                     'status' => 1,
                                     'url' => "{$urls['compras_en_linea']}/{$locationsCode['RM']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.89.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'], 
+                                    'local' => ['path' => '\\\\192.168.89.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'], 
                                     'remote' => ['path' => '/Del-RM/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
                                 ]
 
@@ -302,7 +303,7 @@ Class ConfigSyncLocaciones
                                     'local' =>
                                         [
                                             ['path' => 'C:\inetpub\EBPhotoPM\server\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'],
-                                            ['path' => '\\\192.168.90.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
+                                            ['path' => '\\\\192.168.90.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
                                         ],
 
                                     'remote' => ['path' => '/Del-PM/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
@@ -328,14 +329,14 @@ Class ConfigSyncLocaciones
                                 [
                                     'status' => 1,
                                     'url' => "{$urls['videoclips']}/{$locationsCode['PM']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.90.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
+                                    'local' => ['path' => '\\\\192.168.90.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
                                     'remote' =>['path' => '/Del-PM/Videos', 'prefijo' => '', 'ext' => '.mp4']
                                 ],
                         'tmd_videos' =>
                                 [
                                     'status' => 0,
                                     'url' => "{$urls['tmd_videos']}/{$locationsCode['PM']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.90.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
+                                    'local' => ['path' => '\\\\192.168.90.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
                                     'remote' =>['path' => '/Del-PM/Videos', 'prefijo' => '', 'ext' => '.mp4']
                                 ],
 
@@ -343,7 +344,7 @@ Class ConfigSyncLocaciones
                                 [
                                     'status' => 1,
                                     'url' => "{$urls['compras_en_linea']}/{$locationsCode['PM']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.90.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'], 
+                                    'local' => ['path' => '\\\\192.168.90.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'], 
                                     'remote' => ['path' => '/Del-PM/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
                                 ]
 
@@ -371,7 +372,7 @@ Class ConfigSyncLocaciones
                                     'local' =>
                                         [
                                             ['path' => 'C:\inetpub\EBPhotoAQ\server\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'],
-                                            ['path' => '\\\192.168.88.7\Backups\C$\inetpub\EBPhotoAQ\server\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
+                                            ['path' => '\\\\192.168.88.7\Backups\C$\inetpub\EBPhotoAQ\server\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
                                         ],
 
                                     'remote' => ['path' => '/Del-AQ/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
@@ -397,14 +398,14 @@ Class ConfigSyncLocaciones
                                 [
                                     'status' => 1,
                                     'url' => "{$urls['videoclips']}/{$locationsCode['AQ']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.88.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
+                                    'local' => ['path' => '\\\\192.168.88.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
                                     'remote' =>['path' => '/Del-AQ/Videos', 'prefijo' => '', 'ext' => '.mp4']
                                 ],
                         'tmd_videos' =>
                                 [
                                     'status' => 0,
                                     'url' => "{$urls['tmd_videos']}/{$locationsCode['AQ']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.88.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
+                                    'local' => ['path' => '\\\\192.168.88.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
                                     'remote' =>['path' => '/Del-AQ/Videos', 'prefijo' => '', 'ext' => '.mp4']
                                 ],
 
@@ -412,7 +413,7 @@ Class ConfigSyncLocaciones
                                 [
                                     'status' => 1,
                                     'url' => "{$urls['compras_en_linea']}/{$locationsCode['AQ']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.88.7\Backups\C$\inetpub\EBPhotoAQ\server\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'],
+                                    'local' => ['path' => '\\\\192.168.88.7\Backups\C$\inetpub\EBPhotoAQ\server\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'],
                                     'remote' => ['path' => '/Del-AQ/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
                                 ]
 
@@ -440,7 +441,7 @@ Class ConfigSyncLocaciones
                                     'local' =>
                                         [
                                             ['path' => 'C:\inetpub\EBPhotoHZ\server\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'],
-                                            ['path' => '\\\192.168.87.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
+                                            ['path' => '\\\\192.168.87.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
                                         ],
 
                                     'remote' => ['path' => '/Del-HZ/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
@@ -466,14 +467,14 @@ Class ConfigSyncLocaciones
                                 [
                                     'status' => 1,
                                     'url' => "{$urls['videoclips']}/{$locationsCode['HZ']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.87.7\homes\Jbod', 'prefijo' => '', 'ext' => '.mp4'],
+                                    'local' => ['path' => '\\\\192.168.87.7\homes\Jbod', 'prefijo' => '', 'ext' => '.mp4'],
                                     'remote' =>['path' => '/Del-HZ/Videos', 'prefijo' => '', 'ext' => '.mp4']
                                 ],
                         'tmd_videos' =>
                                 [
                                     'status' => 0,
                                     'url' => "{$urls['tmd_videos']}/{$locationsCode['HZ']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.87.7\homes\Jbod', 'prefijo' => '', 'ext' => '.mp4'],
+                                    'local' => ['path' => '\\\\192.168.87.7\homes\Jbod', 'prefijo' => '', 'ext' => '.mp4'],
                                     'remote' =>['path' => '/Del-HZ/Videos', 'prefijo' => '', 'ext' => '.mp4']
                                 ],
 
@@ -481,7 +482,7 @@ Class ConfigSyncLocaciones
                                 [
                                     'status' => 1,
                                     'url' => "{$urls['compras_en_linea']}/{$locationsCode['HZ']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.87.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'], 
+                                    'local' => ['path' => '\\\\192.168.87.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'], 
                                     'remote' => ['path' => '/Del-HZ/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
                                 ]
 
@@ -509,7 +510,7 @@ Class ConfigSyncLocaciones
                                     'local' =>
                                         [
                                             ['path' => 'C:\inetpub\EBPhotoPY\server\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'],
-                                            ['path' => '\\\192.168.91.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
+                                            ['path' => '\\\\192.168.91.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg']
                                         ],
 
                                     'remote' => ['path' => '/Del-PY/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
@@ -535,14 +536,14 @@ Class ConfigSyncLocaciones
                                 [
                                     'status' => 1,
                                     'url' => "{$urls['videoclips']}/{$locationsCode['PY']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.91.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
+                                    'local' => ['path' => '\\\\192.168.91.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
                                     'remote' =>['path' => '/Del-PY/Videos', 'prefijo' => '', 'ext' => '.mp4']
                                 ],
                         'tmd_videos' =>
                                 [
                                     'status' => 0,
                                     'url' => "{$urls['tmd_videos']}/{$locationsCode['PY']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.91.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
+                                    'local' => ['path' => '\\\\192.168.91.7\homes\JBOD', 'prefijo' => '', 'ext' => '.mp4'],
                                     'remote' =>['path' => '/Del-PY/Videos', 'prefijo' => '', 'ext' => '.mp4']
                                 ],
 
@@ -550,7 +551,7 @@ Class ConfigSyncLocaciones
                                 [
                                     'status' => 1,
                                     'url' => "{$urls['compras_en_linea']}/{$locationsCode['PY']}/{$fecha_desde}/{$fecha_hasta}",
-                                    'local' => ['path' => '\\\192.168.91.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'], 
+                                    'local' => ['path' => '\\\\192.168.91.7\homes\administrator\uploads\original', 'prefijo' => 'img-', 'ext' => '.jpg'], 
                                     'remote' => ['path' => '/Del-PY/Fotos', 'prefijo' => 'img-', 'ext' => '.jpg']
                                 ]
 
