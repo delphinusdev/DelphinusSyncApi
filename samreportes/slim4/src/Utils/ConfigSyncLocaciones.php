@@ -319,7 +319,7 @@ Class ConfigSyncLocaciones
 
                         'photoshare' => 
                                 [
-                                    'status' => 1,
+                                    'status' => 0,
                                     'url' => "{$urls['photoshare']}/{$locationsCode['PM']}/{$fecha_desde}/{$fecha_hasta}",
                                     'local' => ['path' => 'C:\inetpub\EBPhotoPM\server\uploads\mediana', 'prefijo' => 'normal-img-', 'ext' => '.jpg'],
                                     'remote'=>['path' => '/photoshare', 'prefijo' => 'img-', 'ext' => '.jpg']
